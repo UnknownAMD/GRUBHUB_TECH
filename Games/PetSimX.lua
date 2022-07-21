@@ -362,7 +362,6 @@ do
             PetSimSDK.RedeemFreeGifts = function()
                 if GameLibarySuccess and GameNetwork ~= nil then
                     for I, V in pairs(GameLibaryContents.Directory.FreeGifts) do
-                        print(I, V)
                         task.spawn(function()
                             GameNetwork.Invoke("Redeem Free Gift", I);
                         end)
