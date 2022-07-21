@@ -363,7 +363,7 @@ do
                 if GameLibarySuccess and GameNetwork ~= nil then
                     for I, V in pairs(GameLibaryContents.Directory.FreeGifts) do
                         task.spawn(function()
-                            GameNetwork.Invoke("Redeem Free Gift", I);
+                            GameNetwork.Invoke("Redeem Free Gift", {I});
                         end)
                     end
                 end
@@ -528,8 +528,7 @@ do
             PlrJumpPower = NewValue
         end)
 
-        --PlayerSection:addButton("Redeem free gifts", PetSimSDK.RedeemFreeGifts)
-        PlayerSection:addButton("Redeem free gifts (broken)", function()end)
+        PlayerSection:addButton("Redeem free gifts", PetSimSDK.RedeemFreeGifts)
         PlayerSection:addButton("Get all gamepasses", PetSimSDK.FreeGamepasses)
 
         AutoFarmSection:addToggle("Auto Farm", getgenv()[Settings_Name].AutoFarm, function(Bool)
