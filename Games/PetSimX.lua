@@ -452,7 +452,7 @@ do
                         local RawData = PetSimSDK.GetTeleportsRaw()
                         local TP_DATA = RawData.Worlds[tostring(Place)] or RawData.Areas[tostring(Place)]
 
-                       pcall(function()
+                        pcall(function()
                             GameLibaryContents.WorldCmds.Load(TP_DATA);
                         end)
 
