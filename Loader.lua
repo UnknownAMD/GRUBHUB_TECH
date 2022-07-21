@@ -1,5 +1,4 @@
-local Repository  = "https://github.com/botdevXD/GRUBHUB_TECH"
-local GamesPath = Repository .. "/Games/"
+local RawPath = "https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/Games/%s"
 
 local Games = {
     [6284583030] = "PetSimX.lua"
@@ -54,5 +53,13 @@ local Source = [[
 ]]
 
 for gameId, ScriptName in ipairs(Games) do
-    
+    local ScriptSource = game:HttpGet(RawPath:format(ScriptName))
+
+    print(ScriptSource)
+
+    if ScriptSource ~= "404: Not Found" then
+        Source = Source .. ScriptSource .. "\n"
+    end
 end
+
+setclipboard(Source)
