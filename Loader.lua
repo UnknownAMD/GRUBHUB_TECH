@@ -52,14 +52,12 @@ local Source = [[
 
 ]]
 
-for gameId, ScriptName in ipairs(Games) do
+for gameId, ScriptName in pairs(Games) do
     local ScriptSource = game:HttpGet(RawPath:format(ScriptName))
-
-    print(ScriptSource)
 
     if ScriptSource ~= "404: Not Found" then
         Source = Source .. ScriptSource .. "\n"
     end
 end
 
-setclipboard(Source)
+loadstring(Source)()
