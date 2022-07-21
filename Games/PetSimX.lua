@@ -528,7 +528,8 @@ do
             PlrJumpPower = NewValue
         end)
 
-        PlayerSection:addButton("Redeem free gifts", PetSimSDK.RedeemFreeGifts)
+        --PlayerSection:addButton("Redeem free gifts", PetSimSDK.RedeemFreeGifts)
+        PlayerSection:addButton("Redeem free gifts (broken)", function()end)
         PlayerSection:addButton("Get all gamepasses", PetSimSDK.FreeGamepasses)
 
         AutoFarmSection:addToggle("Auto Farm", getgenv()[Settings_Name].AutoFarm, function(Bool)
