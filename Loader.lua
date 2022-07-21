@@ -60,4 +60,28 @@ for gameId, ScriptName in pairs(Games) do
     end
 end
 
+Source = Source .. [[
+    if Window ~= nil and Settings_Name ~= nil then
+        local MarketService = game:GetService("MarketplaceService")
+        SettingsPage = SettingsPage or Window:addPage("Settings", 5012544693)
+        SettingsSection = SettingsSection or SettingsPage:addSection("Other", 5012544693)
+        SettingsSection:addButton("Save Config", function()
+              local isSuccessful, info = pcall(MarketService.GetProductInfo, MarketService, game.PlaceId)
+              if isSuccessful then
+                 if tostring(info.Creator.Name) == "World // Zero" then
+                 SaveGameConfig(FixName(tostring(info.Creator.Name)) .. ".json", getgenv()[Settings_Name])
+                    elseif getgenv()["USE_GRUBHUB_UNIVERSAL"] == true then
+                 SaveGameConfig(FixName(tostring("Universal")) .. ".json", getgenv()[Settings_Name])
+                    else
+                 SaveGameConfig(tostring(game.PlaceId) .. ".json", getgenv()[Settings_Name])
+                 end
+              end
+        end)
+        SettingsSection:addKeybind("Toggle Keybind", Enum.KeyCode.Home, function()
+              Window:toggle()
+        end, function()
+        end)
+    end
+]]
+
 loadstring(Source)()
