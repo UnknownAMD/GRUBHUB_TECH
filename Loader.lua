@@ -1,7 +1,7 @@
 local RawPath = "https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/Games/%s"
 
 local Games = {
-    [6284583030] = "PetSimX.lua"
+    {GameId = 6284583030, GameName = "PetSimX.lua"}
 }
 
 local Source = [[
@@ -52,7 +52,8 @@ local Source = [[
 
 ]]
 
-for gameId, ScriptName in pairs(Games) do
+for _, ScriptData in ipairs(Games) do
+    local ScriptName = ScriptData.GameName
     local ScriptSource = game:HttpGet(RawPath:format(ScriptName))
 
     if ScriptSource ~= "404: Not Found" then
