@@ -11,11 +11,12 @@ do
 
                 if __LOADED then
                     if __LOADED.Value == true then
-                        task.wait(10)
+                        task.wait(35)
                         break
                     end
                 end
             end
+
             task.wait()
         end
 
