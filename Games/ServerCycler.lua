@@ -10,6 +10,10 @@ local new = true
 local API_URL = "https://games.roblox.com/v1/games/%s/servers/Public?limit=%s%s"
 local Servers = {}
 
+if not isfolder("grubhub_game_servers") then
+    makefolder("grubhub_game_servers")
+end
+
 local function Format(STR, ...)
     local Args = {...}
 
@@ -20,7 +24,8 @@ local function Format(STR, ...)
     return STR:format(unpack(Args))
 end
 
-local function FetchServers(Url)
+local function JoinOpenServer(Url)
+    local FoundServer = false
 	local PageData = game.HttpService:JSONDecode(specialisedrequest({
 		["Url"] = Url or Format(API_URL, game.placeId, 100, "");
 		Headers = {
@@ -31,19 +36,19 @@ local function FetchServers(Url)
 	}).Body)
 
     if type(PageData) == "table" then
-        for ServerIndex = 1, #PageData.data do
-            table.insert(Servers, PageData.data[ServerIndex])
+        for _, V in ipairs(PageData.data) do
+            print(V.playing, V.maxPlayers)
         end
 
-        if PageData.nextPageCursor ~= nil then
-            return FetchServers(Format(API_URL, game.placeId, 100, "&cursor=" .. tostring(PageData.nextPageCursor)))
+        if PageData.nextPageCursor ~= nil and not FoundServer then
+            return JoinOpenServer(Format(API_URL, game.placeId, 100, "&cursor=" .. tostring(PageData.nextPageCursor)))
         end
     end
 
 	return Servers
 end
 
-print(FetchServers())
+JoinOpenServer()
 
 if new then
     return nil
