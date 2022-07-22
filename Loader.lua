@@ -89,20 +89,22 @@ Source = Source .. [[
     end
 end
 
-spawn(function()
-local Executed = false
+task.spawn(function()
+    local Executed = false
 
-while not Executed do
-    local Success, Fail = pcall(START_SCRIPT)
+    while not Executed do
+        local Success, Fail = pcall(START_SCRIPT)
 
-    Executed = Success
+        Executed = Success
 
-    task.wait()
-end
-end
+        task.wait()
+    end
+end)
 ]]
 
-loadstring(Source)()
+task.spawn(function()
+    loadstring(Source)()
+end)
 
 local queue_on_teleport = type(syn) == "table" and syn.queue_on_teleport or queue_on_teleport
 
