@@ -88,7 +88,7 @@ Source = Source .. [[
     end
 end
 
-task.spawn(function()
+spawn(function()
 local Executed = false
 
 while not Executed do
