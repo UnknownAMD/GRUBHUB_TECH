@@ -25,6 +25,7 @@ do
             IgnoreChests = GameConfigFile.IgnoreChests or false,
             IgnoreDiamonds = GameConfigFile.IgnoreDiamonds or false,
             CollectLootBags = GameConfigFile.CollectLootBags or false,
+            AutoMerchant = GameConfigFile.AutoMerchant or false,
             InstantCollect = GameConfigFile.InstantCollect or false,
             AutoHatch = GameConfigFile.AutoHatch or false,
             ChosenEgg = GameConfigFile.ChosenEgg or "Choose A Egg",
@@ -538,6 +539,14 @@ do
 
         PlayerSection:addButton("Redeem free gifts", PetSimSDK.RedeemFreeGifts)
         PlayerSection:addButton("Get all gamepasses", PetSimSDK.FreeGamepasses)
+
+        AutoFarmSection:addToggle("Auto Farm", getgenv()[Settings_Name].AutoMerchant, function(Bool)
+            getgenv()[Settings_Name].AutoMerchant = Bool
+
+            if Bool then
+                getgenv().JoinOpenServer()
+            end
+        end)
 
         AutoFarmSection:addToggle("Auto Farm", getgenv()[Settings_Name].AutoFarm, function(Bool)
             getgenv()[Settings_Name].AutoFarm = Bool
