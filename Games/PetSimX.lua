@@ -157,8 +157,6 @@ do
                     workspace:FindFirstChild("__MAP"):Destroy();
                 end
 
-                
-
             end
 
             PetSimSDK.FreeGamepasses = function()
@@ -463,8 +461,7 @@ do
                         local TP_DATA = RawData.Worlds[tostring(Place)] or RawData.Areas[tostring(Place)]
 
                         pcall(function()
-                            --GameLibaryContents.WorldCmds.Load(TP_DATA);
-                            PetSimSDK.LoadMap(TP_DATA)
+                            GameLibaryContents.WorldCmds.Load(TP_DATA);
                         end)
 
                         if TeleportType == "Area" then
