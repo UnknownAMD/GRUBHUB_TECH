@@ -34,8 +34,8 @@ do
         local MiscWindow = Window:addPage("Misc", 5012544693)
         local MiscSection = MiscWindow:addSection("Main")
 
-        local VisualsWindow = Window:addPage("Visuals", 5012544693)
-        local VisualsSelection = VisualsWindow:addSection("Main")
+        --local VisualsWindow = Window:addPage("Visuals", 5012544693)
+        --local VisualsSelection = VisualsWindow:addSection("Main")
 
         local GameConfigFile = GetGameConfig(FixName(tostring("Universal")) .. ".json")
         Settings_Name = "UNIVERSAL_GRUBHUB_SETTINGS"
@@ -85,7 +85,7 @@ do
             end)
         end
 
-        VisualsSelection:addToggle("ESP Teamcheck", getgenv()[Settings_Name].Teamcheck, function(Bool)
+        --[===[VisualsSelection:addToggle("ESP Teamcheck", getgenv()[Settings_Name].Teamcheck, function(Bool)
             getgenv()[Settings_Name].Teamcheck = Bool
             getgenv()["ESP_CACHE"].SetTeamCheck(Bool)
         end)
@@ -152,7 +152,7 @@ do
 
         VisualsSelection:addButton("Unload ESP", function(Bool)
             getgenv()["ESP_CACHE"].UnLoad()
-        end)
+        end)]===]
 
         Window:SelectPage(Window.pages[1], true)
     end
