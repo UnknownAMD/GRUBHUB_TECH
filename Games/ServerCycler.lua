@@ -29,7 +29,7 @@ end
 
 if not isfile(OldServersName) then
     writefile(OldServersName, HttpService:JSONEncode({
-        ExpireTime = 60 * 10,
+        ExpireTime = 60,
         Time = tick(),
         ServerIds = {}
     }))
@@ -37,7 +37,12 @@ else
     local Contents = HttpService:JSONDecode(readfile(OldServersName))
 
     if (tick() - Contents.Time) >= Contents.ExpireTime then
-        
+        print("Expired")
+        writefile(OldServersName, HttpService:JSONEncode({
+            ExpireTime = 60,
+            Time = tick(),
+            ServerIds = {}
+        }))
     end
 end
 
