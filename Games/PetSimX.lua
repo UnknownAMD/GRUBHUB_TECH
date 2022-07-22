@@ -7,12 +7,15 @@ do
             local Player = Players.LocalPlayer
 
             if Player then
-                local __LOADED = Player:FindFirstChild("__LOADED")
+                local PlayerGui = Player:FindFirstChild("PlayerGui")
 
-                if __LOADED then
-                    if __LOADED.Value == true then
-                        task.wait(35)
-                        break
+                if PlayerGui then
+                    local LoadingGui = PlayerGui:FindFirstChild("Loading")
+
+                    if LoadingGui then
+                        if LoadingGui.Enabled == true then
+                            break
+                        end
                     end
                 end
             end
