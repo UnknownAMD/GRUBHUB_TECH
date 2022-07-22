@@ -8,6 +8,7 @@ local Games = {
 }
 
 local Source = [[
+    print("bruh")
     function START_SCRIPT()
     getgenv()["USE_GRUBHUB_UNIVERSAL"] = true
 
