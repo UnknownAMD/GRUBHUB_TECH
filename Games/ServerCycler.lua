@@ -79,6 +79,7 @@ getgenv().JoinOpenServer = function(Url)
                         task.wait(1 / 2)
 
                         game:GetService('TeleportService'):TeleportToPlaceInstance(game.PlaceId, Server.id, game:GetService("Players").LocalPlayer)
+                        break
                     end
                 end
             end
