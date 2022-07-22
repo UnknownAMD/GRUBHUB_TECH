@@ -1,24 +1,22 @@
 do
     if tostring(game.PlaceId) == "6284583030" then
-        if getgenv().grubhub_teleport_version ~= nil then
-            -- this is to prevent the data kick
-            local Players = game:GetService("Players")
+        -- this is to prevent the data kick
+        local Players = game:GetService("Players")
 
-            while true do
-                local Player = Players.LocalPlayer
+        while true do
+            local Player = Players.LocalPlayer
 
-                if Player then
-                    local __LOADED = Player:FindFirstChild("__LOADED")
+            if Player then
+                local __LOADED = Player:FindFirstChild("__LOADED")
 
-                    if __LOADED then
-                        if __LOADED.Value == true then
-                            task.wait(10)
-                            break
-                        end
+                if __LOADED then
+                    if __LOADED.Value == true then
+                        task.wait(10)
+                        break
                     end
                 end
-                task.wait()
             end
+            task.wait()
         end
 
         getgenv()["USE_GRUBHUB_UNIVERSAL"] = false
