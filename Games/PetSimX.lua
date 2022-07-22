@@ -552,6 +552,14 @@ do
             getgenv()[Settings_Name].AutoMerchant = Bool
 
             if Bool then
+                local Coins = PetSimSDK.GetCoins()
+                
+                repeat
+                    task.wait()
+                until #Coins > 0
+
+                task.wait(1 / 2)
+
                 if not workspace:FindFirstChild("Traveling Merchant", true) and not workspace:FindFirstChild("Traveling Merchant (Trading Plaza)", true) then
                     task.spawn(function() getgenv().JoinOpenServer() end)
                 else
