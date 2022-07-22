@@ -1,6 +1,10 @@
 repeat
+    if game:IsLoaded() then
+        break
+    end
+
     task.wait(1 / 2)
-until game:IsLoaded()
+until false
 
 local function Format(STR, ...)
     local Args = {...}
