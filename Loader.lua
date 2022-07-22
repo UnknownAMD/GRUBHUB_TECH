@@ -87,4 +87,10 @@ Source = Source .. [[
     end
 ]]
 
+local queue_on_teleport = type(syn) == "table" and syn.queue_on_teleport or queue_on_teleport
+
+if queue_on_teleport ~= nil then
+    queue_on_teleport(Source)
+end
+
 loadstring(Source)()
