@@ -8,6 +8,7 @@ local Games = {
 }
 
 local Source = [[
+    task.spawn(function()
     function START_SCRIPT()
     getgenv()["USE_GRUBHUB_UNIVERSAL"] = true
 
@@ -95,6 +96,7 @@ while not Executed do
     Executed = Success
 
     task.wait()
+end
 end
 ]]
 
