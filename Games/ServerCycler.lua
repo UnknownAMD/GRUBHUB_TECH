@@ -46,7 +46,6 @@ else
     local Contents = HttpService:JSONDecode(readfile(OldServersName))
 
     if (tick() - Contents.Time) >= Contents.ExpireTime then
-        print("Exipired")
         UpdateOldServers(tick())
     else
         OldServerData.ServerIds = Contents.ServerIds
