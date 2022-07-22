@@ -99,15 +99,19 @@ end
         task.wait()
     end
 end)
-]]
 
-task.spawn(function()
-    loadstring(Source)()
-end)
 
 local queue_on_teleport = type(syn) == "table" and syn.queue_on_teleport or queue_on_teleport
 
 if queue_on_teleport ~= nil then
-    Source = "getgenv().grubhub_teleport_version = true;\n" .. Source
-    queue_on_teleport(Source)
+    local Source = readfile("grubhub_auto_execute.lua")
+    local NewSource = "getgenv().grubhub_teleport_version = true;\n" .. Source
+    queue_on_teleport(NewSource)
 end
+]]
+
+writefile("grubhub_auto_execute.lua", tostring(Source))
+
+task.spawn(function()
+    loadstring(Source)()
+end)
