@@ -51,7 +51,7 @@ else
     end
 end
 
-local function JoinOpenServer(Url)
+getgenv().JoinOpenServer = function(Url)
     local FoundServer = false
     local PageData = HttpService:JSONDecode(specialisedrequest({
         ["Url"] = Url or Format(API_URL, game.placeId, 100, "");
@@ -81,7 +81,7 @@ local function JoinOpenServer(Url)
         end
 
         if PageData.nextPageCursor ~= nil and not FoundServer then
-            return JoinOpenServer(Format(API_URL, game.placeId, 100, "&cursor=" .. tostring(PageData.nextPageCursor)))
+            return getgenv().JoinOpenServer(Format(API_URL, game.placeId, 100, "&cursor=" .. tostring(PageData.nextPageCursor)))
         end
     end
 
