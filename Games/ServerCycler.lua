@@ -16,7 +16,7 @@ local function identify()local Executor=string.lower(identifyexecutor())local Ex
 local exploit=exploittable[1]
 local specialisedrequest=exploittable[2]
 local new = true
-
+local HttpService = game:GetService("HttpService")
 local GameServersFolder = "grubhub_game_servers"
 local GamePlaceServersFolder = "grubhub_game_servers/%s"
 local OldServersName = Format(GamePlaceServersFolder, game.placeId .. "_OldServers.json")
@@ -28,18 +28,23 @@ if not isfolder(GameServersFolder) then
 end
 
 if not isfile(OldServersName) then
-    writefile(OldServersName, {
+    writefile(OldServersName, HttpService:JSONEncode({
         ExpireTime = 60 * 10,
-        Time = tick()
-    })
+        Time = tick(),
+        ServerIds = {}
+    }))
 else
-    local Contents = readfile(OldServersName)
+    local Contents = HttpService:JSONDecode(readfile(OldServersName))
+
+    if (tick() - Contents.Time) >= Contents.ExpireTime then
+        
+    end
 end
 
 local function JoinOpenServer(Url)
     local Servers = {}
     local FoundServer = false
-	local PageData = game.HttpService:JSONDecode(specialisedrequest({
+	local PageData = HttpService:JSONDecode(specialisedrequest({
 		["Url"] = Url or Format(API_URL, game.placeId, 100, "");
 		Headers = {
 			["content-type"] = "application/json",
