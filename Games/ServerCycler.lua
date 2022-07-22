@@ -1,6 +1,6 @@
-while not game:IsLoaded() and game.Players.LocalPlayer == nil do
-    task.wait()
-end
+repeat
+    task.wait(1 / 2)
+until game:IsLoaded()
 
 local function Format(STR, ...)
     local Args = {...}
