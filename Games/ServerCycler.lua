@@ -21,33 +21,39 @@ local GameServersFolder = "grubhub_game_servers"
 local GamePlaceServersFolder = "grubhub_game_servers/%s"
 local OldServersName = Format(GamePlaceServersFolder, game.placeId .. "_OldServers.json")
 local API_URL = "https://games.roblox.com/v1/games/%s/servers/Public?limit=%s%s"
-local Servers = {}
+
+local OldServerData = {
+    ExpireTime = 60 * 2,
+    Time = tick(),
+    ServerIds = {}
+}
 
 if not isfolder(GameServersFolder) then
     makefolder(GameServersFolder)
 end
 
+local function UpdateOldServers(Time)
+    local Contents = HttpService:JSONDecode(readfile(OldServersName))
+
+    OldServerData.Time = Time or Contents.Time
+
+    writefile(OldServersName, HttpService:JSONEncode(OldServerData))
+end
+
 if not isfile(OldServersName) then
-    writefile(OldServersName, HttpService:JSONEncode({
-        ExpireTime = 60,
-        Time = tick(),
-        ServerIds = {}
-    }))
+    writefile(OldServersName, HttpService:JSONEncode(OldServerData))
 else
     local Contents = HttpService:JSONDecode(readfile(OldServersName))
 
     if (tick() - Contents.Time) >= Contents.ExpireTime then
-        print("Expired")
-        writefile(OldServersName, HttpService:JSONEncode({
-            ExpireTime = 60,
-            Time = tick(),
-            ServerIds = {}
-        }))
+        print("Exipired")
+        UpdateOldServers(tick())
+    else
+        OldServerData.ServerIds = Contents.ServerIds
     end
 end
 
 local function JoinOpenServer(Url)
-    local Servers = {}
     local FoundServer = false
 	local PageData = HttpService:JSONDecode(specialisedrequest({
 		["Url"] = Url or Format(API_URL, game.placeId, 100, "");
@@ -62,14 +68,15 @@ local function JoinOpenServer(Url)
         if PageData.data ~= nil then
             for _, Server in ipairs(PageData.data) do
 				if tonumber(Server.playing) < tonumber(Server.maxPlayers) then
-                    table.insert(Servers, {
-                        jobId = Server.id
-                    })
+                    if not table.find(OldServerData.ServerIds, Server.id) then
+                        FoundServer = true
+                        table.insert(OldServerData.ServerIds, Server.id)
+
+                        return UpdateOldServers()
+                    end
                 end
             end
         end
-
-        FoundServer = #Servers > 0 and true or false
 
         if PageData.nextPageCursor ~= nil and not FoundServer then
             return JoinOpenServer(Format(API_URL, game.placeId, 100, "&cursor=" .. tostring(PageData.nextPageCursor)))
