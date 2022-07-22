@@ -105,6 +105,6 @@ end)
 local queue_on_teleport = type(syn) == "table" and syn.queue_on_teleport or queue_on_teleport
 
 if queue_on_teleport ~= nil then
-    Source = "task.wait(10)\n" .. Source
+    Source = "task.wait(35)\n" .. Source
     queue_on_teleport(Source)
 end
