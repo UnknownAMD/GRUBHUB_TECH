@@ -1,6 +1,13 @@
 repeat
 	task.wait()
 until game:IsLoaded()
+
+local new = true
+
+if new then
+    return nil
+end
+
 local noclip = false
 local isFarmingWindy = false
 local cantprn = true
