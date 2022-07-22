@@ -101,9 +101,7 @@ end
 end
 ]]
 
-spawn(function()
-    loadstring(Source)()
-end)
+loadstring(Source)()
 
 local queue_on_teleport = type(syn) == "table" and syn.queue_on_teleport or queue_on_teleport
 
