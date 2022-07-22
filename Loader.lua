@@ -53,17 +53,6 @@ local Source = [[
         end
         return false
     end
-    end
-
-    local Executed = false
-
-    while not Executed do
-        local Success, Fail = pcall(START_SCRIPT)
-
-        Executed = Success
-
-        task.wait()
-    end
 ]]
 
 for _, ScriptData in ipairs(Games) do
@@ -97,6 +86,16 @@ Source = Source .. [[
         end, function()
         end)
     end
+end
+local Executed = false
+
+while not Executed do
+    local Success, Fail = pcall(START_SCRIPT)
+
+    Executed = Success
+
+    task.wait()
+end
 ]]
 
 local queue_on_teleport = type(syn) == "table" and syn.queue_on_teleport or queue_on_teleport
