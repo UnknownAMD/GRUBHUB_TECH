@@ -552,7 +552,13 @@ do
             getgenv()[Settings_Name].AutoMerchant = Bool
 
             if Bool then
-                getgenv().JoinOpenServer()
+                if not workspace:FindFirstChild("Traveling Merchant", true) and not workspace:FindFirstChild("Traveling Merchant (Trading Plaza)", true) then
+                    task.spawn(function() getgenv().JoinOpenServer() end)
+                else
+                    getgenv()[Settings_Name].AutoMerchant = false
+                end
+                
+                SaveGameConfig(tostring(game.PlaceId) .. ".json", getgenv()[Settings_Name])
             end
         end)
 
