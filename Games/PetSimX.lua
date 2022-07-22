@@ -555,6 +555,7 @@ do
                 local Coins = PetSimSDK.GetCoins()
                 
                 repeat
+                    Coins = PetSimSDK.GetCoins()
                     task.wait()
                 until #Coins > 0
 
