@@ -4,7 +4,7 @@ end
 
 getgenv().ESP_TESTING = false
 do
-    local Camera = workspace:FindFirstChildOfClass("Camera")
+    local Camera = workspace.CurrentCamera
     local Players = game["GetService"](game, "Players")
     local GUIService = game["GetService"](game, "GuiService")
     local LPlayer = Players["LocalPlayer"]
@@ -300,7 +300,6 @@ do
 
         getgenv()["ESP_CACHE"].LoadBox = function(Plr)
             if getgenv()["UpdateCache"][Plr.Name .. "_ESP_BOXES"] == nil then
-
                 local function Create()
                     if getgenv()["CHARACTER_DRAWN_OBJECTS"][Plr.Name .. "_ESP_BOXES"] == nil then
                         getgenv()["CHARACTER_DRAWN_OBJECTS"][Plr.Name .. "_ESP_BOXES"] = Drawing.new("Square");
@@ -594,8 +593,6 @@ do
         local RunService = game["GetService"](game, "RunService")
 
         RunService.RenderStepped:Connect(function(_Delta)
-            Camera = workspace:FindFirstChildOfClass("Camera")
-
             for _, Function in pairs(getgenv()["UpdateCache"]) do
                 if type(Function) == "function" then
                     xpcall(Function, ErrorHandlerTing, _Delta)
