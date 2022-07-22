@@ -1,8 +1,6 @@
 do
     if tostring(game.PlaceId) == "6284583030" then
         -- this is to prevent the data kick
-        local Players = game:GetService("Players")
-
         while true do
             if workspace:FindFirstChild("__MAP") then
                 break
