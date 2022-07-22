@@ -7,22 +7,6 @@ do
             if workspace:FindFirstChild("__MAP") then
                 break
             end
-            --[[local Player = Players.LocalPlayer
-
-            if Player then
-                local PlayerGui = Player:FindFirstChild("PlayerGui")
-
-                if PlayerGui then
-                    local LoadingGui = PlayerGui:FindFirstChild("Loading")
-
-                    if LoadingGui then
-                        if LoadingGui.Enabled == true then
-                            break
-                        end
-                    end
-                end
-            end]]
-
             task.wait()
         end
 
