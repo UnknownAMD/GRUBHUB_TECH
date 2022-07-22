@@ -2,7 +2,7 @@ local ErrorHandlerTing = function(err)
     return warn(err)
 end
 
-getgenv().ESP_TESTING = true
+getgenv().ESP_TESTING = false
 do
     local Camera = workspace:FindFirstChildOfClass("Camera")
     local Players = game["GetService"](game, "Players")
