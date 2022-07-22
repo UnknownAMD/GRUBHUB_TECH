@@ -151,6 +151,16 @@ do
                 Chest = "Chest"
             }
 
+            PetSimSDK.LoadMap = function(MapName)
+
+                if workspace:FindFirstChild("__MAP") then
+                    workspace:FindFirstChild("__MAP"):Destroy();
+                end
+
+                
+
+            end
+
             PetSimSDK.FreeGamepasses = function()
                 if GameLibarySuccess then
                     if OldOwnFunction == nil then
@@ -453,7 +463,8 @@ do
                         local TP_DATA = RawData.Worlds[tostring(Place)] or RawData.Areas[tostring(Place)]
 
                         pcall(function()
-                            GameLibaryContents.WorldCmds.Load(TP_DATA);
+                            --GameLibaryContents.WorldCmds.Load(TP_DATA);
+                            PetSimSDK.LoadMap(TP_DATA)
                         end)
 
                         if TeleportType == "Area" then
