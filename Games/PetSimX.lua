@@ -1,5 +1,9 @@
 do
     if tostring(game.PlaceId) == "6284583030" then
+        if getgenv().grubhub_teleport_version ~= nil then
+            task.wait(25)
+        end
+
         getgenv()["USE_GRUBHUB_UNIVERSAL"] = false
         getgenv()["grubhub_loaded"] = true
         
