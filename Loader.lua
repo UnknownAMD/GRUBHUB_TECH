@@ -8,6 +8,7 @@ local Games = {
 }
 
 local Source = [[
+    function START_SCRIPT()
     getgenv()["USE_GRUBHUB_UNIVERSAL"] = true
 
     local Settings_Name = nil
@@ -52,7 +53,17 @@ local Source = [[
         end
         return false
     end
+    end
 
+    local Executed = false
+
+    while not Executed do
+        local Success, Fail = pcall(START_SCRIPT)
+
+        Executed = Success
+
+        task.wait()
+    end
 ]]
 
 for _, ScriptData in ipairs(Games) do
