@@ -89,6 +89,7 @@ Source = Source .. [[
     end
 end
 
+task.spawn(function()
     local Executed = false
 
     while not Executed do
@@ -98,6 +99,7 @@ end
 
         task.wait()
     end
+end)
 ]]
 
 task.spawn(function()
