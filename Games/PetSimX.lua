@@ -12,6 +12,7 @@ do
 
                     if __LOADED then
                         if __LOADED.Value == true then
+                            task.wait(5)
                             break
                         end
                     end
