@@ -111,11 +111,11 @@ do
     end
 
     getgenv()["ESP_CACHE"].SETTINGS = {
-        BOXES_ENABLED = false,
-        TRACERS_ENABLED = false,
+        BOXES_ENABLED = true,
+        TRACERS_ENABLED = true,
         TEAM_CHECK = false,
         AIMBOT_ENABLED = false,
-        NAME_TAG = false,
+        NAME_TAG = true,
         HealthCheck = false,
         AIMBOT_TEAM_CHECK_ENABLED = false,
         AimDistance = 150,
