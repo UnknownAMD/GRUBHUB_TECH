@@ -8,6 +8,7 @@ local Games = {
 }
 
 local Source = [[
+    task.spawn(function()
     function START_SCRIPT()
     getgenv()["USE_GRUBHUB_UNIVERSAL"] = true
 
@@ -88,7 +89,6 @@ Source = Source .. [[
     end
 end
 
-task.spawn(function()
     local Executed = false
 
     while not Executed do
@@ -108,6 +108,6 @@ end)
 local queue_on_teleport = type(syn) == "table" and syn.queue_on_teleport or queue_on_teleport
 
 if queue_on_teleport ~= nil then
-    Source = "task.wait(15)\n" .. Source
+    Source = "task.wait(5)\n" .. Source
     queue_on_teleport(Source)
 end
