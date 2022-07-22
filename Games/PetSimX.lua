@@ -4,7 +4,10 @@ do
         local Players = game:GetService("Players")
 
         while true do
-            local Player = Players.LocalPlayer
+            if workspace:FindFirstChild("__MAP") then
+                break
+            end
+            --[[local Player = Players.LocalPlayer
 
             if Player then
                 local PlayerGui = Player:FindFirstChild("PlayerGui")
@@ -18,7 +21,7 @@ do
                         end
                     end
                 end
-            end
+            end]]
 
             task.wait()
         end
