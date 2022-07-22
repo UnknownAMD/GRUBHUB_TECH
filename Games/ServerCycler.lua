@@ -7,11 +7,13 @@ local exploit=exploittable[1]
 local specialisedrequest=exploittable[2]
 local new = true
 
+local GameServersFolder = "grubhub_game_servers"
+local GamePlaceServersFolder = "grubhub_game_servers/%s"
 local API_URL = "https://games.roblox.com/v1/games/%s/servers/Public?limit=%s%s"
 local Servers = {}
 
-if not isfolder("grubhub_game_servers") then
-    makefolder("grubhub_game_servers")
+if not isfolder(GameServersFolder) then
+    makefolder(GameServersFolder)
 end
 
 local function Format(STR, ...)
@@ -22,6 +24,10 @@ local function Format(STR, ...)
     end
 
     return STR:format(unpack(Args))
+end
+
+if not isfolder(Format(GamePlaceServersFolder, game.placeId)) then
+    makefolder(Format(GamePlaceServersFolder, game.placeId))
 end
 
 local function JoinOpenServer(Url)
@@ -36,10 +42,6 @@ local function JoinOpenServer(Url)
 	}).Body)
 
     if type(PageData) == "table" then
-        for _, V in ipairs(PageData.data) do
-            print(V.playing, V.maxPlayers)
-        end
-
         if PageData.nextPageCursor ~= nil and not FoundServer then
             return JoinOpenServer(Format(API_URL, game.placeId, 100, "&cursor=" .. tostring(PageData.nextPageCursor)))
         end
