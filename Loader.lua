@@ -101,7 +101,7 @@ end
 end
 ]]
 
-task.spawn(function()
+spawn(function()
     loadstring(Source)()
 end)
 
