@@ -540,7 +540,7 @@ do
         PlayerSection:addButton("Redeem free gifts", PetSimSDK.RedeemFreeGifts)
         PlayerSection:addButton("Get all gamepasses", PetSimSDK.FreeGamepasses)
 
-        AutoFarmSection:addToggle("Auto Farm", getgenv()[Settings_Name].AutoMerchant, function(Bool)
+        AutoFarmSection:addToggle("Auto Farm (IN DEV)", getgenv()[Settings_Name].AutoMerchant, function(Bool)
             getgenv()[Settings_Name].AutoMerchant = Bool
 
             if Bool then
