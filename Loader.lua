@@ -71,6 +71,11 @@ Source = Source .. [[
         local MarketService = game:GetService("MarketplaceService")
         SettingsPage = SettingsPage or Window:addPage("Settings", 5012544693)
         SettingsSection = SettingsSection or SettingsPage:addSection("Other", 5012544693)
+
+        SettingsSection:addButton("Find New Server", function()
+            getgenv().JoinOpenServer()
+        end)
+
         SettingsSection:addButton("Save Config", function()
               local isSuccessful, info = pcall(MarketService.GetProductInfo, MarketService, game.PlaceId)
               if isSuccessful then
