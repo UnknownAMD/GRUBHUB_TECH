@@ -561,12 +561,18 @@ do
 
                 task.wait(1 / 2)
 
-                if not workspace:FindFirstChild("Traveling Merchant", true) and not workspace:FindFirstChild("Traveling Merchant (Trading Plaza)", true) then
-                    task.spawn(function() getgenv().JoinOpenServer() end)
-                else
-                    print("FOUND MERCHANT")
-                    getgenv()[Settings_Name].AutoMerchant = false
-                end
+                task.spawn(function()
+                    while getgenv()[Settings_Name].AutoMerchant do
+                        if not workspace:FindFirstChild("Traveling Merchant", true) and not workspace:FindFirstChild("Traveling Merchant (Trading Plaza)", true) then
+                            task.spawn(function() getgenv().JoinOpenServer() end)
+                        else
+                            print("FOUND MERCHANT")
+                            getgenv()[Settings_Name].AutoMerchant = false
+                        end
+                    end
+
+                    task.wait()
+                end)
                 
                 SaveGameConfig(tostring(game.PlaceId) .. ".json", getgenv()[Settings_Name])
             end
