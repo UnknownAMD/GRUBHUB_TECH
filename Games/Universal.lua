@@ -2,7 +2,7 @@ do
     if getgenv()["USE_GRUBHUB_UNIVERSAL"] == true then
         getgenv()["grubhub_loaded"] = false
 
-        local OldNameCall = nil
+        --[===[local OldNameCall = nil
 
         OldNameCall = hookmetamethod(game, "__namecall", function(self, ...)
             local Blocked = false
@@ -23,7 +23,7 @@ do
             end
 
             return Blocked == false and OldNameCall(self, unpack(args)) or nil
-        end)
+        end)]===]
 
         local Players = game["GetService"](game, "Players")
         local Player = Players["LocalPlayer"]
