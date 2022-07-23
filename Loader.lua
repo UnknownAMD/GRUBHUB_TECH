@@ -5,7 +5,7 @@ local Games = {
     --{GameName = "ESP_MODULE.lua"},
     {GameName = "The_Wild_West.lua"},
     {GameName = "PetSimX.lua"},
-    --{GameName = "Universal.lua"}
+    {GameName = "Universal.lua"}
 }
 
 local Source = [[

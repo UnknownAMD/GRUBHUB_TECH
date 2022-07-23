@@ -31,8 +31,8 @@ do
 
         Window = UILibrary.new("GrubHub V6 ~ Universal", 5013109572)
 
-        local MiscWindow = Window:addPage("Misc", 5012544693)
-        local MiscSection = MiscWindow:addSection("Main")
+        --local MiscWindow = Window:addPage("Misc", 5012544693)
+        --local MiscSection = MiscWindow:addSection("Main")
 
         --local VisualsWindow = Window:addPage("Visuals", 5012544693)
         --local VisualsSelection = VisualsWindow:addSection("Main")
@@ -52,7 +52,7 @@ do
             Color = GameConfigFile.Color or {R = 255, G = 255, B = 255}
         }
 
-        local Aimbot_MT = getgenv()["ESP_CACHE"].Aimbot()
+        --[===[local Aimbot_MT = getgenv()["ESP_CACHE"].Aimbot()
 
         if Aimbot_MT then
             MiscSection:addToggle("Aimbot", getgenv()[Settings_Name].AimBot, function(Bool)
@@ -85,7 +85,7 @@ do
             end)
         end
 
-        --[===[VisualsSelection:addToggle("ESP Teamcheck", getgenv()[Settings_Name].Teamcheck, function(Bool)
+        VisualsSelection:addToggle("ESP Teamcheck", getgenv()[Settings_Name].Teamcheck, function(Bool)
             getgenv()[Settings_Name].Teamcheck = Bool
             getgenv()["ESP_CACHE"].SetTeamCheck(Bool)
         end)
