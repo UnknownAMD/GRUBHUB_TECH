@@ -3,6 +3,7 @@ local RawPath = "https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/Ga
 local Games = {
     {GameName = "ServerCycler.lua"},
     --{GameName = "ESP_MODULE.lua"},
+    {GameName = "The_Wild_West.lua"},
     {GameName = "PetSimX.lua"},
     --{GameName = "Universal.lua"}
 }
