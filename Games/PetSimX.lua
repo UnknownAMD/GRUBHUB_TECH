@@ -552,10 +552,10 @@ do
             getgenv()[Settings_Name].AutoMerchant = Bool
 
             if Bool then
-                local Coins = PetSimSDK.GetCoins()
+                local Coins = PetSimSDK.GetCoinsFolder():GetChildren()
                 
                 repeat
-                    Coins = PetSimSDK.GetCoins()
+                    Coins = PetSimSDK.GetCoinsFolder():GetChildren()
                     task.wait()
                 until #Coins > 0
 
