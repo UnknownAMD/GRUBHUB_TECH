@@ -556,7 +556,7 @@ do
                 
                 repeat
                     Coins = PetSimSDK.GetCoinsFolder():GetChildren()
-                    task.wait()
+                    task.wait(0.0001)
                 until #Coins > 0
 
                 task.wait(1 / 2)
