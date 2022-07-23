@@ -565,8 +565,8 @@ do
                     while getgenv()[Settings_Name].AutoMerchant do
                         if not workspace:FindFirstChild("Traveling Merchant", true) and not workspace:FindFirstChild("Traveling Merchant (Trading Plaza)", true) then
                             task.spawn(function() getgenv().JoinOpenServer() end)
+                            break
                         else
-                            print("FOUND MERCHANT")
                             getgenv()[Settings_Name].AutoMerchant = false
                         end
                     end
