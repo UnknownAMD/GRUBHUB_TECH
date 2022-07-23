@@ -18,7 +18,7 @@ local OldServersName = Format(GamePlaceServersFolder, game.placeId .. "_OldServe
 local API_URL = "https://games.roblox.com/v1/games/%s/servers/Public?limit=%s%s"
 
 local OldServerData = {
-    ExpireTime = 60 * 2,
+    ExpireTime = 60 * 5,
     Time = tick(),
     ServerIds = {}
 }
