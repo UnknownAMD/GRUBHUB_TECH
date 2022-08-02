@@ -285,7 +285,8 @@ task.spawn(function()
                                             Remove()
                                         end
                                     end
-    
+                                else
+                                    Remove()
                                 end
                             else
                                 Remove()
@@ -364,7 +365,8 @@ task.spawn(function()
                                             Remove()
                                         end
                                     end
-    
+                                else
+                                    Remove()
                                 end
                             else
                                 Remove()
@@ -443,7 +445,8 @@ task.spawn(function()
                                             Remove()
                                         end
                                     end
-    
+                                else
+                                    Remove()
                                 end
                             else
                                 Remove()
