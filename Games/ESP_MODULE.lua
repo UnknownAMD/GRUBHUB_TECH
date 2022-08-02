@@ -112,11 +112,11 @@ task.spawn(function()
         end
     
         getgenv()["ESP_CACHE"].SETTINGS = {
-            BOXES_ENABLED = true,
-            TRACERS_ENABLED = true,
+            BOXES_ENABLED = false,
+            TRACERS_ENABLED = false,
             TEAM_CHECK = false,
             AIMBOT_ENABLED = false,
-            NAME_TAG = true,
+            NAME_TAG = false,
             HealthCheck = false,
             AIMBOT_TEAM_CHECK_ENABLED = false,
             AimDistance = 150,
