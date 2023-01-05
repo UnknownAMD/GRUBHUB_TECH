@@ -8,7 +8,7 @@ local function UpdateCharacterParts(Player, Character) -- Get all character part
 
     local Parts = {} -- Create table to store parts in
     
-    for _, Part in ipairs(Character:GetChildren()) do -- Loop through all character parts
+    for _, Part in ipairs(Character:GetDescendants()) do -- Loop through all character parts
         if not Part:IsA("BasePart") then continue end -- If part is not a BasePart, continue
 
         table.insert(Parts, Part); -- Insert part into table
