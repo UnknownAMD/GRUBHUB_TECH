@@ -1,5 +1,4 @@
 -- Made by _Ben / Owner of Grubhub scripts!
-
 local GetRemoteUpValue = nil
 
 for _, V in pairs(getgc(true)) do
@@ -15,11 +14,15 @@ for _, V in pairs(getgc(true)) do
     end
 end
 
+local Cache = {}
+
 function FireRemote(Name, ...)
     if not GetRemoteUpValue then return end
-    local Remote = GetRemoteUpValue(Name)
+    local Remote = Cache[Name] or GetRemoteUpValue(Name)
     if not Remote then return end
     if typeof(Remote) ~= "Instance" then return end
+    
+    Cache[Name] = Cache[Name] or Remote
     
     if Remote.ClassName == "RemoteEvent" then
         return Remote:FireServer(...)
