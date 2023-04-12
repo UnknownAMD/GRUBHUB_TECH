@@ -52,7 +52,7 @@ local cmdStructure = {
         table.clear(Connections)
 
         local UpdateSuccess, UpdateFailed = pcall(function()
-            loadstring(game:HttpGet(updateFile, true))()
+            loadstring(game:HttpGet(updateFile, false))()
         end)
 
         if UpdateSuccess then
