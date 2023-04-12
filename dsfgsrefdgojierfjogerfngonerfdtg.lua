@@ -38,6 +38,9 @@ local cmdStructure = {
 
         localRoot.CFrame = PlayerCharacter:GetPivot()
     end,
+    ["reload"] = function()
+        
+    end
     ["say"] = function(...)
         local chatMessage = ""
         local Args = {...}
