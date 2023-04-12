@@ -61,9 +61,6 @@ local cmdStructure = {
             game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Failed To Update!", "All")
         end
     end,
-    ["kick"] = function()
-        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("NO PLEASE NOOOOOO!", "All")
-    end,
     ["say"] = function(...)
         local chatMessage = ""
         local Args = {...}
