@@ -9,6 +9,7 @@ local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
 
 -- Tables
+local Connections = {} -- Holds all connections made by this script!
 local cmdWhitelist = {2294175743, 152711071} -- Put the UserIds of the people who are allowed to use commands!
 local IgnoreList = {2294175743, 152711071} -- Put the people to be ignored when using fling etc!
 local messageToSpam = "" -- Leave empty if you don't want any message to be said!
@@ -39,7 +40,12 @@ local cmdStructure = {
         localRoot.CFrame = PlayerCharacter:GetPivot()
     end,
     ["reload"] = function()
-        
+        for _, Connection in pairs(Connections) do
+            pcall(function()
+                Connection:Disconnect()
+            end)
+        end
+        table.clear(Connections)
     end
     ["say"] = function(...)
         local chatMessage = ""
@@ -54,7 +60,7 @@ local cmdStructure = {
 }
 
 local function setupChatHandler(Player)
-    Player.Chatted:Connect(function(Message)
+    table.insert(Connections, Player.Chatted:Connect(function(Message)
         if not table.find(cmdWhitelist, Player.UserId) then return end
         if Message:sub(1, 1) ~= cmdsPrefix then return end -- wasn't a command prefix so no need to continue further!
         
@@ -75,7 +81,7 @@ local function setupChatHandler(Player)
         task.spawn(function()
             cmdFunc(unpack(messageArgs))
         end)
-    end)
+    end))
 end
 
 for _, Player in ipairs(Players:GetChildren()) do
@@ -84,7 +90,7 @@ for _, Player in ipairs(Players:GetChildren()) do
     setupChatHandler(Player)
 end
 
-Players.PlayerAdded:Connect(setupChatHandler)
+table.insert(Connections, Players.PlayerAdded:Connect(setupChatHandler))
 
-RunService.RenderStepped:Connect(function()
-end)
+table.insert(Connections, RunService.RenderStepped:Connect(function()
+end))
