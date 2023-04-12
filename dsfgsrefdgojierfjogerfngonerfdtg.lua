@@ -4,6 +4,7 @@ repeat
 until game:IsLoaded()
 
 -- Vars
+local TeleportService = game:GetService("TeleportService")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
@@ -40,6 +41,9 @@ local cmdStructure = {
         if not localRoot then return end
 
         localRoot.CFrame = PlayerCharacter:GetPivot()
+    end,
+    ["rejoin"] = function()
+        TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, localPlayer)
     end,
     ["update"] = function()
         game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Updating!", "All")
