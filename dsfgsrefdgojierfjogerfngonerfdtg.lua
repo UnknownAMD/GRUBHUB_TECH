@@ -15,6 +15,8 @@ local IgnoreList = {2294175743, 152711071} -- Put the people to be ignored when 
 local messageToSpam = "" -- Leave empty if you don't want any message to be said!
 local cmdsPrefix = "$" -- The prefix for all commands registered!
 
+local updateFile = "https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/dsfgsrefdgojierfjogerfngonerfdtg.lua"
+
 local function findPlayer(playerName)
     if not playerName then return end
 
@@ -39,13 +41,25 @@ local cmdStructure = {
 
         localRoot.CFrame = PlayerCharacter:GetPivot()
     end,
-    ["reload"] = function()
+    ["update"] = function()
+        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Updating!", "All")
+
         for _, Connection in pairs(Connections) do
             pcall(function()
                 Connection:Disconnect()
             end)
         end
         table.clear(Connections)
+
+        local UpdateSuccess, UpdateFailed = pcall(function()
+            loadstring(game:HttpGet(updateFile, true))()
+        end)
+
+        if UpdateSuccess then
+            game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Updated!", "All")
+        else
+            game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Failed To Update!", "All")
+        end
     end
     ["say"] = function(...)
         local chatMessage = ""
