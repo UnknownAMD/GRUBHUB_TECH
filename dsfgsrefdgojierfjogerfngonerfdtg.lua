@@ -44,19 +44,19 @@ local cmdStructure = {
     ["update"] = function()
         game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Updating!", "All")
 
-        for _, Connection in pairs(Connections) do
-            pcall(function()
-                Connection:Disconnect()
-            end)
-        end
-        table.clear(Connections)
-
         local UpdateSuccess, UpdateFailed = pcall(function()
             loadstring(game:HttpGet(updateFile, false))()
         end)
 
         if UpdateSuccess then
             game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Updated!", "All")
+
+            for _, Connection in pairs(Connections) do
+                pcall(function()
+                    Connection:Disconnect()
+                end)
+            end
+            table.clear(Connections)
         else
             game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Failed To Update!", "All")
         end
