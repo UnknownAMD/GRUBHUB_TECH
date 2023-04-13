@@ -109,11 +109,9 @@ local cmdStructure = {
     end,
     ["walkspeed"] = function(Speed)
     	if not Speed then return end
-        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Speed, "All")
     	Speed = tonumber(Speed)
-        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Speed, "All")
-    	if not Speed then return end
-    	
+    	if type(Speed) ~= "number" then return end
+    	game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("time to speed!", "All")
     	local localCharacter = localPlayer.Character
         if not localCharacter then return end
 
