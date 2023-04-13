@@ -107,6 +107,19 @@ local cmdStructure = {
             game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Failed To Update!", "All")
         end
     end,
+    ["walkspeed"] = function(Speed)
+    	if not Speed then return end
+    	Speed = tonumber(Speed)
+    	if not Speed then return end
+    	
+    	local localCharacter = localPlayer.Character
+        if not localCharacter then return end
+
+        local localHumanoid = localCharacter:FindFirstChild("Humanoid")
+        if not localHumanoid then return end
+        
+        localHumanoid.WalkSpeed = Speed
+    end,
     ["say"] = function(...)
         local chatMessage = ""
         local Args = {...}
