@@ -28,6 +28,11 @@ local function findPlayer(playerName)
     end
 end
 
+-- CmdVars
+local updated = true
+local Following = false
+--
+
 local cmdStructure = {
     ["to"] = function(Player)
         Player = findPlayer(Player)
@@ -43,8 +48,36 @@ local cmdStructure = {
         localRoot.CFrame = PlayerCharacter:GetPivot()
     end,
     ["rejoin"] = function()
-        TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, localPlayer)
+        return TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, localPlayer)
     end,
+    ["follow"] = function()
+        Player = findPlayer(Player)
+        if not Player then return end
+
+        Following = false
+        task.wait(.1)
+
+        task.spawn(function()
+            while Following and updated and Player do
+                
+                local PlayerCharacter = Player.Character
+                local localCharacter = localPlayer.Character
+                if not PlayerCharacter or not localCharacter then return end
+
+                local localHumanoid = localCharacter:FindFirstChild("Humanoid")
+                if not localHumanoid then return end
+
+                localHumanoid:MoveTo(PlayerCharacter:GetPivot().Position)
+            
+                RunService.Heartbeat:Wait()
+            end
+
+            Following = false
+        end)
+    end
+    ["unfollow"] = function()
+        Following = false
+    end
     ["update"] = function()
         game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Updating!", "All")
 
@@ -53,6 +86,8 @@ local cmdStructure = {
         end)
 
         if UpdateSuccess then
+            updated = false
+            
             game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Updated!", "All")
 
             for _, Connection in pairs(Connections) do
