@@ -76,6 +76,15 @@ local cmdStructure = {
     ["unfollow"] = function()
         Following = false
     end,
+    ["reset"] = function()
+        local localCharacter = localPlayer.Character
+        if not localCharacter then return end
+
+        local localHumanoid = localCharacter:FindFirstChild("Humanoid")
+        if not localHumanoid then return end
+
+        localHumanoid:TakeDamage(9e9)
+    end,
     ["update"] = function()
         game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Updating!", "All")
 
