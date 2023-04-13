@@ -20,7 +20,7 @@ local cmdsPrefix = "$" -- The prefix for all commands registered!
 local updateFile = "https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/dsfgsrefdgojierfjogerfngonerfdtg.lua"
 
 if not table.find(cmdWhitelist, Player.UserId) then
-	game:GetService("RunService"):Set3dRenderingEnabled(false)
+	RunService:Set3dRenderingEnabled(false)
 end
 
 local function findPlayer(playerName)
