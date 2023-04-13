@@ -74,10 +74,10 @@ local cmdStructure = {
 
             Following = false
         end)
-    end
+    end,
     ["unfollow"] = function()
         Following = false
-    end
+    end,
     ["update"] = function()
         game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Updating!", "All")
 
