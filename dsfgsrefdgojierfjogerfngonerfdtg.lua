@@ -11,12 +11,17 @@ local localPlayer = Players.LocalPlayer
 
 -- Tables
 local Connections = {} -- Holds all connections made by this script!
+-- Do not whitelist your bots are command executors!
 local cmdWhitelist = {2294175743, 152711071} -- Put the UserIds of the people who are allowed to use commands!
 local IgnoreList = {2294175743, 152711071} -- Put the people to be ignored when using fling etc!
 local messageToSpam = "" -- Leave empty if you don't want any message to be said!
 local cmdsPrefix = "$" -- The prefix for all commands registered!
 
 local updateFile = "https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/dsfgsrefdgojierfjogerfngonerfdtg.lua"
+
+if not table.find(cmdWhitelist, Player.UserId) then
+	game:GetService("RunService"):Set3dRenderingEnabled(false)
+end
 
 local function findPlayer(playerName)
     if not playerName then return end
