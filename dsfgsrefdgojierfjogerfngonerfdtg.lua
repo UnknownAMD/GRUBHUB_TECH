@@ -50,7 +50,7 @@ local cmdStructure = {
     ["rejoin"] = function()
         return TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, localPlayer)
     end,
-    ["follow"] = function()
+    ["follow"] = function(Player)
         Player = findPlayer(Player)
         if not Player or Following then return end
 
