@@ -20,7 +20,7 @@ local cmdsPrefix = "$" -- The prefix for all commands registered!
 
 local updateFile = "https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/dsfgsrefdgojierfjogerfngonerfdtg.lua"
 
-if not table.find(cmdWhitelist, Player.UserId) then
+if not table.find(cmdWhitelist, localPlayer.UserId) then
 	RunService:Set3dRenderingEnabled(false)
 end
 
