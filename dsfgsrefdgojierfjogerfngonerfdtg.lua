@@ -4,6 +4,7 @@ repeat
 until game:IsLoaded()
 
 -- Vars
+local VirtualUser = game:GetService("VirtualUser")
 local TeleportService = game:GetService("TeleportService")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
@@ -171,4 +172,10 @@ end
 table.insert(Connections, Players.PlayerAdded:Connect(setupChatHandler))
 
 table.insert(Connections, RunService.RenderStepped:Connect(function()
+end))
+
+table.insert(Connections, localPlayer.Idled:connect(function()
+	VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+	task.wait(1)
+	VirtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
 end))
