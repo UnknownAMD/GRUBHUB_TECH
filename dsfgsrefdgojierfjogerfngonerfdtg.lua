@@ -52,11 +52,9 @@ local cmdStructure = {
     end,
     ["follow"] = function()
         Player = findPlayer(Player)
-        if not Player then return end
+        if not Player or Following then return end
 
-        Following = false
-        task.wait(.1)
-
+        Following = true
         task.spawn(function()
             while Following and updated and Player do
                 
