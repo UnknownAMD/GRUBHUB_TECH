@@ -113,6 +113,14 @@ local cmdStructure = {
             game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Bot Failed To Update!", "All")
         end
     end,
+    ["exit"] = function()
+        while true do
+            pcall(function()
+                game:Shutdown()
+            end)
+            task.wait()
+        end
+    end,
     ["walkspeed"] = function(Speed)
     	if not Speed then return end
     	Speed = tonumber(Speed)
