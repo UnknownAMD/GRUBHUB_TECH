@@ -8,7 +8,7 @@ local Games = {
     {GameName = "Universal.lua"}
 }
 
-local Source = [[
+local Source = [===[
     task.spawn(function()
     function START_SCRIPT()
     getgenv()["USE_GRUBHUB_UNIVERSAL"] = true
@@ -55,7 +55,7 @@ local Source = [[
         end
         return false
     end
-]]
+]===]
 
 for _, ScriptData in ipairs(Games) do
     local ScriptName = ScriptData.GameName
@@ -66,7 +66,7 @@ for _, ScriptData in ipairs(Games) do
     end
 end
 
-Source = Source .. [[
+Source = Source .. [===[
     if Window ~= nil and Settings_Name ~= nil then
         local MarketService = game:GetService("MarketplaceService")
         SettingsPage = SettingsPage or Window:addPage("Settings", 5012544693)
@@ -114,7 +114,7 @@ if queue_on_teleport ~= nil then
     local NewSource = "getgenv().grubhub_teleport_version = true;\n" .. Source
     queue_on_teleport(NewSource)
 end
-]]
+]===]
 
 writefile("grubhub_auto_execute.lua", tostring(Source))
 
