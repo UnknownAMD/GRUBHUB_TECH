@@ -560,7 +560,7 @@ task.spawn(function()
                                 TARGETPOS -= Camera:WorldToScreenPoint(Mouse.Hit.p)
     
                                 --mousemoverel(TARGETPOS.X / Smoothness, TARGETPOS.Y / Smoothness)
-                                    Camera.CFrame = Camera.CFrame * Target.CFrame
+                                    Camera.CFrame = CFrame.new(Camera.CFrame.Position, Target.Position)
                             end
                         end
                     end
