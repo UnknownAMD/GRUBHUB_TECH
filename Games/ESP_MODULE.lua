@@ -559,7 +559,8 @@ task.spawn(function()
                                 local Smoothness = 10
                                 TARGETPOS -= Camera:WorldToScreenPoint(Mouse.Hit.p)
     
-                                mousemoverel(TARGETPOS.X / Smoothness, TARGETPOS.Y / Smoothness)
+                                --mousemoverel(TARGETPOS.X / Smoothness, TARGETPOS.Y / Smoothness)
+                                    Camera.CFrame = Target.CFrame
                             end
                         end
                     end
