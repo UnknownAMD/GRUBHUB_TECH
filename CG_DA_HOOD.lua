@@ -207,8 +207,9 @@ xpcall(function()
 			if not TABLE_TableIndirection["CharacterPrimaryPart%0"] then
 				continue;
 			end
+			local _, IsOnScreen = TABLE_TableIndirection["Camera%0"]:WorldToScreenPoint(TABLE_TableIndirection["CharacterPrimaryPart%0"].Position);
 			TABLE_TableIndirection["distance%0"] = (TABLE_TableIndirection["Vars%0"].PlayerMouse.Hit.p - TABLE_TableIndirection["CharacterPrimaryPart%0"].Position).Magnitude;
-			if (TABLE_TableIndirection["distance%0"] < TABLE_TableIndirection["closestDistance%0"]) then
+			if ((TABLE_TableIndirection["distance%0"] < TABLE_TableIndirection["closestDistance%0"]) and IsOnScreen) then
 				TABLE_TableIndirection["closestDistance%0"] = TABLE_TableIndirection["distance%0"];
 				TABLE_TableIndirection["closestPlayer%0"] = Player;
 			end
@@ -525,25 +526,27 @@ xpcall(function()
 		if not TABLE_TableIndirection["dropsFolder%0"] then
 			return;
 		end
-		while shared.CG_DA_HOOD_TOGGLES.AutoPickupMoneyBool do
-			for _, OBJ in ipairs(TABLE_TableIndirection["dropsFolder%0"]:GetChildren()) do
-				if not shared.CG_DA_HOOD_TOGGLES.AutoPickupMoneyBool then
-					break;
+		task.spawn(function()
+			while shared.CG_DA_HOOD_TOGGLES.AutoPickupMoneyBool do
+				for _, OBJ in ipairs(TABLE_TableIndirection["dropsFolder%0"]:GetChildren()) do
+					if not shared.CG_DA_HOOD_TOGGLES.AutoPickupMoneyBool then
+						break;
+					end
+					if (not OBJ:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\30\220\208\22\5\61\207\215", "\85\92\189\163\115")) or (OBJ.Name ~= LUAOBFUSACTOR_DECRYPT_STR_0("\4\163\62\61\48\136\34\55\57", "\88\73\204\80"))) then
+						continue;
+					end
+					if (OBJ.Transparency == 1) then
+						continue;
+					end
+					teleportFunc(OBJ.Position);
+					repeat
+						pcall(custom_fireclickdetector, OBJ);
+						task.wait(1.6);
+					until not OBJ or (OBJ.parent ~= TABLE_TableIndirection["dropsFolder%0"]) or not shared.CG_DA_HOOD_TOGGLES.AutoPickupMoneyBool 
 				end
-				if (not OBJ:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\30\220\208\22\5\61\207\215", "\85\92\189\163\115")) or (OBJ.Name ~= LUAOBFUSACTOR_DECRYPT_STR_0("\4\163\62\61\48\136\34\55\57", "\88\73\204\80"))) then
-					continue;
-				end
-				if (OBJ.Transparency == 1) then
-					continue;
-				end
-				teleportFunc(OBJ.Position);
-				repeat
-					pcall(custom_fireclickdetector, OBJ);
-					task.wait(1.6);
-				until not OBJ or (OBJ.parent ~= TABLE_TableIndirection["dropsFolder%0"]) or not shared.CG_DA_HOOD_TOGGLES.AutoPickupMoneyBool 
+				task.wait();
 			end
-			task.wait();
-		end
+		end);
 	end});
 	TABLE_TableIndirection["NotiLib%0"].new(LUAOBFUSACTOR_DECRYPT_STR_0("\61\150\19\69\44\201\61", "\186\78\227\112\38\73"), LUAOBFUSACTOR_DECRYPT_STR_0("\223\112\189\113\82\58\212\88\242\81", "\26\156\55\157\53\51"), "CG's Da Hood Script Loaded!");
 end, function()
