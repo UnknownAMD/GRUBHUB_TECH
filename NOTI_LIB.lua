@@ -617,6 +617,7 @@ local function deleteNotifsOutsideFrame(): nil
 end
 
 function Notification.new(notifType: string, heading: string, body: string, autoRemove: boolean, autoRemoveTime: number, callback): table
+    local autoRemove = true
     local notificationTypes = {
         ["error"] = errorTemplate,
         ["info"] = infoTemplate,
