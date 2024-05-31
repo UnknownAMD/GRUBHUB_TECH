@@ -83,11 +83,13 @@ function configLoaderModule.new(callback)
 
     LOAD_BUTTON.MouseButton1Click:Connect(function()
         if #InputBox.Text <= 0 then
-            ConfigLoader:Destroy()
+            shared.CG_CONFIG_LOADER:Destroy()
+            shared.CG_CONFIG_LOADER = nil
             return callback(false)
         end
 
-        ConfigLoader:Destroy()
+        shared.CG_CONFIG_LOADER:Destroy()
+        shared.CG_CONFIG_LOADER = nil
         return callback(InputBox.Text)
     end)
 end
