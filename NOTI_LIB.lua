@@ -648,7 +648,7 @@ function Notification.new(notifType: string, heading: string, body: string, auto
             ts:Create(notif.templateFrame, TweenInfo.new(.25), {Position = UDim2.new(0,0,0,0)}):Play()
         end
 
-        openSound:Play()
+        --openSound:Play()
         playOpenNotifTween()
     end
 
@@ -660,7 +660,7 @@ function Notification.new(notifType: string, heading: string, body: string, auto
                 closeTween.Completed:Wait()
             end
             
-            closeSound:Play()
+            --closeSound:Play()
             if callback then callback() end
             playCloseNotifTween()
             notif:Destroy()
