@@ -1,6 +1,6 @@
 local GUI = game:GetObjects("rbxassetid://17712897650")[1]
 
-print("test 7")
+print("test 8")
 
 local formatNumber = (function (n)
 	n = tostring(n)
@@ -251,6 +251,7 @@ makeToggle({
 		if not toggleBool then return end
 		
 		local OLDPOS = nil
+		local AngularVelocity = nil
 		
 		while shared.CG_DA_HOOD_TAGET_TOGGLES.AutoFling do
 			if not isAntiCheatBypassed() or not TeleportFunc then task.wait(); continue; end;
@@ -259,6 +260,10 @@ makeToggle({
 		
 			local localRoot = Player.Character:FindFirstChild("HumanoidRootPart")
 			if not localRoot then task.wait(); continue; end;
+			
+			if not AngularVelocity or AngularVelocity.Parent == nil then
+				AngularVelocity = Instance.new("AngularVelocity")
+			end
 			
 			OLDPOS = OLDPOS or localRoot.Position
 			
@@ -274,14 +279,17 @@ makeToggle({
 			
 			TeleportFunc(foundTarget.Character.PrimaryPart.Position)
 			
-			localRoot.Velocity = Vector3.new(9e9, 9e9, 9e9)
-			localRoot.AssemblyLinearVelocity = Vector3.new(9e9, 9e9, 9e9)
-			localRoot.RotVelocity = Vector3.new(9e9, 9e9, 9e9)
-			localRoot.AssemblyAngularVelocity = Vector3.new(9e9, 9e9, 9e9)
+			AngularVelocity.Parent = localRoot
+			AngularVelocity.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
+			AngularVelocity.AngularVelocity = Vector3.new(1e6, 1e6, 1e6)
 			
 			TeleportFunc(foundTarget.Character.PrimaryPart.Position)
 			
 			task.wait()
+		end
+		
+		if AngularVelocity then
+			pcall(AngularVelocity.Destroy, AngularVelocity)
 		end
 		
 		if Player.Character then
