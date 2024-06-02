@@ -1,6 +1,6 @@
 local GUI = game:GetObjects("rbxassetid://17712897650")[1]
 
-print("test 8")
+print("test 9")
 
 local formatNumber = (function (n)
 	n = tostring(n)
@@ -283,6 +283,9 @@ makeToggle({
 			AngularVelocity.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
 			AngularVelocity.AngularVelocity = Vector3.new(1e6, 1e6, 1e6)
 			
+			localRoot.Velocity = Vector3.new(9e7, 9e7 * 10, 9e7)
+			localRoot.RotVelocity = Vector3.new(9e8, 9e8, 9e8)
+			
 			TeleportFunc(foundTarget.Character.PrimaryPart.Position)
 			
 			task.wait()
@@ -297,9 +300,7 @@ makeToggle({
 			if not localRoot then return end
 			
 			localRoot.Velocity = Vector3.new(0, 0, 0)
-			localRoot.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
 			localRoot.RotVelocity = Vector3.new(0, 0, 0)
-			localRoot.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
 			
 			if OLDPOS then
 				TeleportFunc(OLDPOS)
