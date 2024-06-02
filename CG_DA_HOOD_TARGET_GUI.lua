@@ -1,6 +1,6 @@
 local GUI = game:GetObjects("rbxassetid://17712897650")[1]
 
-print("test 9")
+print("test 10")
 
 local formatNumber = (function (n)
 	n = tostring(n)
@@ -17,6 +17,8 @@ end
 shared.current_CG_DA_HOOD_TARGET_UI = GUI
 
 GUI.Parent = game:GetService("CoreGui")
+
+local FEFLING_FUNCTION = loadstring(game:HttpGet("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/FE_FLING.lua", true))()
 
 local Camera = workspace.CurrentCamera
 local tweenService = game:GetService("TweenService")
@@ -251,7 +253,6 @@ makeToggle({
 		if not toggleBool then return end
 		
 		local OLDPOS = nil
-		local AngularVelocity = nil
 		
 		while shared.CG_DA_HOOD_TAGET_TOGGLES.AutoFling do
 			if not isAntiCheatBypassed() or not TeleportFunc then task.wait(); continue; end;
@@ -260,10 +261,6 @@ makeToggle({
 		
 			local localRoot = Player.Character:FindFirstChild("HumanoidRootPart")
 			if not localRoot then task.wait(); continue; end;
-			
-			if not AngularVelocity or AngularVelocity.Parent == nil then
-				AngularVelocity = Instance.new("AngularVelocity")
-			end
 			
 			OLDPOS = OLDPOS or localRoot.Position
 			
@@ -277,22 +274,9 @@ makeToggle({
 			
 			-- ima try this method hold on
 			
-			TeleportFunc(foundTarget.Character.PrimaryPart.Position)
-			
-			AngularVelocity.Parent = localRoot
-			AngularVelocity.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
-			AngularVelocity.AngularVelocity = Vector3.new(1e6, 1e6, 1e6)
-			
-			localRoot.Velocity = Vector3.new(9e7, 9e7 * 10, 9e7)
-			localRoot.RotVelocity = Vector3.new(9e8, 9e8, 9e8)
-			
-			TeleportFunc(foundTarget.Character.PrimaryPart.Position)
+			FEFLING_FUNCTION(foundTarget.Name)
 			
 			task.wait()
-		end
-		
-		if AngularVelocity then
-			pcall(AngularVelocity.Destroy, AngularVelocity)
 		end
 		
 		if Player.Character then
