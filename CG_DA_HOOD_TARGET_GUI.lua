@@ -194,6 +194,8 @@ makeToggle({
 			if not foundTarget.Character then task.wait(); continue; end;
 			
 			Camera.CameraSubject = foundTarget.Character
+			
+			task.wait()
 		end
 		
 		if Player.Character then
