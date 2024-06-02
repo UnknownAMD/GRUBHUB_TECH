@@ -1,3 +1,5 @@
+local GUI = game:GetObjects("rbxassetid://17712897650")[1]
+
 local formatNumber = (function (n)
 	n = tostring(n)
 	return n:reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
@@ -10,9 +12,9 @@ if shared.current_CG_DA_HOOD_TARGET_UI then
 	shared.current_CG_DA_HOOD_TARGET_UI = nil
 end
 
-local GUI = script.Parent
-
 shared.current_CG_DA_HOOD_TARGET_UI = GUI
+
+GUI.Parent = game:GetService("CoreGui")
 
 local Camera = workspace.CurrentCamera
 local tweenService = game:GetService("TweenService")
