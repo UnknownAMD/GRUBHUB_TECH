@@ -1,6 +1,6 @@
 local GUI = game:GetObjects("rbxassetid://17712897650")[1]
 
-print("test 2")
+print("test 5")
 
 local formatNumber = (function (n)
 	n = tostring(n)
@@ -51,7 +51,7 @@ local holdingTopBar = false
 -- External Functions
 local TeleportFunc = nil
 local getPlayerCash = nil -- Main script will hand over the functions
-local isAntiCheatBypassed = function()
+local function isAntiCheatBypassed()
 	return shared.CG_isAntiCheatBypassed
 end
 
@@ -183,8 +183,8 @@ makeButton({
 		local foundTarget = getPlayerFromInput()
 		if not foundTarget then return; end;
 		if not foundTarget.Character then return end
-		if not isAntiCheatBypassed() then return end
-		if not TeleportFunc then return end
+		
+		print(isAntiCheatBypassed())
 		
 		TeleportFunc(foundTarget.Character.PrimaryPart.Position)
 	end
