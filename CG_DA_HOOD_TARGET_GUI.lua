@@ -1,3 +1,8 @@
+local formatNumber = (function (n)
+	n = tostring(n)
+	return n:reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
+end) -- https://devforum.roblox.com/t/formatting-a-currency-label-to-include-commas/413670/3
+
 local CG_DA_HOOD_TARGET_GUI = Instance.new("ScreenGui")
 local Main = Instance.new("Frame")
 local TopBar = Instance.new("Frame")
@@ -353,7 +358,7 @@ local function OPYR_fake_script() -- CG_DA_HOOD_TARGET_GUI.Handler
 			
 			if type(getPlayerCash) == "function" then
 				local targetsCash = getPlayerCash(foundTarget)
-				targetsCashLabel.Text = `Cash: <font color="rgb(52, 235, 76)">{targetsCash}</font>`
+				targetsCashLabel.Text = `Cash: <font color="rgb(52, 235, 76)">${formatNumber(targetsCash)}</font>`
 			end
 	
 			local DT = DateTime.fromUnixTimestamp(os.time() - 86400 * foundTarget.AccountAge)
