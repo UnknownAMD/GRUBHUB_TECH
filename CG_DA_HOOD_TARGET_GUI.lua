@@ -1,5 +1,3 @@
-local GUI = game:GetObjects("rbxassetid://17712897650")[1]
-
 local formatNumber = (function (n)
 	n = tostring(n)
 	return n:reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
@@ -12,10 +10,11 @@ if shared.current_CG_DA_HOOD_TARGET_UI then
 	shared.current_CG_DA_HOOD_TARGET_UI = nil
 end
 
+local GUI = script.Parent
+
 shared.current_CG_DA_HOOD_TARGET_UI = GUI
 
-GUI.Parent = game:GetService("CoreGui")
-
+local Camera = workspace.CurrentCamera
 local tweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
@@ -46,7 +45,11 @@ local targetsCreationDateLabel = Container.targetsCreationDate
 local holdingTopBar = false
 
 -- External Functions
+local TeleportFunc = nil
 local getPlayerCash = nil -- Main script will hand over the functions
+local isAntiCheatBypassed = function()
+	return shared.CG_isAntiCheatBypassed
+end
 
 userInputBox.RichText = true
 
@@ -62,12 +65,56 @@ targetsUserLabel.FontFace.Weight = Enum.FontWeight.Bold
 targetsCashLabel.FontFace.Weight = Enum.FontWeight.Bold
 targetsCreationDateLabel.FontFace.Weight = Enum.FontWeight.Bold
 
-
 shared.CG_DA_HOOD_TARGET_GUI_FUNCTIONS = {
 	setInternelFunctions = function(functionList)
 		getPlayerCash = functionList.getPlayerCash
+		TeleportFunc = functionList.TeleportFunc
 	end
 }
+
+shared.CG_DA_HOOD_TAGET_TOGGLES = {
+	ViewPlayer = false,
+	AutoBag = false,
+	AutoStomp = false,
+	AutoKill = false,
+	AutoFling = false
+}
+
+local function getPlayerFromInput()
+	local input = userInputBox.Text:lower()
+
+	if #tostring(input) <= 0 then return end
+
+	local player = nil
+	local exactMatch = nil
+	local exactMatchFound = false
+	local partialMatch = nil
+	local partialMatchFound = false
+
+	if not exactMatchFound then
+		for _, plr in pairs(game.Players:GetPlayers()) do
+			if plr.Name:lower():sub(1, #input) == input or plr.DisplayName:lower():sub(1, #input) == input then
+				if exactMatchFound then
+					partialMatchFound = true
+					partialMatch = plr
+				else
+					exactMatchFound = true
+					exactMatch = plr
+				end
+			end
+		end
+	end
+
+	if exactMatchFound then
+		return exactMatch
+	end
+
+	if partialMatchFound then
+		return partialMatch
+	end
+
+	return nil
+end
 
 local function makeButton(info)
 	local info = info or {}
@@ -133,59 +180,49 @@ makeButton({
 
 makeToggle({
 	Name = "View",
-	Callback = function()end
+	Default = false,
+	Callback = function(toggleBool)
+		shared.CG_DA_HOOD_TAGET_TOGGLES.ViewPlayer = toggleBool
+		
+		if not toggleBool then return end
+		
+		while shared.CG_DA_HOOD_TAGET_TOGGLES.ViewPlayer do
+			local foundTarget = getPlayerFromInput()
+			if not foundTarget then task.wait(); continue; end;
+			if not foundTarget.Character then task.wait(); continue; end;
+			
+			Camera.CameraSubject = foundTarget.Character
+		end
+		
+		if Player.Character then
+			Camera.CameraSubject = Player.Character
+		end
+	end
 })
 
 makeToggle({
 	Name = "Auto Kill",
-	Callback = function()end
+	Default = false,
+	Callback = function(toggleBool)
+		
+	end
 })
 
 makeToggle({
 	Name = "Auto Bag",
-	Callback = function()end
+	Default = false,
+	Callback = function(toggleBool)
+		
+	end
 })
 
 makeToggle({
 	Name = "Auto Fling",
-	Callback = function()end
+	Default = false,
+	Callback = function(toggleBool)
+		
+	end
 })
-
-local function getPlayerFromInput()
-	local input = userInputBox.Text:lower()
-	
-	if #tostring(input) <= 0 then return end
-	
-	local player = nil
-	local exactMatch = nil
-	local exactMatchFound = false
-	local partialMatch = nil
-	local partialMatchFound = false
-
-	if not exactMatchFound then
-		for _, plr in pairs(game.Players:GetPlayers()) do
-			if plr.Name:lower():sub(1, #input) == input or plr.DisplayName:lower():sub(1, #input) == input then
-				if exactMatchFound then
-					partialMatchFound = true
-					partialMatch = plr
-				else
-					exactMatchFound = true
-					exactMatch = plr
-				end
-			end
-		end
-	end
-
-	if exactMatchFound then
-		return exactMatch
-	end
-
-	if partialMatchFound then
-		return partialMatch
-	end
-	
-	return nil
-end
 
 interactButton.MouseButton1Down:Connect(function()
 	holdingTopBar = true
