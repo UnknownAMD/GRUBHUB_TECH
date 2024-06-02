@@ -1,7 +1,5 @@
 local GUI = game:GetObjects("rbxassetid://17712897650")[1]
 
-print("test")
-
 local formatNumber = (function (n)
 	n = tostring(n)
 	return n:reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
@@ -179,7 +177,15 @@ end
 
 makeButton({
 	Name = "Goto",
-	Callback = function()end
+	Callback = function()
+		local foundTarget = getPlayerFromInput()
+		if not foundTarget then return; end;
+		if not foundTarget.Character then return end
+		if not isAntiCheatBypassed() then return end
+		if not TeleportFunc then return end
+		
+		TeleportFunc(foundTarget.Character.PrimaryPart.Position)
+	end
 })
 
 makeToggle({
