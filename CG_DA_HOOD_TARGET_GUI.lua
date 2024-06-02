@@ -266,6 +266,7 @@ local function OPYR_fake_script() -- CG_DA_HOOD_TARGET_GUI.Handler
 	local topBar = main.TopBar
 	local opened = true
 	local tweenService = game:GetService("TweenService")
+	local exitButton = topBar.exit
 	local minButton = topBar.min
 	local openSize = main.Size
 	
@@ -327,7 +328,7 @@ local function OPYR_fake_script() -- CG_DA_HOOD_TARGET_GUI.Handler
 		return nil
 	end
 
-	exit.MouseButton1Click:Connect(function()
+	exitButton.MouseButton1Click:Connect(function()
 		shared.current_CG_DA_HOOD_TARGET_UI:Destroy()
 		shared.current_CG_DA_HOOD_TARGET_UI = nil
 	end)
