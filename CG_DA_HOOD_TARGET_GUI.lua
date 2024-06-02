@@ -1,5 +1,7 @@
 local GUI = game:GetObjects("rbxassetid://17712897650")[1]
 
+print("test 2)
+
 local formatNumber = (function (n)
 	n = tostring(n)
 	return n:reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
