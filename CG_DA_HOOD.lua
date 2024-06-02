@@ -178,6 +178,7 @@ xpcall(function()
 		TABLE_TableIndirection["Humanoid%0"].HipHeight = TABLE_TableIndirection["hipHeight%0"];
 	end
 	TABLE_TableIndirection["Vars%0"].Player.CharacterAdded:Connect(function(newChar)
+		shared.CG_DA_HOOD_GRENADE_NUKING = false;
 		isPlayerLoaded = false;
 		shared.CG_isAntiCheatBypassed = false;
 		TABLE_TableIndirection["Vars%0"].Character = newChar;
@@ -925,7 +926,7 @@ xpcall(function()
 				break;
 			end
 			teleportFunc(TABLE_TableIndirection["grenadeBuyPart%0"].Head.Position);
-			fireclickdetector(TABLE_TableIndirection["grenadeBuyPart%0"].ClickDetector, 15);
+			fireclickdetector(TABLE_TableIndirection["grenadeBuyPart%0"].ClickDetector, 8999999488);
 			task.wait(0.1);
 		until not TABLE_TableIndirection["Vars%0"].Character or (TABLE_TableIndirection["totalGrenades%0"] >= 11) 
 		if TABLE_TableIndirection["Vars%0"].Character then
