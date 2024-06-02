@@ -129,6 +129,9 @@ xpcall(function()
 		if not TABLE_TableIndirection["Vars%0"].Character then
 			return false;
 		end
+		if not isRealDaHoodGame() then
+			return true;
+		end
 		return (TABLE_TableIndirection["Vars%0"].Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\37\243\91\96\58\249\91\99\34\226\82\104\60\229\95\109\49", "\44\99\166\23")) and true) or false;
 	end
 	local function getPhoneTool()
@@ -806,8 +809,10 @@ xpcall(function()
 						task.wait(0.15);
 						continue;
 					end
-					TABLE_TableIndirection["lettuceTool%0"].Parent = TABLE_TableIndirection["Vars%0"].Character;
-					TABLE_TableIndirection["lettuceTool%0"]:Activate();
+					pcall(function()
+						TABLE_TableIndirection["lettuceTool%0"].Parent = TABLE_TableIndirection["Vars%0"].Character;
+					end);
+					pcall(TABLE_TableIndirection["lettuceTool%0"].Activate, TABLE_TableIndirection["lettuceTool%0"]);
 					task.wait();
 				end
 			end);
@@ -964,8 +969,14 @@ xpcall(function()
 			task.wait(11);
 		end
 	end});
+	TABLE_TableIndirection["MiscSection%0"]:Button({[LUAOBFUSACTOR_DECRYPT_STR_0("\221\134\236\114", "\40\147\231\129\23\96")]=LUAOBFUSACTOR_DECRYPT_STR_0("\65\249\158\66\190\184\156\69\244\141\92\190\190\156\82\205\165", "\188\21\152\236\37\219\204"),[LUAOBFUSACTOR_DECRYPT_STR_0("\99\232\59\0\66\232\52\7", "\108\32\137\87")]=function()
+		loadstring(game:HttpGet(LUAOBFUSACTOR_DECRYPT_STR_0("\162\252\20\182\60\163\4\22\184\233\23\232\40\240\95\81\191\234\21\181\42\235\72\86\164\252\5\168\59\183\72\86\167\167\2\169\59\253\78\79\146\204\79\129\29\204\105\113\159\202\63\146\10\218\99\22\167\233\9\168\96\218\108\102\142\201\63\142\0\214\111\102\158\201\50\129\10\205\116\126\159\193\78\170\58\248", "\57\202\136\96\198\79\153\43"), false))();
+		if shared.CG_DA_HOOD_TARGET_GUI_FUNCTIONS then
+			shared.CG_DA_HOOD_TARGET_GUI_FUNCTIONS.setInternelFunctions({[LUAOBFUSACTOR_DECRYPT_STR_0("\172\38\190\151\129\166\225\174\49\137\166\158\175", "\152\203\67\202\199\237\199")]=getPlayerCash,[LUAOBFUSACTOR_DECRYPT_STR_0("\206\70\172\10\15\122\107\242\220\86\174\12", "\134\154\35\192\111\127\21\25")]=teleportFunc});
+		end
+	end});
 	TABLE_TableIndirection["window%0"]:Initialize();
-	TABLE_TableIndirection["NotiLib%0"].new(LUAOBFUSACTOR_DECRYPT_STR_0("\224\146\226\116\5\91\224", "\40\147\231\129\23\96"), LUAOBFUSACTOR_DECRYPT_STR_0("\86\223\204\97\186\236\244\122\247\136", "\188\21\152\236\37\219\204"), "CG's Da Hood Script Loaded!");
-	TABLE_TableIndirection["NotiLib%0"].new(LUAOBFUSACTOR_DECRYPT_STR_0("\73\231\49\3", "\108\32\137\87"), LUAOBFUSACTOR_DECRYPT_STR_0("\137\207\64\130\46\185\99\86\165\236", "\57\202\136\96\198\79\153\43"), LUAOBFUSACTOR_DECRYPT_STR_0("\132\51\175\169\205\166\246\175\99\169\171\130\180\253\235\40\175\190\205\174\235\235\10\164\180\136\181\236", "\152\203\67\202\199\237\199"));
+	TABLE_TableIndirection["NotiLib%0"].new(LUAOBFUSACTOR_DECRYPT_STR_0("\171\51\10\9\37\193\171", "\178\216\70\105\106\64"), LUAOBFUSACTOR_DECRYPT_STR_0("\28\12\58\210\200\149\252\143\48\47", "\224\95\75\26\150\169\181\180"), "CG's Da Hood Script Loaded!");
+	TABLE_TableIndirection["NotiLib%0"].new(LUAOBFUSACTOR_DECRYPT_STR_0("\2\212\222\39", "\22\107\186\184\72\36\204"), LUAOBFUSACTOR_DECRYPT_STR_0("\196\154\100\106\15\167\149\43\65\10", "\110\135\221\68\46"), LUAOBFUSACTOR_DECRYPT_STR_0("\204\38\9\229\142\178\53\231\118\15\231\193\160\62\163\61\9\242\142\186\40\163\31\2\248\203\161\47", "\91\131\86\108\139\174\211"));
 end, function()
 end);
