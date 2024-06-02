@@ -1,7 +1,5 @@
 local GUI = game:GetObjects("rbxassetid://17712897650")[1]
 
-print("test 10")
-
 local formatNumber = (function (n)
 	n = tostring(n)
 	return n:reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
@@ -217,7 +215,7 @@ makeToggle({
 		end
 	end
 })
-
+--[[
 makeToggle({
 	Name = "Auto Kill",
 	Default = false,
@@ -234,7 +232,7 @@ makeToggle({
 	end
 })
 
---[[
+
 shared.CG_DA_HOOD_TAGET_TOGGLES = {
 	ViewPlayer = false,
 	AutoBag = false,
