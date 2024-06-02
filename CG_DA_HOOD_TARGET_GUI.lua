@@ -1,6 +1,6 @@
 local GUI = game:GetObjects("rbxassetid://17712897650")[1]
 
-print("test 6")
+print("test 7")
 
 local formatNumber = (function (n)
 	n = tostring(n)
@@ -260,7 +260,7 @@ makeToggle({
 			local localRoot = Player.Character:FindFirstChild("HumanoidRootPart")
 			if not localRoot then task.wait(); continue; end;
 			
-			OLDPOS = OLDPOS or localRoot.PrimaryPart.Position
+			OLDPOS = OLDPOS or localRoot.Position
 			
 			local foundTarget = getPlayerFromInput()
 			if not foundTarget then task.wait(); continue; end;
