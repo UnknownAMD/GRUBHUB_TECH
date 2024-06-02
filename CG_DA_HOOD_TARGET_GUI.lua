@@ -18,7 +18,7 @@ shared.current_CG_DA_HOOD_TARGET_UI = GUI
 
 GUI.Parent = game:GetService("CoreGui")
 
-local FEFLING_FUNCTION = loadstring(game:HttpGet("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/FE_FLING.lua", true))()
+local FEFLING_FUNCTION = loadstring(game:HttpGet("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/FE_FLINGFIX.lua", true))()
 
 local Camera = workspace.CurrentCamera
 local tweenService = game:GetService("TweenService")
