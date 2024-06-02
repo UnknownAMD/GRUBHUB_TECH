@@ -1,6 +1,6 @@
 local GUI = game:GetObjects("rbxassetid://17712897650")[1]
 
-print("test 5")
+print("test 6")
 
 local formatNumber = (function (n)
 	n = tostring(n)
@@ -54,6 +54,9 @@ local getPlayerCash = nil -- Main script will hand over the functions
 local function isAntiCheatBypassed()
 	return shared.CG_isAntiCheatBypassed
 end
+
+-- I've done this in a seperate loadstring because I don't want to bloat the main script and make it hard for me to read and work on.
+-- You can use the GUI and main script seperate it's easier
 
 userInputBox.RichText = true
 
@@ -183,9 +186,8 @@ makeButton({
 		local foundTarget = getPlayerFromInput()
 		if not foundTarget then return; end;
 		if not foundTarget.Character then return end
-		
-		print(isAntiCheatBypassed())
-		
+		if not TeleportFunc or not isAntiCheatBypassed() then return end
+
 		TeleportFunc(foundTarget.Character.PrimaryPart.Position)
 	end
 })
@@ -230,11 +232,72 @@ makeToggle({
 	end
 })
 
+--[[
+shared.CG_DA_HOOD_TAGET_TOGGLES = {
+	ViewPlayer = false,
+	AutoBag = false,
+	AutoStomp = false,
+	AutoKill = false,
+	AutoFling = false
+}
+]]
+
 makeToggle({
 	Name = "Auto Fling",
 	Default = false,
 	Callback = function(toggleBool)
+		shared.CG_DA_HOOD_TAGET_TOGGLES.AutoFling = toggleBool
 		
+		if not toggleBool then return end
+		
+		local OLDPOS = nil
+		
+		while shared.CG_DA_HOOD_TAGET_TOGGLES.AutoFling do
+			if not isAntiCheatBypassed() or not TeleportFunc then task.wait(); continue; end;
+			
+			if not Player.Character then task.wait(); continue; end;
+		
+			local localRoot = Player.Character:FindFirstChild("HumanoidRootPart")
+			if not localRoot then task.wait(); continue; end;
+			
+			OLDPOS = OLDPOS or localRoot.PrimaryPart.Position
+			
+			local foundTarget = getPlayerFromInput()
+			if not foundTarget then task.wait(); continue; end;
+			if not foundTarget.Character then task.wait(); continue; end;
+			
+			local targetsRotationVelocitySpeed = foundTarget.Character.HumanoidRootPart.AssemblyAngularVelocity.Magnitude
+			local targetsVelocitySpeed = foundTarget.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude
+			local totalSpeed = targetsRotationVelocitySpeed + targetsVelocitySpeed
+			
+			-- ima try this method hold on
+			
+			TeleportFunc(foundTarget.Character.PrimaryPart.Position)
+			
+			localRoot.Velocity = Vector3.new(9e9, 9e9, 9e9)
+			localRoot.AssemblyLinearVelocity = Vector3.new(9e9, 9e9, 9e9)
+			localRoot.RotVelocity = Vector3.new(9e9, 9e9, 9e9)
+			localRoot.AssemblyAngularVelocity = Vector3.new(9e9, 9e9, 9e9)
+			
+			TeleportFunc(foundTarget.Character.PrimaryPart.Position)
+			
+			task.wait()
+		end
+		
+		if Player.Character then
+			local localRoot = Player.Character:FindFirstChild("HumanoidRootPart")
+			if not localRoot then return end
+			
+			localRoot.Velocity = Vector3.new(0, 0, 0)
+			localRoot.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+			localRoot.RotVelocity = Vector3.new(0, 0, 0)
+			localRoot.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+			
+			if OLDPOS then
+				TeleportFunc(OLDPOS)
+			end
+		end
+
 	end
 })
 
