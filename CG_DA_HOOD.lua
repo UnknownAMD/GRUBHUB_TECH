@@ -926,7 +926,9 @@ xpcall(function()
 				break;
 			end
 			teleportFunc(TABLE_TableIndirection["grenadeBuyPart%0"].Head.Position);
-			pcall(fireclickdetector, TABLE_TableIndirection["grenadeBuyPart%0"].ClickDetector, 8999999488);
+			task.spawn(function()
+				pcall(fireclickdetector, TABLE_TableIndirection["grenadeBuyPart%0"].ClickDetector, 8999999488);
+			end);
 			task.wait(0.1);
 		until not TABLE_TableIndirection["Vars%0"].Character or (TABLE_TableIndirection["totalGrenades%0"] >= 11) 
 		if (TABLE_TableIndirection["Vars%0"].Character ~= nil) then
