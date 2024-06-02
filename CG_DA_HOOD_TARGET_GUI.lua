@@ -31,7 +31,19 @@ local UIAspectRatioConstraint_7 = Instance.new("UIAspectRatioConstraint")
 local targetsCreationDate = Instance.new("TextLabel")
 local UITextSizeConstraint_5 = Instance.new("UITextSizeConstraint")
 local UIAspectRatioConstraint_8 = Instance.new("UIAspectRatioConstraint")
+local ContainerFunctions = Instance.new("ScrollingFrame")
+local UIPadding = Instance.new("UIPadding")
+local UIGridLayout = Instance.new("UIGridLayout")
+local ButtonTemplate = Instance.new("TextButton")
+local UICorner_4 = Instance.new("UICorner")
+local UITextSizeConstraint_6 = Instance.new("UITextSizeConstraint")
 local UIAspectRatioConstraint_9 = Instance.new("UIAspectRatioConstraint")
+local ToggleTemplate = Instance.new("TextButton")
+local UICorner_5 = Instance.new("UICorner")
+local UITextSizeConstraint_7 = Instance.new("UITextSizeConstraint")
+local UIAspectRatioConstraint_10 = Instance.new("UIAspectRatioConstraint")
+local UIAspectRatioConstraint_11 = Instance.new("UIAspectRatioConstraint")
+local UIAspectRatioConstraint_12 = Instance.new("UIAspectRatioConstraint")
 local interact = Instance.new("TextButton")
 
 --Properties:
@@ -87,7 +99,7 @@ Main.Parent = TopBar
 Main.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 Main.BorderColor3 = Color3.fromRGB(50, 100, 255)
 Main.ClipsDescendants = true
-Main.Position = UDim2.new(0, 0, 1, 1)
+Main.Position = UDim2.new(0, 0, 0.944889963, 0)
 Main.Size = UDim2.new(1, 0, 12.5270004, 0)
 
 Container.Name = "Container"
@@ -214,8 +226,77 @@ UITextSizeConstraint_5.MaxTextSize = 15
 UIAspectRatioConstraint_8.Parent = targetsCreationDate
 UIAspectRatioConstraint_8.AspectRatio = 17.238
 
-UIAspectRatioConstraint_9.Parent = TopBar
-UIAspectRatioConstraint_9.AspectRatio = 24.545
+ContainerFunctions.Name = "ContainerFunctions"
+ContainerFunctions.Parent = Container
+ContainerFunctions.Active = true
+ContainerFunctions.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ContainerFunctions.BackgroundTransparency = 1.000
+ContainerFunctions.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ContainerFunctions.BorderSizePixel = 0
+ContainerFunctions.Position = UDim2.new(0.0340910405, 0, 0.550476372, 0)
+ContainerFunctions.Size = UDim2.new(0.92772156, 0, 0.406089127, 0)
+ContainerFunctions.CanvasSize = UDim2.new(0, 0, 0, 0)
+ContainerFunctions.ScrollBarThickness = 0
+
+UIPadding.Parent = ContainerFunctions
+UIPadding.PaddingLeft = UDim.new(0, 1)
+UIPadding.PaddingTop = UDim.new(0, 1)
+
+UIGridLayout.Parent = ContainerFunctions
+UIGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIGridLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+UIGridLayout.CellSize = UDim2.new(0, 120, 0, 30)
+
+ButtonTemplate.Name = "ButtonTemplate"
+ButtonTemplate.Parent = ContainerFunctions
+ButtonTemplate.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+ButtonTemplate.BorderColor3 = Color3.fromRGB(40, 40, 40)
+ButtonTemplate.Size = UDim2.new(0.294840306, 0, 0.333333343, 0)
+ButtonTemplate.Visible = false
+ButtonTemplate.Font = Enum.Font.Unknown
+ButtonTemplate.Text = "Button Example"
+ButtonTemplate.TextColor3 = Color3.fromRGB(88, 88, 88)
+ButtonTemplate.TextScaled = true
+ButtonTemplate.TextSize = 14.000
+ButtonTemplate.TextWrapped = true
+
+UICorner_4.CornerRadius = UDim.new(0, 3)
+UICorner_4.Parent = ButtonTemplate
+
+UITextSizeConstraint_6.Parent = ButtonTemplate
+UITextSizeConstraint_6.MaxTextSize = 16
+
+UIAspectRatioConstraint_9.Parent = ButtonTemplate
+UIAspectRatioConstraint_9.AspectRatio = 4.000
+
+ToggleTemplate.Name = "ToggleTemplate"
+ToggleTemplate.Parent = ContainerFunctions
+ToggleTemplate.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+ToggleTemplate.BorderColor3 = Color3.fromRGB(40, 40, 40)
+ToggleTemplate.Size = UDim2.new(0.294840306, 0, 0.333333343, 0)
+ToggleTemplate.Visible = false
+ToggleTemplate.Font = Enum.Font.Unknown
+ToggleTemplate.Text = "Toggle Example"
+ToggleTemplate.TextColor3 = Color3.fromRGB(88, 88, 88)
+ToggleTemplate.TextScaled = true
+ToggleTemplate.TextSize = 14.000
+ToggleTemplate.TextWrapped = true
+
+UICorner_5.CornerRadius = UDim.new(0, 3)
+UICorner_5.Parent = ToggleTemplate
+
+UITextSizeConstraint_7.Parent = ToggleTemplate
+UITextSizeConstraint_7.MaxTextSize = 16
+
+UIAspectRatioConstraint_10.Parent = ToggleTemplate
+UIAspectRatioConstraint_10.AspectRatio = 4.000
+
+UIAspectRatioConstraint_11.Parent = ContainerFunctions
+UIAspectRatioConstraint_11.AspectRatio = 4.522
+
+UIAspectRatioConstraint_12.Parent = TopBar
+UIAspectRatioConstraint_12.AspectRatio = 24.545
 
 interact.Name = "interact"
 interact.Parent = TopBar
@@ -233,7 +314,7 @@ interact.TextTransparency = 1.000
 
 -- Scripts:
 
-local function VPVBI_fake_script() -- CG_DA_HOOD_TARGET_GUI.Handler 
+local function DMBG_fake_script() -- CG_DA_HOOD_TARGET_GUI.Handler 
 	local script = Instance.new('LocalScript', CG_DA_HOOD_TARGET_GUI)
 
 	local formatNumber = (function (n)
@@ -266,6 +347,11 @@ local function VPVBI_fake_script() -- CG_DA_HOOD_TARGET_GUI.Handler
 	local openSize = main.Size
 	
 	local Container = main.Container
+	local ContainerFunctions = Container.ContainerFunctions
+	
+	local buttonTemplate = ContainerFunctions.ButtonTemplate
+	local toggleTemplate = ContainerFunctions.ToggleTemplate
+	
 	local userInputBox = Container.userInput
 	local AvatarFrame = Container.AvatarFrame
 	local AvatarImageLabel = AvatarFrame.AvatarImage
@@ -279,23 +365,108 @@ local function VPVBI_fake_script() -- CG_DA_HOOD_TARGET_GUI.Handler
 	-- External Functions
 	local getPlayerCash = nil -- Main script will hand over the functions
 	
+	userInputBox.RichText = true
+	
 	targetsUserLabel.RichText = true
 	targetsCashLabel.RichText = true
 	targetsCreationDateLabel.RichText = true
-
+	
 	targetsUserLabel.FontFace.Style = Enum.FontStyle.Italic
 	targetsCashLabel.FontFace.Style = Enum.FontStyle.Italic
 	targetsCreationDateLabel.FontFace.Style = Enum.FontStyle.Italic
-
+	
 	targetsUserLabel.FontFace.Weight = Enum.FontWeight.Bold
 	targetsCashLabel.FontFace.Weight = Enum.FontWeight.Bold
 	targetsCreationDateLabel.FontFace.Weight = Enum.FontWeight.Bold
+	
 	
 	shared.CG_DA_HOOD_TARGET_GUI_FUNCTIONS = {
 		setInternelFunctions = function(functionList)
 			getPlayerCash = functionList.getPlayerCash
 		end
 	}
+	
+	local function makeButton(info)
+		local info = info or {}
+		local toggleName = info.Name or "???"
+		local callback = type(info.Callback) == "function" and info.Callback or function() end
+	
+		local newButton = buttonTemplate:Clone()
+		newButton.RichText = false
+		newButton.FontFace.Weight = Enum.FontWeight.Bold
+		newButton.FontFace.Style = Enum.FontStyle.Italic
+	
+		newButton.Text = toggleName
+		newButton.Name = toggleName
+	
+		newButton.MouseButton1Click:Connect(function()
+			task.spawn(callback)
+		end)
+	
+		newButton.Parent = ContainerFunctions
+		newButton.Visible = true
+	end
+	
+	local function makeToggle(info)
+		local info = info or {}
+		local toggleName = info.Name or "???"
+		local toggleDefault = type(info.Default) == "boolean" and info.Default or false
+		local callback = type(info.Callback) == "function" and info.Callback or function() end
+		
+		local newToggle = toggleTemplate:Clone()
+		newToggle.RichText = false
+		newToggle.FontFace.Weight = Enum.FontWeight.Bold
+		newToggle.FontFace.Style = Enum.FontStyle.Italic
+		
+		newToggle.Text = toggleName
+		newToggle.Name = toggleName
+		
+		newToggle:SetAttribute("activated", toggleDefault)
+		
+		local function update()
+			local activeBool = newToggle:GetAttribute("activated")
+			tweenService:Create(newToggle.UIStroke, TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
+				Color = activeBool and Color3.fromRGB(0, 97, 0) or Color3.fromRGB(93, 0, 0)
+			}):Play()
+			
+			task.spawn(callback, activeBool)
+		end
+		
+		update()
+		
+		newToggle.MouseButton1Click:Connect(function()
+			newToggle:SetAttribute("activated", not newToggle:GetAttribute("activated"))
+			update()
+		end)
+		
+		newToggle.Parent = ContainerFunctions
+		newToggle.Visible = true
+	end
+	
+	makeButton({
+		Name = "Goto",
+		Callback = function()end
+	})
+	
+	makeToggle({
+		Name = "View",
+		Callback = function()end
+	})
+	
+	makeToggle({
+		Name = "Auto Kill",
+		Callback = function()end
+	})
+	
+	makeToggle({
+		Name = "Auto Bag",
+		Callback = function()end
+	})
+	
+	makeToggle({
+		Name = "Auto Fling",
+		Callback = function()end
+	})
 	
 	local function getPlayerFromInput()
 		local input = userInputBox.Text:lower()
@@ -387,4 +558,4 @@ local function VPVBI_fake_script() -- CG_DA_HOOD_TARGET_GUI.Handler
 		end
 	end)
 end
-coroutine.wrap(VPVBI_fake_script)()
+coroutine.wrap(DMBG_fake_script)()
