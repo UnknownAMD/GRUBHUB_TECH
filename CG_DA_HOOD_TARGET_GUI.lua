@@ -326,6 +326,11 @@ local function OPYR_fake_script() -- CG_DA_HOOD_TARGET_GUI.Handler
 		-- if there was no match, return nil
 		return nil
 	end
+
+	exit.MouseButton1Click:Connect(function()
+		shared.current_CG_DA_HOOD_TARGET_UI:Destroy()
+		shared.current_CG_DA_HOOD_TARGET_UI = nil
+	end)
 	
 	minButton.MouseButton1Click:Connect(function()
 		opened = not opened
