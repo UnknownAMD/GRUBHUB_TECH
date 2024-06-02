@@ -353,7 +353,7 @@ local function OPYR_fake_script() -- CG_DA_HOOD_TARGET_GUI.Handler
 			
 			if type(getPlayerCash) == "function" then
 				local targetsCash = getPlayerCash(foundTarget)
-				targetsCashLabel.Text = `Cash: <font color="rgb(255, 255, 255)">{targetsCash}</font>`
+				targetsCashLabel.Text = `Cash: <font color="rgb(52, 235, 76)">{targetsCash}</font>`
 			end
 	
 			local DT = DateTime.fromUnixTimestamp(os.time() - 86400 * foundTarget.AccountAge)
