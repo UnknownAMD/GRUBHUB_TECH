@@ -926,10 +926,10 @@ xpcall(function()
 				break;
 			end
 			teleportFunc(TABLE_TableIndirection["grenadeBuyPart%0"].Head.Position);
-			fireclickdetector(TABLE_TableIndirection["grenadeBuyPart%0"].ClickDetector, 8999999488);
+			pcall(fireclickdetector, TABLE_TableIndirection["grenadeBuyPart%0"].ClickDetector, 8999999488);
 			task.wait(0.1);
 		until not TABLE_TableIndirection["Vars%0"].Character or (TABLE_TableIndirection["totalGrenades%0"] >= 11) 
-		if TABLE_TableIndirection["Vars%0"].Character then
+		if (TABLE_TableIndirection["Vars%0"].Character ~= nil) then
 			teleportFunc(TABLE_TableIndirection["originalPosition%0"]);
 			for _, V in ipairs(TABLE_TableIndirection["Vars%0"].Player.Backpack:GetChildren()) do
 				if (V.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\251\49\209\254\86\233\35\224\253", "\133\160\118\163\155\56\136\71")) then
