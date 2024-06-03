@@ -1,7 +1,5 @@
 local GUI = game:GetObjects("rbxassetid://17712897650")[1]
 
-print("Test 27")
-
 local formatNumber = (function (n)
 	n = tostring(n)
 	return n:reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
@@ -17,8 +15,6 @@ end
 shared.current_CG_DA_HOOD_TARGET_UI = GUI
 
 GUI.Parent = game:GetService("CoreGui")
-
-shared.CG_TARGET_AUTO_KILL_HEIGHT = 8
 
 local FEFLING_FUNCTION = loadstring(game:HttpGet("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/FE_FLINGFIX.lua", true))()
 
@@ -257,7 +253,7 @@ makeToggle({
 					fistsTool.Parent = Player.Backpack
 				end)
 			elseif not IsKnocked(foundTarget) and not IsDead(foundTarget) then
-				TeleportFunc(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, -foundTarget.Character.PrimaryPart.Size.Y * shared.CG_TARGET_AUTO_KILL_HEIGHT, 0))
+				TeleportFunc(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, -foundTarget.Character.PrimaryPart.Size.Y * 3.5, 0))
 
 				pcall(function()
 					fistsTool.Parent = Player.Character
@@ -313,13 +309,7 @@ makeToggle({
 			local foundTarget = getPlayerFromInput()
 			if not foundTarget then task.wait(); continue; end;
 			if not foundTarget.Character then task.wait(); continue; end;
-			
-			local targetsRotationVelocitySpeed = foundTarget.Character.HumanoidRootPart.AssemblyAngularVelocity.Magnitude
-			local targetsVelocitySpeed = foundTarget.Character.HumanoidRootPart.AssemblyLinearVelocity.Magnitude
-			local totalSpeed = targetsRotationVelocitySpeed + targetsVelocitySpeed
-			
-			-- ima try this method hold on
-			
+					
 			FEFLING_FUNCTION(foundTarget.Name)
 			
 			task.wait()
