@@ -351,11 +351,23 @@ xpcall(function()
 		if not TABLE_TableIndirection["targetPosition%0"] then
 			return;
 		end
+		targetPosition = TABLE_TableIndirection["targetPosition%0"].Position;
 		TABLE_TableIndirection["targetVelocity%0"] = targetPlr.Character.PrimaryPart.Velocity;
-		TABLE_TableIndirection["targetPosition%1"] = TABLE_TableIndirection["targetPosition%0"].Position;
-		TABLE_TableIndirection["targetDirection%0"] = TABLE_TableIndirection["targetPosition%1"] + (TABLE_TableIndirection["targetVelocity%0"] * TABLE_TableIndirection["pingOffset%0"] * TABLE_TableIndirection["predictionOffset%0"]);
+		if not TABLE_TableIndirection["targetVelocity%0"] then
+			return;
+		end
+		TABLE_TableIndirection["targetDirection%0"] = targetPosition + (TABLE_TableIndirection["targetVelocity%0"] * TABLE_TableIndirection["pingOffset%0"] * TABLE_TableIndirection["predictionOffset%0"]);
+		if not TABLE_TableIndirection["targetDirection%0"] then
+			return;
+		end
 		TABLE_TableIndirection["targetArrivalTime%0"] = (TABLE_TableIndirection["targetDirection%0"] - TABLE_TableIndirection["Camera%0"].CFrame.Position).Magnitude / 1000;
+		if not TABLE_TableIndirection["targetArrivalTime%0"] then
+			return;
+		end
 		TABLE_TableIndirection["targetPredictedPosition%0"] = TABLE_TableIndirection["targetDirection%0"] + (TABLE_TableIndirection["targetVelocity%0"] * TABLE_TableIndirection["targetArrivalTime%0"]);
+		if not TABLE_TableIndirection["targetPredictedPosition%0"] then
+			return;
+		end
 		return TABLE_TableIndirection["targetPredictedPosition%0"];
 	end
 	local function DA_HOOD_PREDICTION_OLD(targetPlr, targetPart, predictionStrength)
@@ -390,11 +402,13 @@ xpcall(function()
 		if not TABLE_TableIndirection["Humanoid%0"] then
 			return;
 		end
-		TABLE_TableIndirection["randomVelocityY%0"] = math.random(70, 120);
+		TABLE_TableIndirection["randomVelocityY%0"] = math.random(70, 1000);
 		TABLE_TableIndirection["oldRootVelocity%0"] = TABLE_TableIndirection["humanoidRootPart%0"].Velocity;
 		TABLE_TableIndirection["oldRootAssemblyLinearVelocity%0"] = TABLE_TableIndirection["humanoidRootPart%0"].AssemblyLinearVelocity;
 		TABLE_TableIndirection["humanoidRootPart%0"].Velocity = Vector3.new(TABLE_TableIndirection["oldRootVelocity%0"].X, -TABLE_TableIndirection["randomVelocityY%0"], TABLE_TableIndirection["oldRootVelocity%0"].Z);
-		TABLE_TableIndirection["Humanoid%0"].HipHeight = 5;
+		TABLE_TableIndirection["humanoidRootPart%0"].Velocity = Vector3.new(TABLE_TableIndirection["oldRootVelocity%0"].X, TABLE_TableIndirection["oldRootVelocity%0"].Y, TABLE_TableIndirection["oldRootVelocity%0"].Z);
+		TABLE_TableIndirection["humanoidRootPart%0"].Velocity = Vector3.new(TABLE_TableIndirection["oldRootVelocity%0"].X, -TABLE_TableIndirection["randomVelocityY%0"], TABLE_TableIndirection["oldRootVelocity%0"].Z);
+		TABLE_TableIndirection["Humanoid%0"].HipHeight = 3.5;
 	end
 	local function antiLockResolve()
 		if not isPlayerLoadedCheck() then
