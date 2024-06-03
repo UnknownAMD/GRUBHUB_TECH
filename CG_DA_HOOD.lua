@@ -346,7 +346,7 @@ xpcall(function()
 		TABLE_TableIndirection["gameClientPing%0"] = tostring(TABLE_TableIndirection["ServerStatsItem%0"][LUAOBFUSACTOR_DECRYPT_STR_0("\193\216\28\50\102\213\208\6\52", "\70\133\185\104\83")]:GetValueString()):split(" ")[1];
 		TABLE_TableIndirection["PlayerPing%0"] = tonumber(TABLE_TableIndirection["gameClientPing%0"]) or 100;
 		TABLE_TableIndirection["pingOffset%0"] = TABLE_TableIndirection["PlayerPing%0"];
-		TABLE_TableIndirection["predictionOffset%0"] = shared.CG_DA_HOOD_CONFIG_TABLE.AimPredictionStrengthValue / 100;
+		TABLE_TableIndirection["predictionOffset%0"] = 0 / 100;
 		TABLE_TableIndirection["targetPosition%0"] = targetPlr.Character and targetPlr.Character:FindFirstChild(targetPart);
 		if not TABLE_TableIndirection["targetPosition%0"] then
 			return;
