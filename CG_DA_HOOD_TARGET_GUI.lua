@@ -1,6 +1,6 @@
 local GUI = game:GetObjects("rbxassetid://17712897650")[1]
 
-print("test 20")
+print("Test 21")
 
 local formatNumber = (function (n)
 	n = tostring(n)
@@ -237,6 +237,8 @@ makeToggle({
 		if not toggleBool then return end
 
 		while shared.CG_DA_HOOD_TAGET_TOGGLES.AutoKill do
+			if not Player.Character then task.wait(); continue; end;
+
 			local foundTarget = getPlayerFromInput()
 			if not foundTarget then return; end;
 			if not foundTarget.Character then return end
@@ -248,8 +250,18 @@ makeToggle({
 			if IsKnocked(foundTarget) and not IsDead(foundTarget) then
 				TeleportFunc(foundTarget.Character.UpperTorso.Position)
 				MainEvent:FireServer("Stomp")
+
+				pcall(function()
+					fistsTool.Parent = Player.Backpack
+				end)
 			elseif not IsKnocked(foundTarget) and not IsDead(foundTarget) then
-				TeleportFunc(foundTarget.Character.PrimaryPart.Position)
+				TeleportFunc(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, 10, 0))
+
+				pcall(function()
+					fistsTool.Parent = Player.Character
+
+					fistsTool:Activate()
+				end)
 			end
 
 			task.wait()
