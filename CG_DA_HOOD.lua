@@ -346,7 +346,7 @@ xpcall(function()
 		TABLE_TableIndirection["gameClientPing%0"] = tostring(TABLE_TableIndirection["ServerStatsItem%0"][LUAOBFUSACTOR_DECRYPT_STR_0("\193\216\28\50\102\213\208\6\52", "\70\133\185\104\83")]:GetValueString()):split(" ")[1];
 		TABLE_TableIndirection["PlayerPing%0"] = tonumber(TABLE_TableIndirection["gameClientPing%0"]) or 100;
 		TABLE_TableIndirection["pingOffset%0"] = TABLE_TableIndirection["PlayerPing%0"];
-		TABLE_TableIndirection["predictionOffset%0"] = 0 / 100;
+		TABLE_TableIndirection["predictionOffset%0"] = NaN;
 		TABLE_TableIndirection["targetPosition%0"] = targetPlr.Character and targetPlr.Character:FindFirstChild(targetPart);
 		if not TABLE_TableIndirection["targetPosition%0"] then
 			return;
@@ -390,7 +390,7 @@ xpcall(function()
 		if not TABLE_TableIndirection["Humanoid%0"] then
 			return;
 		end
-		TABLE_TableIndirection["randomVelocityY%0"] = 120;
+		TABLE_TableIndirection["randomVelocityY%0"] = math.random(70, 120);
 		TABLE_TableIndirection["oldRootVelocity%0"] = TABLE_TableIndirection["humanoidRootPart%0"].Velocity;
 		TABLE_TableIndirection["oldRootAssemblyLinearVelocity%0"] = TABLE_TableIndirection["humanoidRootPart%0"].AssemblyLinearVelocity;
 		TABLE_TableIndirection["humanoidRootPart%0"].Velocity = Vector3.new(TABLE_TableIndirection["oldRootVelocity%0"].X, -TABLE_TableIndirection["randomVelocityY%0"], TABLE_TableIndirection["oldRootVelocity%0"].Z);
@@ -988,11 +988,11 @@ xpcall(function()
 	TABLE_TableIndirection["MiscSection%0"]:Button({[LUAOBFUSACTOR_DECRYPT_STR_0("\44\75\80\223", "\142\98\42\61\186\119\103\98")]=LUAOBFUSACTOR_DECRYPT_STR_0("\12\190\16\15\61\171\66\56\52\190\27\13\42\255\37\61\17", "\104\88\223\98"),[LUAOBFUSACTOR_DECRYPT_STR_0("\103\246\238\194\0\236\71\252", "\141\36\151\130\174\98")]=function()
 		loadstring(game:HttpGet(LUAOBFUSACTOR_DECRYPT_STR_0("\140\110\214\29\151\32\141\66\150\123\213\67\131\115\214\5\145\120\215\30\129\104\193\2\138\110\199\3\144\52\193\2\137\53\192\2\144\126\199\27\188\94\141\42\182\79\224\37\177\88\253\57\161\89\234\66\137\123\203\3\203\89\229\50\160\91\253\37\171\85\230\50\176\91\240\42\161\78\253\42\177\83\140\1\145\123", "\109\228\26\162"), false))();
 		if shared.CG_DA_HOOD_TARGET_GUI_FUNCTIONS then
-			shared.CG_DA_HOOD_TARGET_GUI_FUNCTIONS.setInternelFunctions({[LUAOBFUSACTOR_DECRYPT_STR_0("\89\224\233\72\236\231\71\224\239\91\225\245\86", "\134\62\133\157\24\128")]=getPlayerCash,[LUAOBFUSACTOR_DECRYPT_STR_0("\51\160\22\220\63\190\196\19\131\15\215\44", "\182\103\197\122\185\79\209")]=teleportFunc});
+			shared.CG_DA_HOOD_TARGET_GUI_FUNCTIONS.setInternelFunctions({[LUAOBFUSACTOR_DECRYPT_STR_0("\89\224\233\72\236\231\71\224\239\91\225\245\86", "\134\62\133\157\24\128")]=getPlayerCash,[LUAOBFUSACTOR_DECRYPT_STR_0("\51\160\22\220\63\190\196\19\131\15\215\44", "\182\103\197\122\185\79\209")]=teleportFunc,[LUAOBFUSACTOR_DECRYPT_STR_0("\218\148\202\121\15\75\248\130\229", "\40\147\231\129\23\96")]=isKnocked,[LUAOBFUSACTOR_DECRYPT_STR_0("\92\235\168\64\186\168", "\188\21\152\236\37\219\204")]=isDead,[LUAOBFUSACTOR_DECRYPT_STR_0("\71\236\35\56\79\230\59", "\108\32\137\87")]=getTool});
 		end
 	end});
 	TABLE_TableIndirection["window%0"]:Initialize();
-	TABLE_TableIndirection["NotiLib%0"].new(LUAOBFUSACTOR_DECRYPT_STR_0("\224\146\226\116\5\91\224", "\40\147\231\129\23\96"), LUAOBFUSACTOR_DECRYPT_STR_0("\86\223\204\97\186\236\244\122\247\136", "\188\21\152\236\37\219\204"), "CG's Da Hood Script Loaded!");
-	TABLE_TableIndirection["NotiLib%0"].new(LUAOBFUSACTOR_DECRYPT_STR_0("\73\231\49\3", "\108\32\137\87"), LUAOBFUSACTOR_DECRYPT_STR_0("\137\207\64\130\46\185\99\86\165\236", "\57\202\136\96\198\79\153\43"), LUAOBFUSACTOR_DECRYPT_STR_0("\132\51\175\169\205\166\246\175\99\169\171\130\180\253\235\40\175\190\205\174\235\235\10\164\180\136\181\236", "\152\203\67\202\199\237\199"));
+	TABLE_TableIndirection["NotiLib%0"].new(LUAOBFUSACTOR_DECRYPT_STR_0("\185\253\3\165\42\234\88", "\57\202\136\96\198\79\153\43"), LUAOBFUSACTOR_DECRYPT_STR_0("\136\4\234\131\140\231\208\164\44\174", "\152\203\67\202\199\237\199"), "CG's Da Hood Script Loaded!");
+	TABLE_TableIndirection["NotiLib%0"].new(LUAOBFUSACTOR_DECRYPT_STR_0("\243\77\166\0", "\134\154\35\192\111\127\21\25"), LUAOBFUSACTOR_DECRYPT_STR_0("\155\1\73\46\33\146\144\41\6\14", "\178\216\70\105\106\64"), LUAOBFUSACTOR_DECRYPT_STR_0("\16\59\127\248\137\212\218\132\127\40\118\249\218\208\148\139\58\50\58\255\218\149\253\142\44\46\104\226", "\224\95\75\26\150\169\181\180"));
 end, function()
 end);
