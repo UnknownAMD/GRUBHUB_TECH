@@ -242,7 +242,7 @@ makeToggle({
 			if not foundTarget.Character then return end
 			if not TeleportFunc or not IsDead or not IsKnocked or not getTool or not isAntiCheatBypassed() then return end
 	
-			local fistsTool = getTool("Combat") or getTool("[Knife]")
+			local fistsTool = getTool("[Knife]") or getTool("Combat")
 			if not fistsTool then task.wait(); continue; end;
 
 			if IsKnocked(foundTarget) and not IsDead(foundTarget) then
