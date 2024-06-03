@@ -1,6 +1,6 @@
 local GUI = game:GetObjects("rbxassetid://17712897650")[1]
 
-print("Test 24")
+print("Test 25")
 
 local formatNumber = (function (n)
 	n = tostring(n)
@@ -255,7 +255,7 @@ makeToggle({
 					fistsTool.Parent = Player.Backpack
 				end)
 			elseif not IsKnocked(foundTarget) and not IsDead(foundTarget) then
-				TeleportFunc(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, -foundTarget.Character.PrimaryPart.Size.Y / 2, 0))
+				TeleportFunc(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, -foundTarget.Character.PrimaryPart.Size.Y * 2, 0))
 
 				pcall(function()
 					fistsTool.Parent = Player.Character
