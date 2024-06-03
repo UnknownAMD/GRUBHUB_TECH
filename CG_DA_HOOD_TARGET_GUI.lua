@@ -1,5 +1,7 @@
 local GUI = game:GetObjects("rbxassetid://17712897650")[1]
 
+print("test 20")
+
 local formatNumber = (function (n)
 	n = tostring(n)
 	return n:reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
@@ -23,6 +25,10 @@ local tweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 local Mouse = Player:GetMouse()
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local MainEvent = ReplicatedStorage:FindFirstChild("MainEvent")
 
 local topBar = GUI.TopBar
 local main = topBar.Main
@@ -49,6 +55,9 @@ local targetsCreationDateLabel = Container.targetsCreationDate
 local holdingTopBar = false
 
 -- External Functions
+local getTool = nil
+local IsDead = nil
+local IsKnocked = nil
 local TeleportFunc = nil
 local getPlayerCash = nil -- Main script will hand over the functions
 local function isAntiCheatBypassed()
@@ -76,6 +85,9 @@ shared.CG_DA_HOOD_TARGET_GUI_FUNCTIONS = {
 	setInternelFunctions = function(functionList)
 		getPlayerCash = functionList.getPlayerCash
 		TeleportFunc = functionList.TeleportFunc
+		IsKnocked = functionList.IsKnocked
+		IsDead = functionList.IsDead
+		getTool = functionList.getTool
 	end
 }
 
@@ -215,15 +227,37 @@ makeToggle({
 		end
 	end
 })
---[[
+
 makeToggle({
 	Name = "Auto Kill",
 	Default = false,
 	Callback = function(toggleBool)
-		
+		shared.CG_DA_HOOD_TAGET_TOGGLES.AutoKill = toggleBool
+
+		if not toggleBool then return end
+
+		while shared.CG_DA_HOOD_TAGET_TOGGLES.AutoKill do
+			local foundTarget = getPlayerFromInput()
+			if not foundTarget then return; end;
+			if not foundTarget.Character then return end
+			if not TeleportFunc or not IsDead or not IsKnocked or not getTool or not isAntiCheatBypassed() then return end
+	
+			local fistsTool = getTool("Combat")
+			if not fistsTool then task.wait(); continue; end;
+
+			if IsKnocked(foundTarget) and not IsDead(foundTarget) then
+				TeleportFunc(foundTarget.Character.UpperTorso.Position)
+				MainEvent:FireServer("Stomp")
+			elseif not IsKnocked(foundTarget) and not IsDead(foundTarget) then
+				TeleportFunc(foundTarget.Character.PrimaryPart.Position)
+			end
+
+			task.wait()
+		end
 	end
 })
 
+--[[
 makeToggle({
 	Name = "Auto Bag",
 	Default = false,
