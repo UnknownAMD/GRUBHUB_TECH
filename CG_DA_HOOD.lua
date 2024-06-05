@@ -413,12 +413,21 @@ task.spawn(function()
 			if not TABLE_TableIndirection["Character%0"] then
 				continue;
 			end
-			TABLE_TableIndirection["humanoidRootPart%0"] = TABLE_TableIndirection["Character%0"]:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\221\171\7\26\121\247\252\186\56\20\120\236\197\191\24\15", "\152\149\222\106\123\23"));
-			if not TABLE_TableIndirection["humanoidRootPart%0"] then
+			if not TABLE_TableIndirection["Character%0"].PrimaryPart then
 				continue;
 			end
-			TABLE_TableIndirection["humanoidRootPart%0"].Velocity = Vector3.new(0, 0, 0);
-			TABLE_TableIndirection["humanoidRootPart%0"].AssemblyLinearVelocity = Vector3.new(0, 0, 0);
+			if ((TABLE_TableIndirection["Character%0"].PrimaryPart.AssemblyAngularVelocity.Magnitude > 50) or (TABLE_TableIndirection["Character%0"].PrimaryPart.AssemblyLinearVelocity.Magnitude > 100)) then
+				for _, Part in ipairs(TABLE_TableIndirection["Character%0"]:GetDescendants()) do
+					if not Part:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\215\191\25\30\71\249\231\170", "\152\149\222\106\123\23")) then
+						continue;
+					end
+					Part.CanCollide = false;
+					Part.Velocity = Vector3.new(0, 0, 0);
+					Part.AssemblyLinearVelocity = Vector3.new(0, 0, 0);
+					Part.AssemblyAngularVelocity = Vector3.new(0, 0, 0);
+					Part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0);
+				end
+			end
 		end
 	end
 	local function makeConnection(event, callback)
