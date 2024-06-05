@@ -18,10 +18,10 @@ end
 table.clear(shared.CG_ESP_CONNECTIONS)
 
 shared.CG_ESP_CONFIG = {
-	BoxesEnabled = false,
+	BoxesEnabled = true,
 	NametagsEnabled = false,
-	TracersEnabled = false,
-	HealthBarEnabled = false,
+	TracersEnabled = true,
+	HealthBarEnabled = true,
 	ESP_COLOR = Color3.fromRGB(255, 255, 255)
 }
 
@@ -89,7 +89,8 @@ local function updatePlayerESP(espPlayer)
 	end
 
     local espHead = espCharacter:FindFirstChild("Head")
-    if not espHead then
+    local Humanoid = espCharacter:FindFirstChildWhichIsA("Humanoid")
+    if not espHead or not Humanoid then
         box.Visible = false
 		HealthBar.Visible = false
 		text.Visible = false
@@ -104,15 +105,20 @@ local function updatePlayerESP(espPlayer)
 	text.Visible = IsVisible and shared.CG_ESP_CONFIG.NametagsEnabled or false
 	text.Position = Vector2.new(headPoint.X, headPoint.Y)
 
+    local boxHeightScale = Humanoid.RigType == Enum.HumanoidRigType.R15 and 2000 or 4500
+
 	box.Color = Color3.fromRGB(255, 255, 255)
 	box.Visible = IsVisible and shared.CG_ESP_CONFIG.BoxesEnabled or false
-	box.Size = Vector2.new((rootPart.Size.X * 1350) / screenPoint.Z, (rootPart.Size.Y * 2000) / screenPoint.Z);
+	box.Size = Vector2.new((rootPart.Size.X * 1350) / screenPoint.Z, (rootPart.Size.Y * boxHeightScale) / screenPoint.Z);
 	box.Position = Vector2.new(screenPoint.X - box.Size.X / 2, screenPoint.Y + Inset.Y - box.Size.Y / 2);
+
+    local totalHealth = Humanoid.Health
+    local maxHealth = Humanoid.MaxHealth
 
 	HealthBar.Visible = IsVisible and shared.CG_ESP_CONFIG.HealthBarEnabled or false
 	HealthBar.Filled = true
 	HealthBar.Color = Color3.fromRGB(0, 214, 0)
-	HealthBar.Size = Vector2.new(3, (rootPart.Size.Y * 2000) / screenPoint.Z)
+	HealthBar.Size = Vector2.new(3, ((totalHealth / maxHealth) * ((rootPart.Size.Y * boxHeightScale) / screenPoint.Z)))
 
 	HealthBar.Position = Vector2.new((box.Position.X + (box.Size.X - box.Size.X)) - (HealthBar.Size.X * 2.5), box.Position.Y)
 end
