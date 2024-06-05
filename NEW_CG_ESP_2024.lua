@@ -87,11 +87,19 @@ local function updatePlayerESP(espPlayer)
 		text.Visible = false
 		return
 	end
+
+    local espHead = espCharacter:FindFirstChild("Head")
+    if not espHead then
+        box.Visible = false
+		HealthBar.Visible = false
+		text.Visible = false
+        return
+    end
 	
 	local rootPart = espCharacter.PrimaryPart
 	local Inset = GUIService:GetGuiInset();
 	local screenPoint = Camera:WorldToScreenPoint(rootPart.Position)
-	local headPoint, IsVisible = Camera:WorldToScreenPoint(espCharacter.Head.Position)
+	local headPoint, IsVisible = Camera:WorldToScreenPoint(espHead.Position)
 
 	text.Visible = IsVisible and shared.CG_ESP_CONFIG.NametagsEnabled or false
 	text.Position = Vector2.new(headPoint.X, headPoint.Y)
