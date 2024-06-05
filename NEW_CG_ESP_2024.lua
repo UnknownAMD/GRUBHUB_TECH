@@ -18,10 +18,10 @@ end
 table.clear(shared.CG_ESP_CONNECTIONS)
 
 shared.CG_ESP_CONFIG = {
-	BoxesEnabled = true,
+	BoxesEnabled = false,
 	NametagsEnabled = false,
-	TracersEnabled = true,
-	HealthBarEnabled = true,
+	TracersEnabled = false,
+	HealthBarEnabled = false,
 	ESP_COLOR = Color3.fromRGB(255, 255, 255)
 }
 
