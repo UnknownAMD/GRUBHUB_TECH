@@ -147,6 +147,7 @@ local function updatePlayerESP(espPlayer)
 
 	local bodyEffectsFolder = espCharacter:FindFirstChild("BodyEffects")
 	local ArmorInstance = bodyEffectsFolder and bodyEffectsFolder:FindFirstChild("Armor")-- For da hood games
+	local maxArmor = game.PlaceId == 17108757521 and 130 or 100
 
 	if ArmorInstance then
 		ArmorBar.Outline = ArmorInstance.Value > 0 and true or false
@@ -155,7 +156,7 @@ local function updatePlayerESP(espPlayer)
 		ArmorBar.Visible = IsVisible and shared.CG_ESP_CONFIG.ArmorBarEnabled or false
 		ArmorBar.Filled = true
 		ArmorBar.Color = Color3.fromRGB(0, 140, 255)
-		ArmorBar.Size = Vector2.new((ArmorInstance.Value / 100) * (box.Size.X), 2)
+		ArmorBar.Size = Vector2.new((ArmorInstance.Value / maxArmor) * (box.Size.X), 2)
 
 		ArmorBar.Position = Vector2.new(box.Position.X, (screenPoint.Y + Inset.Y + box.Size.Y / 2) + ((ArmorBar.Size.Y * 1.6)))
 	else
