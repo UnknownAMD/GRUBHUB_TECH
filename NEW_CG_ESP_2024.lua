@@ -2,7 +2,8 @@ local GUIService = game:GetService("GuiService")
 local Players = game:GetService("Players")
 local runService = game:GetService("RunService")
 
-local Drawing = Drawing or require(script.Drawing)
+local DrawingNew = loadstring(game:HttpGet("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/DrawingLib.lua", true))()
+
 local Camera = workspace.CurrentCamera
 local Player = Players.LocalPlayer
 
@@ -18,10 +19,10 @@ end
 table.clear(shared.CG_ESP_CONNECTIONS)
 
 shared.CG_ESP_CONFIG = {
-	BoxesEnabled = false,
+	BoxesEnabled = true,
 	NametagsEnabled = false,
-	TracersEnabled = false,
-	HealthBarEnabled = false,
+	TracersEnabled = true,
+	HealthBarEnabled = true,
 	ESP_COLOR = Color3.fromRGB(255, 255, 255)
 }
 
@@ -69,9 +70,9 @@ end
 
 local function updatePlayerESP(espPlayer)
 	local espCharacter = espPlayer.Character
-	local box = shared.CG_ESP_cachedBoxes[espPlayer] or Drawing.new("Square")
-	local HealthBar = shared.CG_ESP_cachedHealthBars[espPlayer] or Drawing.new("Square")
-	local text = shared.CG_ESP_cachedText[espPlayer] or Drawing.new("Text")
+	local box = shared.CG_ESP_cachedBoxes[espPlayer] or DrawingNew.new("Square")
+	local HealthBar = shared.CG_ESP_cachedHealthBars[espPlayer] or DrawingNew.new("Square")
+	local text = shared.CG_ESP_cachedText[espPlayer] or DrawingNew.new("Text")
 	text.Size = 20
 	text.Text = espPlayer.Name
 	text.Color = Color3.fromRGB(255, 255, 255)
@@ -107,6 +108,9 @@ local function updatePlayerESP(espPlayer)
 
     local boxHeightScale = Humanoid.RigType == Enum.HumanoidRigType.R15 and 2000 or 4500
 
+    box.Outline = true
+    box.Thickness = .7
+    box.OutlineColor = Color3.fromRGB(255, 255, 255)
 	box.Color = Color3.fromRGB(255, 255, 255)
 	box.Visible = IsVisible and shared.CG_ESP_CONFIG.BoxesEnabled or false
 	box.Size = Vector2.new((rootPart.Size.X * 1350) / screenPoint.Z, (rootPart.Size.Y * boxHeightScale) / screenPoint.Z);
@@ -115,6 +119,9 @@ local function updatePlayerESP(espPlayer)
     local totalHealth = Humanoid.Health
     local maxHealth = Humanoid.MaxHealth
 
+    HealthBar.Outline = true
+    HealthBar.Thickness = 1
+    HealthBar.OutlineColor = Color3.fromRGB(0, 0, 0)
 	HealthBar.Visible = IsVisible and shared.CG_ESP_CONFIG.HealthBarEnabled or false
 	HealthBar.Filled = true
 	HealthBar.Color = Color3.fromRGB(0, 214, 0)
@@ -129,6 +136,7 @@ end
 
 table.insert(shared.CG_ESP_CONNECTIONS, runService.RenderStepped:Connect(function()
 	for _, foundClient in ipairs(Players:GetPlayers()) do
+        if foundClient == Player then continue end
 		if not foundClient.Character then
 			-- Remove their ESP
 			continue
