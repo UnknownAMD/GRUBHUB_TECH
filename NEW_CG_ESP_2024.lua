@@ -169,9 +169,9 @@ end
 
 table.insert(shared.CG_ESP_CONNECTIONS, runService.RenderStepped:Connect(function()
 	for _, foundClient in ipairs(Players:GetPlayers()) do
-        --if foundClient == Player then continue end
+        if foundClient == Player then continue end
 		if not foundClient.Character then
-			-- Remove their ESP
+			unloadPlayerESP(foundClient)
 			continue
 		end
 		
