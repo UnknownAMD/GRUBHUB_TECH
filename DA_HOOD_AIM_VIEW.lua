@@ -1,6 +1,12 @@
 -- made by CG
 
+local aimviewModule = {}
+
 shared.CG_AIM_VIEWER_ENABLED = false
+
+function aimviewModule.EnableAndDisableAimView()
+    shared.CG_AIM_VIEWER_ENABLED = not shared.CG_AIM_VIEWER_ENABLED
+end
 
 local runService = game:GetService("RunService")
 local Players = game:GetService("Players")
@@ -35,6 +41,14 @@ makeSignal(runService.RenderStepped, function()
             local hasAmmo = (currentTool and currentTool:FindFirstChild("Ammo")) or (currentTool and currentTool:GetAttribute("Ammo") ~= nil)
             local playerMousePos = Character and Character:FindFirstChild("MousePos", true)
 
+            if not shared.CG_AIM_VIEWER_ENABLED then
+                if shared.CG_AIM_VIEWER_CachedParts[Player] then
+                    shared.CG_AIM_VIEWER_CachedParts[Player]:Destroy()
+                    shared.CG_AIM_VIEWER_CachedParts[Player] = nil
+                end
+                continue
+            end
+
             if hasAmmo and playerMousePos and playerMousePos:IsA("Vector3Value") and currentToolHandle and currentToolHandle:IsA("BasePart") then
                 local mousePos = playerMousePos.Value
                 
@@ -67,3 +81,5 @@ makeSignal(Players.PlayerRemoving, function(Player)
         shared.CG_AIM_VIEWER_CachedParts[Player] = nil
     end
 end)
+
+return aimviewModule
