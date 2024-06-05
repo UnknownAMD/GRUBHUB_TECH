@@ -301,7 +301,7 @@ function DrawingLib.new(drawingType)
 		squareFrame.Visible = squareObj.Visible
 
 		uiStroke.Thickness = squareObj.Thickness
-		uiStroke.Enabled = not squareObj.Filled
+		uiStroke.Enabled = false
 		uiStroke.LineJoinMode = Enum.LineJoinMode.Miter
 
 		squareFrame.Parent, uiStroke.Parent = drawingUI, squareFrame
