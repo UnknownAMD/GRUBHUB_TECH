@@ -303,6 +303,7 @@ function DrawingLib.new(drawingType)
 		uiStroke.Thickness = squareObj.Thickness
 		uiStroke.Enabled = false
 		uiStroke.LineJoinMode = Enum.LineJoinMode.Miter
+        uiStroke.Transparency = 0
 
 		squareFrame.Parent, uiStroke.Parent = drawingUI, squareFrame
 		return setmetatable(table.create(0), {
@@ -326,7 +327,6 @@ function DrawingLib.new(drawingType)
 					local transparency = convertTransparency(value)
 
 					squareFrame.BackgroundTransparency = (if squareObj.Filled then transparency else 1)
-					uiStroke.Transparency = transparency
 				elseif index == "Color" then
 					squareFrame.BackgroundColor3 = value
                 elseif index == "Outline" then
