@@ -26,8 +26,6 @@ end
 table.clear(shared.CG_AIM_VIEWER_CONNECTIONS)
 table.clear(shared.CG_AIM_VIEWER_CachedParts)
 
-if not shared.CG_AIM_VIEWER_ENABLED then return end
-
 local function makeSignal(event, func)
     shared.CG_AIM_VIEWER_CONNECTIONS[#shared.CG_AIM_VIEWER_CONNECTIONS + 1] = event:Connect(func)
 end
