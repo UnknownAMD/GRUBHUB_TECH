@@ -11,6 +11,7 @@ shared.CG_ESP_CONNECTIONS = shared.CG_ESP_CONNECTIONS or {}
 shared.CG_ESP_cachedText = shared.CG_ESP_cachedText or {}
 shared.CG_ESP_cachedBoxes = shared.CG_ESP_cachedBoxes or {}
 shared.CG_ESP_cachedHealthBars = shared.CG_ESP_cachedHealthBars or {}
+shared.CG_ESP_cachedArmorBars = shared.CG_ESP_cachedArmorBars or {}
 
 for _, Connection in pairs(shared.CG_ESP_CONNECTIONS) do
 	pcall(Connection.Disconnect, Connection)
@@ -23,6 +24,7 @@ shared.CG_ESP_CONFIG = {
 	NametagsEnabled = false,
 	TracersEnabled = false,
 	HealthBarEnabled = false,
+	ArmorBarEnabled = false,
 	ESP_COLOR = Color3.fromRGB(255, 255, 255)
 }
 
@@ -44,10 +46,15 @@ function esp_Module.EnableAndDisableHealthBar()
 	shared.CG_ESP_CONFIG.HealthBarEnabled = not shared.CG_ESP_CONFIG.HealthBarEnabled
 end
 
+function esp_Module.EnableAndDisableArmorBar()
+	shared.CG_ESP_CONFIG.ArmorBarEnabled = not shared.CG_ESP_CONFIG.ArmorBarEnabled
+end
+
 local function unloadPlayerESP(foundClient)
 	local leavingClientESPText = shared.CG_ESP_cachedText[foundClient]
 	local leavingClientESPBox = shared.CG_ESP_cachedBoxes[foundClient]
 	local leavingClientESPHealthBar = shared.CG_ESP_cachedHealthBars[foundClient]
+	local leavingClientESPArmorBar = shared.CG_ESP_cachedArmorBars[foundClient]
 	
 	pcall(function()
 		if leavingClientESPText then
@@ -61,17 +68,23 @@ local function unloadPlayerESP(foundClient)
 		if leavingClientESPHealthBar then
 			leavingClientESPHealthBar.Remove()
 		end
+
+		if leavingClientESPArmorBar then
+			leavingClientESPArmorBar.Remove()
+		end
 	end)
 
 	shared.CG_ESP_cachedText[foundClient] = nil
 	shared.CG_ESP_cachedBoxes[foundClient] = nil
 	shared.CG_ESP_cachedHealthBars[foundClient] = nil
+	shared.CG_ESP_cachedArmorBars[foundClient] = nil
 end
 
 local function updatePlayerESP(espPlayer)
 	local espCharacter = espPlayer.Character
 	local box = shared.CG_ESP_cachedBoxes[espPlayer] or DrawingNew.new("Square")
 	local HealthBar = shared.CG_ESP_cachedHealthBars[espPlayer] or DrawingNew.new("Square")
+	local ArmorBar = shared.CG_ESP_cachedArmorBars[espPlayer] or DrawingNew.new("Square")
 	local text = shared.CG_ESP_cachedText[espPlayer] or DrawingNew.new("Text")
 	text.Size = 20
 	text.Text = espPlayer.Name
@@ -81,6 +94,7 @@ local function updatePlayerESP(espPlayer)
 	shared.CG_ESP_cachedText[espPlayer] = shared.CG_ESP_cachedText[espPlayer] or text
 	shared.CG_ESP_cachedBoxes[espPlayer] = shared.CG_ESP_cachedBoxes[espPlayer] or box
 	shared.CG_ESP_cachedHealthBars[espPlayer] = shared.CG_ESP_cachedHealthBars[espPlayer] or HealthBar
+	shared.CG_ESP_cachedArmorBars[espPlayer] = shared.CG_ESP_cachedArmorBars[espPlayer] or ArmorBar
 	
 	if not espCharacter then
 		box.Visible = false
@@ -98,9 +112,11 @@ local function updatePlayerESP(espPlayer)
         return
     end
 	
+	local PlayerCFrame = espCharacter:GetPivot()
+
 	local rootPart = espCharacter.PrimaryPart
 	local Inset = GUIService:GetGuiInset();
-	local screenPoint = Camera:WorldToScreenPoint(rootPart.Position)
+	local screenPoint = Camera:WorldToScreenPoint(PlayerCFrame.Position)
 	local headPoint, IsVisible = Camera:WorldToScreenPoint(espHead.Position)
 
 	text.Visible = IsVisible and shared.CG_ESP_CONFIG.NametagsEnabled or false
@@ -114,7 +130,7 @@ local function updatePlayerESP(espPlayer)
 	box.Color = Color3.fromRGB(255, 255, 255)
 	box.Visible = IsVisible and shared.CG_ESP_CONFIG.BoxesEnabled or false
 	box.Size = Vector2.new((rootPart.Size.X * 1350) / screenPoint.Z, (rootPart.Size.Y * boxHeightScale) / screenPoint.Z);
-	box.Position = Vector2.new(screenPoint.X - box.Size.X / 2, screenPoint.Y + Inset.Y - box.Size.Y / 2);
+	box.Position = Vector2.new(screenPoint.X - box.Size.X / 2, (screenPoint.Y + Inset.Y - box.Size.Y / 2));
 
     local totalHealth = Humanoid.Health
     local maxHealth = Humanoid.MaxHealth
@@ -125,9 +141,26 @@ local function updatePlayerESP(espPlayer)
 	HealthBar.Visible = IsVisible and shared.CG_ESP_CONFIG.HealthBarEnabled or false
 	HealthBar.Filled = true
 	HealthBar.Color = Color3.fromRGB(0, 214, 0)
-	HealthBar.Size = Vector2.new(3, ((totalHealth / maxHealth) * ((rootPart.Size.Y * boxHeightScale) / screenPoint.Z)))
+	HealthBar.Size = Vector2.new(2, ((totalHealth / maxHealth) * ((rootPart.Size.Y * boxHeightScale) / screenPoint.Z)))
 
 	HealthBar.Position = Vector2.new((box.Position.X + (box.Size.X - box.Size.X)) - (HealthBar.Size.X * 2.5), box.Position.Y)
+
+	local bodyEffectsFolder = espCharacter:FindFirstChild("BodyEffects")
+	local ArmorInstance = bodyEffectsFolder and bodyEffectsFolder:FindFirstChild("Armor")-- For da hood games
+
+	if ArmorInstance then
+		ArmorBar.Outline = ArmorInstance.Value > 0 and true or false
+		ArmorBar.Thickness = 1
+		ArmorBar.OutlineColor = Color3.fromRGB(0, 0, 0)
+		ArmorBar.Visible = IsVisible and shared.CG_ESP_CONFIG.ArmorBarEnabled or false
+		ArmorBar.Filled = true
+		ArmorBar.Color = Color3.fromRGB(0, 140, 255)
+		ArmorBar.Size = Vector2.new((ArmorInstance.Value / 100) * (box.Size.X), 2)
+
+		ArmorBar.Position = Vector2.new(box.Position.X, (screenPoint.Y + Inset.Y + box.Size.Y / 2) + ((ArmorBar.Size.Y * 1.6)))
+	else
+		ArmorBar.Visible = false
+	end
 end
 
 for _, foundClient in ipairs(Players:GetPlayers()) do
@@ -136,7 +169,7 @@ end
 
 table.insert(shared.CG_ESP_CONNECTIONS, runService.RenderStepped:Connect(function()
 	for _, foundClient in ipairs(Players:GetPlayers()) do
-        if foundClient == Player then continue end
+        --if foundClient == Player then continue end
 		if not foundClient.Character then
 			-- Remove their ESP
 			continue
