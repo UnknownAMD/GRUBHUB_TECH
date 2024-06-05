@@ -301,15 +301,13 @@ function DrawingLib.new(drawingType)
 		squareFrame.Visible = squareObj.Visible
 
 		uiStroke.Thickness = squareObj.Thickness
-		uiStroke.Enabled = true
+		uiStroke.Enabled = false
 		uiStroke.LineJoinMode = Enum.LineJoinMode.Miter
         uiStroke.Transparency = 0
 
 		squareFrame.Parent, uiStroke.Parent = drawingUI, squareFrame
 		return setmetatable(table.create(0), {
 			__newindex = function(_, index, value)
-				if typeof(squareObj[index]) == "nil" then return end
-
 				if index == "Size" then
 					squareFrame.Size = UDim2.fromOffset(value.X, value.Y)
 				elseif index == "Position" then
@@ -317,6 +315,7 @@ function DrawingLib.new(drawingType)
 				elseif index == "Thickness" then
 					value = math.clamp(value, 0.6, 0x7fffffff)
 					uiStroke.Thickness = value
+                    return
 				elseif index == "Filled" then
 					squareFrame.BackgroundTransparency = (if value then convertTransparency(squareObj.Transparency) else 1)
 				elseif index == "Visible" then
@@ -331,10 +330,15 @@ function DrawingLib.new(drawingType)
 					squareFrame.BackgroundColor3 = value
                 elseif index == "Outline" then
                     uiStroke.Enabled = value
+                    return
                 elseif index == "OutlineColor" then
 					uiStroke.Color = value
+                    return
 				end
-				squareObj[index] = value
+
+                if typeof(squareObj[index]) ~= "nil" then
+				    squareObj[index] = value
+                end
 			end,
 			__index = function(self, index)
 				if index == "Remove" then
