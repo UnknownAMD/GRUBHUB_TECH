@@ -20,6 +20,9 @@ if getgenv().dex_ui ~= nil then getgenv().dex_ui:remove() getgenv().dex_ui = nil
 
 CreateGui = function()
 local ROBLOX = Instance.new("ScreenGui")
+
+getgenv().dex_ui = ROBLOX
+
 local PropertiesFrame = Instance.new("Frame")
 local Header = Instance.new("Frame")
 local TextLabel = Instance.new("TextLabel")
@@ -5535,6 +5538,8 @@ do
 
 				local object = node.Object
 
+                if not entry:FindFirstChild("IndentFrame") then return end
+
 				-- update expand icon
 				if #node == 0 then
 					entry.IndentFrame.Expand.Visible = false
@@ -8217,10 +8222,18 @@ end
 scrollBar.VisibleSpace = math.ceil(MainFrame.AbsoluteSize.y)
 scrollBar:Update()
 
-showProperties(GetSelection())
+pcall(function()
+    showProperties(GetSelection())
+end)
 
-bindSelectionChanged.Event:connect(function()
-	showProperties(GetSelection())
+task.spawn(function()
+    while getgenv().dex_ui ~= nil do
+        pcall(function()
+            showProperties(GetSelection())
+        end)
+
+        task.wait()
+    end
 end)
 
 bindSetAwait.Event:connect(function(obj)
