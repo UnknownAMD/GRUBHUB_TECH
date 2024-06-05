@@ -318,7 +318,6 @@ function DrawingLib.new(drawingType)
 					uiStroke.Thickness = value
 				elseif index == "Filled" then
 					squareFrame.BackgroundTransparency = (if value then convertTransparency(squareObj.Transparency) else 1)
-					uiStroke.Enabled = not value
 				elseif index == "Visible" then
 					squareFrame.Visible = value
 				elseif index == "ZIndex" then
@@ -329,8 +328,11 @@ function DrawingLib.new(drawingType)
 					squareFrame.BackgroundTransparency = (if squareObj.Filled then transparency else 1)
 					uiStroke.Transparency = transparency
 				elseif index == "Color" then
-					uiStroke.Color = value
 					squareFrame.BackgroundColor3 = value
+                elseif index == "Outline" then
+                    uiStroke.Enabled = value
+                elseif index == "OutlineColor" then
+					uiStroke.Color = value
 				end
 				squareObj[index] = value
 			end,
