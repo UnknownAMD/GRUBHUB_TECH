@@ -21,6 +21,7 @@ shared.CG_ESP_CONFIG = {
 	BoxesEnabled = false,
 	NametagsEnabled = false,
 	TracersEnabled = false,
+	HealthBarEnabled = false,
 	ESP_COLOR = Color3.fromRGB(255, 255, 255)
 }
 
@@ -36,6 +37,10 @@ end
 
 function esp_Module.EnableAndDisableTracers()
 	shared.CG_ESP_CONFIG.TracersEnabled = not shared.CG_ESP_CONFIG.TracersEnabled
+end
+
+function esp_Module.EnableAndDisableHealthBar()
+	shared.CG_ESP_CONFIG.HealthBarEnabled = not shared.CG_ESP_CONFIG.HealthBarEnabled
 end
 
 local function unloadPlayerESP(foundClient)
@@ -88,15 +93,15 @@ local function updatePlayerESP(espPlayer)
 	local screenPoint = Camera:WorldToScreenPoint(rootPart.Position)
 	local headPoint, IsVisible = Camera:WorldToScreenPoint(espCharacter.Head.Position)
 
-	text.Visible = false
+	text.Visible = IsVisible and shared.CG_ESP_CONFIG.NametagsEnabled or false
 	text.Position = Vector2.new(headPoint.X, headPoint.Y)
 
 	box.Color = Color3.fromRGB(255, 255, 255)
-	box.Visible = IsVisible
+	box.Visible = IsVisible and shared.CG_ESP_CONFIG.BoxesEnabled or false
 	box.Size = Vector2.new((rootPart.Size.X * 1350) / screenPoint.Z, (rootPart.Size.Y * 2000) / screenPoint.Z);
 	box.Position = Vector2.new(screenPoint.X - box.Size.X / 2, screenPoint.Y + Inset.Y - box.Size.Y / 2);
 
-	HealthBar.Visible = IsVisible
+	HealthBar.Visible = IsVisible and shared.CG_ESP_CONFIG.HealthBarEnabled or false
 	HealthBar.Filled = true
 	HealthBar.Color = Color3.fromRGB(0, 214, 0)
 	HealthBar.Size = Vector2.new(3, (rootPart.Size.Y * 2000) / screenPoint.Z)
