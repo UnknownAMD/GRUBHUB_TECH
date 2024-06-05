@@ -301,7 +301,7 @@ function DrawingLib.new(drawingType)
 		squareFrame.Visible = squareObj.Visible
 
 		uiStroke.Thickness = squareObj.Thickness
-		uiStroke.Enabled = false
+		uiStroke.Enabled = true
 		uiStroke.LineJoinMode = Enum.LineJoinMode.Miter
         uiStroke.Transparency = 0
 
