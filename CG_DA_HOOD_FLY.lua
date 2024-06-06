@@ -48,22 +48,49 @@ local LoadedIdleAnimation = nil
 
 local function loadFlyAnimations()
     if not Character then return end
-    
-    local Humanoid = Character:FindFirstChildWhichIsA("Humanoid")
-    local Animator = Humanoid and Humanoid:FindFirstChildWhichIsA("Animator")
-    if not Animator then return end
 
     local TempAnimationInstance = Instance.new("Animation")
     TempAnimationInstance.Parent = nil
 
-    TempAnimationInstance.AnimationId = flyAnimationIds.Idle
-    LoadedIdleAnimation = Animator:LoadAnimation(TempAnimationInstance)
+    local animationsLoaded = false
 
-    TempAnimationInstance.AnimationId = flyAnimationIds.Moving
-    LoadedMovingAnimation = Animator:LoadAnimation(TempAnimationInstance)
+    task.spawn(function()
+        while not animationsLoaded do
+            for _, Track in pairs(shared.CG_FLY_ANIMATION_TRACKS) do
+                pcall(Track.Stop, Track)
+            end
+        
+            table.clear(shared.CG_FLY_ANIMATION_TRACKS)
 
-    table.insert(shared.CG_FLY_ANIMATION_TRACKS, LoadedIdleAnimation)
-    table.insert(shared.CG_FLY_ANIMATION_TRACKS, LoadedMovingAnimation)
+            local Humanoid = Character:FindFirstChildWhichIsA("Humanoid")
+            local Animator = Humanoid and Humanoid:FindFirstChildWhichIsA("Animator")
+            if not Animator then task.wait(); continue; end;
+
+            TempAnimationInstance.AnimationId = flyAnimationIds.Idle
+            local IdleLoaded, LoadedIdleAnimationResult = pcall(Animator.LoadAnimation, Animator, TempAnimationInstance)
+
+            TempAnimationInstance.AnimationId = flyAnimationIds.Moving
+            local MovingLoaded, LoadedMovingAnimationResult = pcall(Animator.LoadAnimation, Animator, TempAnimationInstance)
+
+            if IdleLoaded then
+                LoadedIdleAnimation = LoadedIdleAnimationResult
+                table.insert(shared.CG_FLY_ANIMATION_TRACKS, LoadedIdleAnimation)
+            end
+
+            if MovingLoaded then
+                LoadedMovingAnimation = LoadedMovingAnimationResult
+                table.insert(shared.CG_FLY_ANIMATION_TRACKS, LoadedMovingAnimation)
+            end
+
+            if IdleLoaded and MovingLoaded then
+                animationsLoaded = true
+            end
+
+            task.wait()
+        end
+
+        TempAnimationInstance:Destroy()
+    end)
 end
 
 loadFlyAnimations()
