@@ -117,10 +117,7 @@ local function updatePlayerESP(espPlayer)
 	local rootPart = espCharacter.PrimaryPart
 	local Inset = GUIService:GetGuiInset();
 	local screenPoint = Camera:WorldToScreenPoint(PlayerCFrame.Position)
-	local headPoint, IsVisible = Camera:WorldToScreenPoint(espHead.Position)
-
-	text.Visible = IsVisible and shared.CG_ESP_CONFIG.NametagsEnabled or false
-	text.Position = Vector2.new(headPoint.X, headPoint.Y)
+	--local headPoint, IsVisible = Camera:WorldToScreenPoint(espHead.Position)
 
     local boxHeightScale = Humanoid.RigType == Enum.HumanoidRigType.R15 and 2000 or 4500
 
@@ -162,6 +159,9 @@ local function updatePlayerESP(espPlayer)
 	else
 		ArmorBar.Visible = false
 	end
+
+	text.Visible = IsVisible and shared.CG_ESP_CONFIG.NametagsEnabled or false
+	text.Position = Vector2.new(box.Position.X + (box.Size.X / 2), box.Position.Y - (box.Size.Y / 2) / 10)
 end
 
 for _, foundClient in ipairs(Players:GetPlayers()) do
