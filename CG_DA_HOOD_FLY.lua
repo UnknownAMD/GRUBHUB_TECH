@@ -1,5 +1,4 @@
 -- Anti cheat bypass is in the main script, do not run this else you will get banned without having a anti cheat bypass!
-
 shared.CG_FLY_CONNECTIONS = shared.CG_FLY_CONNECTIONS or {}
 shared.CG_FLY_ANIMATION_TRACKS = shared.CG_FLY_ANIMATION_TRACKS or {}
 
@@ -70,28 +69,16 @@ end
 loadFlyAnimations()
 
 table.insert(shared.CG_FLY_CONNECTIONS, Player.CharacterAdded:Connect(function(newCharacter)
-    shared.CG_isAntiCheatBypassed = false
-
     Character = newCharacter
 
     if playerBodyPosition then
         pcall(playerBodyPosition.Destroy, playerBodyPosition)
     end
 
-    repeat
-        bypassAntiCheat()
-        task.wait()
-    until shared.CG_isAntiCheatBypassed
-
     playerBodyPosition = nil
 
     loadFlyAnimations()
 end))
-
-repeat
-    bypassAntiCheat()
-    task.wait()
-until shared.CG_isAntiCheatBypassed
 
 table.insert(shared.CG_FLY_CONNECTIONS, UserInputService.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.Keyboard then
