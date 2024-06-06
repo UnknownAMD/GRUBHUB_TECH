@@ -116,7 +116,7 @@ local function updatePlayerESP(espPlayer)
 
 	local rootPart = espCharacter.PrimaryPart
 	local Inset = GUIService:GetGuiInset();
-	local screenPoint = Camera:WorldToScreenPoint(PlayerCFrame.Position)
+	local screenPoint, IsVisible = Camera:WorldToScreenPoint(PlayerCFrame.Position)
 	--local headPoint, IsVisible = Camera:WorldToScreenPoint(espHead.Position)
 
     local boxHeightScale = Humanoid.RigType == Enum.HumanoidRigType.R15 and 2000 or 4500
