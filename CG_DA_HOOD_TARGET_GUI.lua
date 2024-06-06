@@ -253,7 +253,7 @@ makeToggle({
 					BodyPosition = nil
 				end
 
-				TeleportFunc(foundTarget.Character.PrimaryPart.Position)
+				TeleportFunc(foundTarget.Character.UpperTorso.Position)
 				MainEvent:FireServer("Stomp")
 
 				pcall(function()
@@ -275,7 +275,7 @@ makeToggle({
 				end
 
 				--TeleportFunc(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, -foundTarget.Character.PrimaryPart.Size.Y * 3.5, 0)\)
-				BodyPosition.Position = foundTarget.Character.PrimaryPart.Position + Vector3.new(0, 0, -3)
+				BodyPosition.Position = foundTarget.Character.PrimaryPart.Position + Vector3.new(0, 0, -2.25)
 				Player.Character.PrimaryPart.CFrame = CFrame.new(Player.Character.PrimaryPart.Position, foundTarget.Character.PrimaryPart.Position)
 				-- smoother way of teleporting to them is bodyPosition
 
