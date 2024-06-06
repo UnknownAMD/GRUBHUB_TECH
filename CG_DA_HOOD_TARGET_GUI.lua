@@ -255,7 +255,7 @@ makeToggle({
 
 				BodyPosition = Instance.new("BodyPosition")
 				BodyPosition.MaxForce = Vector3.new(9e9, 9e9, 9e9)
-				BodyPosition.D = 50
+				BodyPosition.D = 250
 				BodyPosition.Position = Vector3.new()
 
 				BodyPosition.Parent = Player.Character.PrimaryPart
