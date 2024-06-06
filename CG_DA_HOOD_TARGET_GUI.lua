@@ -234,6 +234,8 @@ makeToggle({
 
 		if not toggleBool then return end
 
+		local BodyPosition = nil
+
 		while shared.CG_DA_HOOD_TAGET_TOGGLES.AutoKill do
 			if not Player.Character then task.wait(); continue; end;
 
@@ -245,15 +247,31 @@ makeToggle({
 			local fistsTool = getTool("[Knife]") or getTool("Combat")
 			if not fistsTool then task.wait(); continue; end;
 
+			if not BodyPosition or not BodyPosition:IsDescendantOf(workspace) then
+				if BodyPosition then
+					pcall(BodyPosition.Destroy, BodyPosition)
+					BodyPosition = nil
+				end
+
+				BodyPosition = Instance.new("BodyPosition")
+				BodyPosition.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+				BodyPosition.D = 50
+				BodyPosition.Position = Vector3.new()
+
+				BodyPosition.Parent = Player.Character.PrimaryPart
+			end
+
 			if IsKnocked(foundTarget) and not IsDead(foundTarget) then
-				TeleportFunc(foundTarget.Character.UpperTorso.Position)
+				BodyPosition.Position = Vector3.new(foundTarget.Character.UpperTorso.Position)
 				MainEvent:FireServer("Stomp")
 
 				pcall(function()
 					fistsTool.Parent = Player.Backpack
 				end)
 			elseif not IsKnocked(foundTarget) and not IsDead(foundTarget) then
-				TeleportFunc(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, -foundTarget.Character.PrimaryPart.Size.Y * 3.5, 0))
+				--TeleportFunc(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, -foundTarget.Character.PrimaryPart.Size.Y * 3.5, 0)\)
+				BodyPosition.Position = foundTarget.Character.PrimaryPart.Position + Vector3.new(0, -foundTarget.Character.PrimaryPart.Size.Y * 3.5, 0)
+				-- smoother way of teleporting to them is bodyPosition
 
 				pcall(function()
 					fistsTool.Parent = Player.Character
@@ -263,6 +281,11 @@ makeToggle({
 			end
 
 			task.wait()
+		end
+
+		if BodyPosition then
+			pcall(BodyPosition.Destroy, BodyPosition)
+			BodyPosition = nil
 		end
 	end
 })
@@ -275,15 +298,6 @@ makeToggle({
 		
 	end
 })
-
-
-shared.CG_DA_HOOD_TAGET_TOGGLES = {
-	ViewPlayer = false,
-	AutoBag = false,
-	AutoStomp = false,
-	AutoKill = false,
-	AutoFling = false
-}
 ]]
 
 makeToggle({
