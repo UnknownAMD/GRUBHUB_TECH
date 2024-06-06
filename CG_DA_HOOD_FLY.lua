@@ -39,8 +39,8 @@ local flyValues = {
 }
 
 local flyAnimationIds = {
-    ["Moving"] = "rbxassetid://13850657882",
-    ["Idle"] = "rbxassetid://13850660986"
+    ["Moving"] = "rbxassetid://3541044388",
+    ["Idle"] = "rbxassetid://3541114300"
 }
 
 local LoadedMovingAnimation = nil
