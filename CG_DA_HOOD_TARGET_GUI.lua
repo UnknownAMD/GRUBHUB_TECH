@@ -240,35 +240,40 @@ makeToggle({
 			if not Player.Character then task.wait(); continue; end;
 
 			local foundTarget = getPlayerFromInput()
-			if not foundTarget then return; end;
-			if not foundTarget.Character then return end
+			if not foundTarget then task.wait(); continue; end;
+			if not foundTarget.Character then task.wait(); continue; end;
 			if not TeleportFunc or not IsDead or not IsKnocked or not getTool or not isAntiCheatBypassed() then return end
 	
 			local fistsTool = getTool("[Knife]") or getTool("Combat")
 			if not fistsTool then task.wait(); continue; end;
 
-			if not BodyPosition or not BodyPosition:IsDescendantOf(workspace) then
+			if IsKnocked(foundTarget) and not IsDead(foundTarget) then
 				if BodyPosition then
-					pcall(BodyPosition.Destroy, BodyPosition)
+					BodyPosition:Destroy()
 					BodyPosition = nil
 				end
 
-				BodyPosition = Instance.new("BodyPosition")
-				BodyPosition.MaxForce = Vector3.new(9e9, 9e9, 9e9)
-				BodyPosition.D = 250
-				BodyPosition.Position = Vector3.new()
-
-				BodyPosition.Parent = Player.Character.PrimaryPart
-			end
-
-			if IsKnocked(foundTarget) and not IsDead(foundTarget) then
-				BodyPosition.Position = Vector3.new(foundTarget.Character.UpperTorso.Position)
+				TeleportFunc(foundTarget.Character.PrimaryPart.Position)
 				MainEvent:FireServer("Stomp")
 
 				pcall(function()
 					fistsTool.Parent = Player.Backpack
 				end)
 			elseif not IsKnocked(foundTarget) and not IsDead(foundTarget) then
+				if not BodyPosition or not BodyPosition:IsDescendantOf(workspace) then
+					if BodyPosition then
+						pcall(BodyPosition.Destroy, BodyPosition)
+						BodyPosition = nil
+					end
+	
+					BodyPosition = Instance.new("BodyPosition")
+					BodyPosition.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+					BodyPosition.D = 250
+					BodyPosition.Position = Vector3.new()
+	
+					BodyPosition.Parent = Player.Character.PrimaryPart
+				end
+
 				--TeleportFunc(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, -foundTarget.Character.PrimaryPart.Size.Y * 3.5, 0)\)
 				BodyPosition.Position = foundTarget.Character.PrimaryPart.Position + Vector3.new(0, 0, -3)
 				Player.Character.PrimaryPart.CFrame = CFrame.new(Player.Character.PrimaryPart.Position, foundTarget.Character.PrimaryPart.Position)
