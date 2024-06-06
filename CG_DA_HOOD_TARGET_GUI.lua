@@ -270,7 +270,8 @@ makeToggle({
 				end)
 			elseif not IsKnocked(foundTarget) and not IsDead(foundTarget) then
 				--TeleportFunc(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, -foundTarget.Character.PrimaryPart.Size.Y * 3.5, 0)\)
-				BodyPosition.Position = foundTarget.Character.PrimaryPart.Position + Vector3.new(0, -foundTarget.Character.PrimaryPart.Size.Y * 4, 0)
+				BodyPosition.Position = foundTarget.Character.PrimaryPart.Position + Vector3.new(0, 0, -3)
+				Player.Character.PrimaryPart.CFrame = CFrame.new(Player.Character.PrimaryPart.Position, foundTarget.Character.PrimaryPart.Position)
 				-- smoother way of teleporting to them is bodyPosition
 
 				pcall(function()
