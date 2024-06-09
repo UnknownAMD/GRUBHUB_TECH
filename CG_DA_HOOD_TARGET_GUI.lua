@@ -51,6 +51,7 @@ local targetsCashLabel = Container.targetsCash
 local targetsCreationDateLabel = Container.targetsCreationDate
 
 local holdingTopBar = false
+local autoBagBuyPosition = Vector3.new(-316, 51, -724)
 
 -- External Functions
 local getTool = nil
@@ -58,8 +59,50 @@ local IsDead = nil
 local IsKnocked = nil
 local TeleportFunc = nil
 local getPlayerCash = nil -- Main script will hand over the functions
+
 local function isAntiCheatBypassed()
 	return shared.CG_isAntiCheatBypassed
+end
+
+local function getIgnoredFolder()
+	return workspace:FindFirstChild("Ignored")
+end
+
+local function getItemsDroppedFolder()
+	local ignoredFolder = getIgnoredFolder()
+	if not ignoredFolder then return end
+
+	return ignoredFolder:FindFirstChild("ItemsDrop")
+end
+
+local function getDropFolder()
+	local ignoredFolder = getIgnoredFolder()
+	if not ignoredFolder then return end
+
+	return ignoredFolder:FindFirstChild("Drop")
+end
+
+local function getShopFolder()
+	local ignoredFolder = getIgnoredFolder()
+	if not ignoredFolder then return end
+
+	return ignoredFolder:FindFirstChild("Shop")
+end
+
+local function teleport_func_test(teleportPos) -- I'm trying this method - CG
+	if not Player.Character then return end
+	if typeof(teleportPos) ~= "Vector3" then return end
+	if not isAntiCheatBypassed() then return end
+
+	local bodyPosition = Instance.new("BodyPosition")
+	bodyPosition.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+	bodyPosition.D = 300
+	bodyPosition.Position = teleportPos
+	bodyPosition.Parent = Player.Character.PrimaryPart
+
+	pcall(function()
+		bodyPosition:Destroy()
+	end)
 end
 
 -- I've done this in a seperate loadstring because I don't want to bloat the main script and make it hard for me to read and work on.
@@ -296,15 +339,51 @@ makeToggle({
 	end
 })
 
---[[
 makeToggle({
 	Name = "Auto Bag",
 	Default = false,
 	Callback = function(toggleBool)
+		shared.CG_DA_HOOD_TAGET_TOGGLES.AutoBag = toggleBool
+
+		if not toggleBool then return end
 		
+		while shared.CG_DA_HOOD_TAGET_TOGGLES.AutoBag do
+			if not Player.Character then task.wait(); continue; end;
+
+			local foundTarget = getPlayerFromInput()
+			if not foundTarget then task.wait(); continue; end;
+			if not foundTarget.Character then task.wait(); continue; end;
+			if not TeleportFunc or not IsDead or not IsKnocked or not getTool or not isAntiCheatBypassed() then return end
+	
+			local bagTool = getTool("[BrownBag]")
+			if not bagTool then task.wait(); continue; end;
+
+			local shopFolder = getShopFolder()
+			if not shopFolder then task.wait(); continue; end;
+
+			local bagBuyPart = shopFolder:FindFirstChild("[BrownBag] - $27")
+			if not bagBuyPart then task.wait(); continue; end;
+
+			if not bagTool then
+				teleport_func_test(autoBagBuyPosition)
+
+				pcall(function()
+					fireclickdetector(bagBuyPart.ClickDetector, 10)
+				end)
+			else
+				teleport_func_test(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, 0, -2.25))
+				Player.Character.PrimaryPart.CFrame = CFrame.new(Player.Character.PrimaryPart.Position, foundTarget.Character.PrimaryPart.Position)
+
+				pcall(function()
+					bagTool.Parent = Player.Character
+					bagTool:Activate()
+				end)
+			end
+
+			task.wait()
+		end
 	end
 })
-]]
 
 makeToggle({
 	Name = "Auto Fling",
