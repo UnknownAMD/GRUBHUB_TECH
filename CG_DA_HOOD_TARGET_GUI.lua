@@ -54,11 +54,17 @@ local holdingTopBar = false
 local autoBagBuyPosition = Vector3.new(-316, 51, -724)
 
 -- External Functions
-local getTool = nil
-local IsDead = nil
-local IsKnocked = nil
-local TeleportFunc = nil
-local getPlayerCash = nil -- Main script will hand over the functions
+shared.CG_EXTERNAL_TARGET_GUI_getTool = shared.CG_EXTERNAL_TARGET_GUI_getTool
+shared.CG_EXTERNAL_TARGET_GUI_IsDead = shared.CG_EXTERNAL_TARGET_GUI_IsDead
+shared.CG_EXTERNAL_TARGET_GUI_IsKnocked = shared.CG_EXTERNAL_TARGET_GUI_IsKnocked
+shared.CG_EXTERNAL_TARGET_GUI_TeleportFunc = shared.CG_EXTERNAL_TARGET_GUI_TeleportFunc
+shared.CG_EXTERNAL_TARGET_GUI_getPlayerCash = shared.CG_EXTERNAL_TARGET_GUI_getPlayerCash
+
+local getTool = shared.CG_EXTERNAL_TARGET_GUI_getTool
+local IsDead = shared.CG_EXTERNAL_TARGET_GUI_IsDead
+local IsKnocked = shared.CG_EXTERNAL_TARGET_GUI_IsKnocked
+local TeleportFunc = shared.CG_EXTERNAL_TARGET_GUI_TeleportFunc
+local getPlayerCash = shared.CG_EXTERNAL_TARGET_GUI_getPlayerCash
 
 local function isAntiCheatBypassed()
 	return shared.CG_isAntiCheatBypassed
@@ -124,11 +130,17 @@ targetsCreationDateLabel.FontFace.Weight = Enum.FontWeight.Bold
 
 shared.CG_DA_HOOD_TARGET_GUI_FUNCTIONS = {
 	setInternelFunctions = function(functionList)
-		getPlayerCash = functionList.getPlayerCash
-		TeleportFunc = functionList.TeleportFunc
-		IsKnocked = functionList.IsKnocked
-		IsDead = functionList.IsDead
-		getTool = functionList.getTool
+		shared.CG_EXTERNAL_TARGET_GUI_getTool = shared.CG_EXTERNAL_TARGET_GUI_getTool or functionList.getTool
+		shared.CG_EXTERNAL_TARGET_GUI_IsDead = shared.CG_EXTERNAL_TARGET_GUI_IsDead or functionList.IsDead
+		shared.CG_EXTERNAL_TARGET_GUI_IsKnocked = shared.CG_EXTERNAL_TARGET_GUI_IsKnocked or functionList.IsKnocked
+		shared.CG_EXTERNAL_TARGET_GUI_TeleportFunc = shared.CG_EXTERNAL_TARGET_GUI_TeleportFunc or functionList.TeleportFunc
+		shared.CG_EXTERNAL_TARGET_GUI_getPlayerCash = shared.CG_EXTERNAL_TARGET_GUI_getPlayerCash or functionList.getPlayerCash
+
+		getTool = shared.CG_EXTERNAL_TARGET_GUI_getTool
+		IsDead = shared.CG_EXTERNAL_TARGET_GUI_IsDead
+		IsKnocked = shared.CG_EXTERNAL_TARGET_GUI_IsKnocked
+		TeleportFunc = shared.CG_EXTERNAL_TARGET_GUI_TeleportFunc
+		getPlayerCash = shared.CG_EXTERNAL_TARGET_GUI_getPlayerCash
 	end
 }
 
