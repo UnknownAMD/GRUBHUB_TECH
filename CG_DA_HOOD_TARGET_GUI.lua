@@ -416,6 +416,7 @@ makeToggle({
 					end)
 				end
 			else
+				clearTeleportBodyPos()
 				if not teleportedBackToOldPos then
 					teleportedBackToOldPos = true
 
