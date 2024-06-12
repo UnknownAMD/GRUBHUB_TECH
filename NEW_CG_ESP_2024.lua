@@ -1,3 +1,9 @@
+if shared.CG_ESP_HAS_LOADED then
+	return
+end
+
+shared.CG_ESP_HAS_LOADED = true
+
 local GUIService = game:GetService("GuiService")
 local Players = game:GetService("Players")
 local runService = game:GetService("RunService")
@@ -129,8 +135,8 @@ local function updatePlayerESP(espPlayer)
 	box.Size = Vector2.new((rootPart.Size.X * 1350) / screenPoint.Z, (rootPart.Size.Y * boxHeightScale) / screenPoint.Z);
 	box.Position = Vector2.new(screenPoint.X - box.Size.X / 2, (screenPoint.Y + Inset.Y - box.Size.Y / 2));
 
-    local totalHealth = Humanoid.Health
-    local maxHealth = Humanoid.MaxHealth
+    local totalHealth = math.clamp(Humanoid.Health, 0, 100)
+    local maxHealth = math.clamp(Humanoid.maxHealth, 0, 100)
 
     HealthBar.Outline = true
     HealthBar.Thickness = 1
