@@ -1,8 +1,6 @@
-if shared.CG_ESP_HAS_LOADED then
-	return
+if shared.CG_ESP_FUNCTION_TABLE then
+	return shared.CG_ESP_FUNCTION_TABLE
 end
-
-shared.CG_ESP_HAS_LOADED = true
 
 local GUIService = game:GetService("GuiService")
 local Players = game:GetService("Players")
@@ -55,6 +53,8 @@ end
 function esp_Module.EnableAndDisableArmorBar()
 	shared.CG_ESP_CONFIG.ArmorBarEnabled = not shared.CG_ESP_CONFIG.ArmorBarEnabled
 end
+
+shared.CG_ESP_FUNCTION_TABLE = esp_Module
 
 local function unloadPlayerESP(foundClient)
 	local leavingClientESPText = shared.CG_ESP_cachedText[foundClient]
