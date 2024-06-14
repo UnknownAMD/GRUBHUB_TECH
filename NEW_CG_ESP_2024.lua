@@ -1,4 +1,13 @@
 if shared.CG_ESP_FUNCTION_TABLE then
+	shared.CG_ESP_CONFIG = {
+		BoxesEnabled = false,
+		NametagsEnabled = false,
+		TracersEnabled = false,
+		HealthBarEnabled = false,
+		ArmorBarEnabled = false,
+		ESP_COLOR = Color3.fromRGB(255, 255, 255)
+	}
+	
 	return shared.CG_ESP_FUNCTION_TABLE
 end
 
