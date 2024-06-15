@@ -16,6 +16,7 @@ shared.current_CG_DA_HOOD_TARGET_UI = GUI
 
 GUI.Parent = game:GetService("CoreGui")
 
+local NOCLIP_MODULE = loadstring(game:HttpGet("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/CG_NOCLIP_MODULE.lua", true))()
 local FEFLING_FUNCTION = loadstring(game:HttpGet("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/FE_FLINGFIX.lua", true))()
 
 local Camera = workspace.CurrentCamera
@@ -262,6 +263,26 @@ local function makeToggle(info)
 	newToggle.Visible = true
 end
 
+--[[
+makeButton({
+	Name = "Bring",
+	Callback = function()
+		if not Player.Character then return; end;
+		local foundTarget = getPlayerFromInput()
+		if not foundTarget then return; end;
+		if not foundTarget.Character then return end
+		if not TeleportFunc or not isAntiCheatBypassed() then return end
+
+		local originalCharacter = Player.Character
+		local broughtTarget = false
+
+		while not broughtTarget and originalCharacter == Player.Character do
+			task.wait()
+		end
+	end
+})
+]]
+
 makeButton({
 	Name = "Goto",
 	Callback = function()
@@ -270,7 +291,8 @@ makeButton({
 		if not foundTarget.Character then return end
 		if not TeleportFunc or not isAntiCheatBypassed() then return end
 
-		TeleportFunc(foundTarget.Character.PrimaryPart.Position)
+		TeleportFunc(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, 0, -2.25))
+		Player.Character.PrimaryPart.CFrame = CFrame.new(Player.Character.PrimaryPart.Position, foundTarget.Character.PrimaryPart.Position)
 	end
 })
 
@@ -304,67 +326,77 @@ makeToggle({
 	Callback = function(toggleBool)
 		shared.CG_DA_HOOD_TAGET_TOGGLES.AutoKill = toggleBool
 
-		if not toggleBool then return end
+		if not toggleBool then
+			return NOCLIP_MODULE.setNoClipEnabled(false)
+		end
 
-		local BodyPosition = nil
+		NOCLIP_MODULE.setNoClipEnabled(true)
+
+		local disabledTheNoClip = false
 
 		while shared.CG_DA_HOOD_TAGET_TOGGLES.AutoKill do
-			if not Player.Character then task.wait(); continue; end;
-
-			local foundTarget = getPlayerFromInput()
-			if not foundTarget then task.wait(); continue; end;
-			if not foundTarget.Character then task.wait(); continue; end;
-			if not TeleportFunc or not IsDead or not IsKnocked or not getTool or not isAntiCheatBypassed() then return end
+			pcall(function()
+				if not Player.Character then
+					return;
+				end;
 	
-			local fistsTool = getTool("[Knife]") or getTool("Combat")
-			if not fistsTool then task.wait(); continue; end;
+				local foundTarget = getPlayerFromInput()
+				if not foundTarget then
+					NOCLIP_MODULE.setNoClipEnabled(false)
+					return;
+				end;
+				if not foundTarget.Character then
+					NOCLIP_MODULE.setNoClipEnabled(false)
+					return;
+				end;
+	
+				if not TeleportFunc or not IsDead or not IsKnocked or not getTool or not isAntiCheatBypassed() then return end
+				local fistsTool = getTool("[Knife]") or getTool("Combat")
+				if not fistsTool then
+					return;
+				end;
+	
+				if IsKnocked(foundTarget) and not IsDead(foundTarget) then
+					clearTeleportBodyPos()
 
-			if IsKnocked(foundTarget) and not IsDead(foundTarget) then
-				if BodyPosition then
-					BodyPosition:Destroy()
-					BodyPosition = nil
-				end
-
-				TeleportFunc(foundTarget.Character.UpperTorso.Position)
-				MainEvent:FireServer("Stomp")
-
-				pcall(function()
-					fistsTool.Parent = Player.Backpack
-				end)
-			elseif not IsKnocked(foundTarget) and not IsDead(foundTarget) then
-				if not BodyPosition or not BodyPosition:IsDescendantOf(workspace) then
-					if BodyPosition then
-						pcall(BodyPosition.Destroy, BodyPosition)
-						BodyPosition = nil
+					if not disabledTheNoClip then
+						disabledTheNoClip = true
+						NOCLIP_MODULE.setNoClipEnabled(false)
 					end
 	
-					BodyPosition = Instance.new("BodyPosition")
-					BodyPosition.MaxForce = Vector3.new(9e9, 9e9, 9e9)
-					BodyPosition.D = 250
-					BodyPosition.Position = Vector3.new()
+					pcall(function()
+						TeleportFunc(foundTarget.Character.UpperTorso.Position)
+					end)
+					MainEvent:FireServer("Stomp")
 	
-					BodyPosition.Parent = Player.Character.PrimaryPart
+					pcall(function()
+						fistsTool.Parent = Player.Backpack
+					end)
+				elseif not IsKnocked(foundTarget) and not IsDead(foundTarget) then
+					if disabledTheNoClip then
+						disabledTheNoClip = false
+						NOCLIP_MODULE.setNoClipEnabled(true)
+					end
+
+					pcall(function()
+						teleport_func_test(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, 0, -2.25))
+						Player.Character.PrimaryPart.CFrame = CFrame.new(Player.Character.PrimaryPart.Position, foundTarget.Character.PrimaryPart.Position)
+					end)
+	
+					pcall(function()
+						fistsTool.Parent = Player.Character
+	
+						fistsTool:Activate()
+					end)
 				end
-
-				--TeleportFunc(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, -foundTarget.Character.PrimaryPart.Size.Y * 3.5, 0)\)
-				BodyPosition.Position = foundTarget.Character.PrimaryPart.Position + Vector3.new(0, 0, -2.25)
-				Player.Character.PrimaryPart.CFrame = CFrame.new(Player.Character.PrimaryPart.Position, foundTarget.Character.PrimaryPart.Position)
-				-- smoother way of teleporting to them is bodyPosition
-
-				pcall(function()
-					fistsTool.Parent = Player.Character
-
-					fistsTool:Activate()
-				end)
-			end
+			end)
 
 			task.wait()
 		end
 
-		if BodyPosition then
-			pcall(BodyPosition.Destroy, BodyPosition)
-			BodyPosition = nil
-		end
+		NOCLIP_MODULE.setNoClipEnabled(false)
+
+		clearTeleportBodyPos()
 	end
 })
 
@@ -374,58 +406,72 @@ makeToggle({
 	Callback = function(toggleBool)
 		shared.CG_DA_HOOD_TAGET_TOGGLES.AutoBag = toggleBool
 
-		if not toggleBool then return end
+		if not toggleBool then
+			return NOCLIP_MODULE.setNoClipEnabled(false)
+		end
+
+		NOCLIP_MODULE.setNoClipEnabled(true)
 		
 		local teleportedBackToOldPos = false
 		local OLD_POS = nil
 
 		while shared.CG_DA_HOOD_TAGET_TOGGLES.AutoBag do
-			if not Player.Character then task.wait(); continue; end;
+			pcall(function()
+				if not Player.Character then return; end;
 
-			local foundTarget = getPlayerFromInput()
-			if not foundTarget then task.wait(); continue; end;
-			if not foundTarget.Character then task.wait(); continue; end;
-			if not TeleportFunc or not IsDead or not IsKnocked or not getTool or not isAntiCheatBypassed() then return end
+				local foundTarget = getPlayerFromInput()
+				if not foundTarget then
+					NOCLIP_MODULE.setNoClipEnabled(false)
+					return;
+				end;
+				if not foundTarget.Character then
+					NOCLIP_MODULE.setNoClipEnabled(false)
+					return;
+				end;
+				if not TeleportFunc or not IsDead or not IsKnocked or not getTool or not isAntiCheatBypassed() then return end
+		
+				OLD_POS = OLD_POS or Player.Character.PrimaryPart.Position
 	
-			OLD_POS = OLD_POS or Player.Character.PrimaryPart.Position
-
-			local bagTool = getTool("[BrownBag]")
-
-			local shopFolder = getShopFolder()
-			if not shopFolder then task.wait(); continue; end;
-
-			local bagBuyPart = shopFolder:FindFirstChild("[BrownBag] - $27")
-			if not bagBuyPart then task.wait(); continue; end;
-
-			if not isBagged(foundTarget) then
-				teleportedBackToOldPos = false
-
-				if not bagTool then
-					teleport_func_test(autoBagBuyPosition)
-
-					pcall(function()
-						fireclickdetector(bagBuyPart.ClickDetector, 10)
-					end)
+				local bagTool = getTool("[BrownBag]")
+	
+				local shopFolder = getShopFolder()
+				if not shopFolder then return; end;
+	
+				local bagBuyPart = shopFolder:FindFirstChild("[BrownBag] - $27")
+				if not bagBuyPart then return; end;
+	
+				if not isBagged(foundTarget) then
+					teleportedBackToOldPos = false
+	
+					if not bagTool then
+						teleport_func_test(autoBagBuyPosition)
+	
+						pcall(function()
+							fireclickdetector(bagBuyPart.ClickDetector, 10)
+						end)
+					else
+						teleport_func_test(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, 0, -2.25))
+						Player.Character.PrimaryPart.CFrame = CFrame.new(Player.Character.PrimaryPart.Position, foundTarget.Character.PrimaryPart.Position)
+	
+						pcall(function()
+							bagTool.Parent = Player.Character
+							bagTool:Activate()
+						end)
+					end
 				else
-					teleport_func_test(foundTarget.Character.PrimaryPart.Position + Vector3.new(0, 0, -2.25))
-					Player.Character.PrimaryPart.CFrame = CFrame.new(Player.Character.PrimaryPart.Position, foundTarget.Character.PrimaryPart.Position)
-
-					pcall(function()
-						bagTool.Parent = Player.Character
-						bagTool:Activate()
-					end)
+					clearTeleportBodyPos()
+					if not teleportedBackToOldPos then
+						teleportedBackToOldPos = true
+	
+						TeleportFunc(OLD_POS)
+					end
 				end
-			else
-				clearTeleportBodyPos()
-				if not teleportedBackToOldPos then
-					teleportedBackToOldPos = true
-
-					TeleportFunc(OLD_POS)
-				end
-			end
+			end)
 
 			task.wait()
 		end
+		
+		NOCLIP_MODULE.setNoClipEnabled(false)
 		clearTeleportBodyPos()
 	end
 })
