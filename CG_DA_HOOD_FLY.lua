@@ -107,7 +107,9 @@ table.insert(shared.CG_FLY_CONNECTIONS, Player.CharacterAdded:Connect(function(n
     loadFlyAnimations()
 end))
 
-table.insert(shared.CG_FLY_CONNECTIONS, UserInputService.InputBegan:Connect(function(input)
+table.insert(shared.CG_FLY_CONNECTIONS, UserInputService.InputBegan:Connect(function(input, isTyping)
+    if isTyping then return end
+
     if input.UserInputType == Enum.UserInputType.Keyboard then
         if input.KeyCode == Enum.KeyCode.W then
             flyValues.Forward = true
