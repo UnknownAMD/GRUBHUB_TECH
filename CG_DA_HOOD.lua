@@ -100,10 +100,6 @@ task.spawn(function()
 		return (fetchedProductInfo and (productInfoError.Creator.CreatorTargetId == 4698921)) or false;
 	end
 	local function bypassAntiCheat()
-		if not isRealDaHoodGame() then
-			shared.CG_isAntiCheatBypassed = true;
-			return;
-		end
 		TABLE_TableIndirection["Character%0"] = TABLE_TableIndirection["Vars%0"].Character;
 		if not TABLE_TableIndirection["Character%0"] then
 			return;
@@ -118,7 +114,7 @@ task.spawn(function()
 			end
 			TABLE_TableIndirection["HasLocalScript%0"]:Destroy();
 			OBJ:Destroy();
-			task.wait(0.15);
+			task.wait(1);
 			shared.CG_isAntiCheatBypassed = true;
 		end
 	end
