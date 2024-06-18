@@ -453,7 +453,7 @@ task.spawn(function()
 			end
 			TABLE_TableIndirection["TargetDistance%0"] = (TABLE_TableIndirection["targetPosition%0"] - TABLE_TableIndirection["Camera%0"].CFrame.Position).Magnitude;
 			TABLE_TableIndirection["localPlayerVelocity%0"] = TABLE_TableIndirection["Vars%0"].Character.PrimaryPart.AssemblyLinearVelocity;
-			TABLE_TableIndirection["Bulletspeed%0"] = 10000000;
+			TABLE_TableIndirection["Bulletspeed%0"] = 2000;
 			TABLE_TableIndirection["speedFactor%0"] = TABLE_TableIndirection["TargetDistance%0"] / math.abs(TABLE_TableIndirection["Bulletspeed%0"]);
 			if not TABLE_TableIndirection["speedFactor%0"] then
 				return;
