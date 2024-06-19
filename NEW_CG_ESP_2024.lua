@@ -1,4 +1,4 @@
-if shared.CG_ESP_FUNCTION_TABLE then
+if shared.CG_ESP_FUNCTION_TABLE ~= nil then
 	shared.CG_ESP_CONFIG = {
 		BoxesEnabled = false,
 		NametagsEnabled = false,
