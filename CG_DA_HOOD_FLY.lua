@@ -219,6 +219,10 @@ return {
     EnableAndDisableFly = function()
         isFlyEnabled = not isFlyEnabled
     end,
+
+    IsFlying = function()
+        return isFlyEnabled
+    end,
     
     SetFlySpeed = function(value)
         if type(value) ~= "number" then return end
