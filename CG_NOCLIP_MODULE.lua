@@ -16,6 +16,7 @@ table.clear(shared.CG_NOCLIP_CONNECTIONS)
 local function addPartToCache(part)
     if typeof(part) ~= "Instance" or not part:IsA("BasePart") then return end
     if shared.CG_NOCLIP_MODULE_PART_CACHE[part] ~= nil then return end
+    if part.CanCollide == false then return end
 
     shared.CG_NOCLIP_MODULE_PART_CACHE[part] = {
         CanCollide = part.CanCollide
