@@ -2,6 +2,8 @@
 shared.CG_FLY_CONNECTIONS = shared.CG_FLY_CONNECTIONS or {}
 shared.CG_FLY_ANIMATION_TRACKS = shared.CG_FLY_ANIMATION_TRACKS or {}
 
+local NOCLIP_MODULE = loadstring(game:HttpGet("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/CG_NOCLIP_MODULE.lua", true))()
+
 for _, Track in pairs(shared.CG_FLY_ANIMATION_TRACKS) do
     pcall(Track.Stop, Track)
 end
@@ -218,6 +220,8 @@ end))
 return {
     EnableAndDisableFly = function()
         isFlyEnabled = not isFlyEnabled
+
+        NOCLIP_MODULE.setNoClipEnabled(isFlyEnabled)
     end,
 
     IsFlying = function()
