@@ -332,8 +332,6 @@ makeToggle({
 
 		NOCLIP_MODULE.setNoClipEnabled(true)
 
-		local disabledTheNoClip = false
-
 		while shared.CG_DA_HOOD_TAGET_TOGGLES.AutoKill do
 			pcall(function()
 				if not Player.Character then
@@ -359,8 +357,7 @@ makeToggle({
 				if IsKnocked(foundTarget) and not IsDead(foundTarget) then
 					clearTeleportBodyPos()
 
-					if not disabledTheNoClip then
-						disabledTheNoClip = true
+					if NOCLIP_MODULE.IsNoclipEnabled() then
 						NOCLIP_MODULE.setNoClipEnabled(false)
 					end
 	
@@ -373,8 +370,7 @@ makeToggle({
 						fistsTool.Parent = Player.Backpack
 					end)
 				elseif not IsKnocked(foundTarget) and not IsDead(foundTarget) then
-					if disabledTheNoClip then
-						disabledTheNoClip = false
+					if not NOCLIP_MODULE.IsNoclipEnabled() then
 						NOCLIP_MODULE.setNoClipEnabled(true)
 					end
 
@@ -430,6 +426,10 @@ makeToggle({
 				end;
 				if not TeleportFunc or not IsDead or not IsKnocked or not getTool or not isAntiCheatBypassed() then return end
 		
+				if not NOCLIP_MODULE.IsNoclipEnabled() then
+					NOCLIP_MODULE.setNoClipEnabled(true)
+				end
+
 				OLD_POS = OLD_POS or Player.Character.PrimaryPart.Position
 	
 				local bagTool = getTool("[BrownBag]")
