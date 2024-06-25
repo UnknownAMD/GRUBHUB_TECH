@@ -59,4 +59,8 @@ function noclipModule.setNoClipEnabled(value)
     end
 end
 
+function noclipModule.IsNoclipEnabled()
+    return shared.CG_noClipEnabled
+end
+
 return noclipModule
