@@ -5,7 +5,7 @@ local coreGui = game:GetService("CoreGui")
 -- objects
 local camera = workspace.CurrentCamera
 local drawingUI = Instance.new("ScreenGui")
-drawingUI.Name = "Drawing"
+drawingUI.Name = "D_r_a_w_i_n_g_FOR_ESP"
 drawingUI.IgnoreGuiInset = true
 drawingUI.DisplayOrder = 0x7fffffff
 drawingUI.Parent = coreGui
