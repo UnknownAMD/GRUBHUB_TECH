@@ -380,6 +380,9 @@ makeToggle({
 				local z = position.Z + math.cos(tick() * speed) * distance
 		
 				teleport_func_test(Vector3.new(x, (position.Y - targetRootPart.Size.Y) - (myRootPart.Size.Y * 3.85) , z))
+
+				myRootPart.CFrame = CFrame.new(myRootPart.Position, targetRootPart.Position)
+				Camera.CFrame = CFrame.new(Camera.CFrame.Position, targetRootPart.Position)
 			end)
 
 			task.wait()
