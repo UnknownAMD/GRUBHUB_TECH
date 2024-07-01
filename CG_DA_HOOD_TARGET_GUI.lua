@@ -332,7 +332,7 @@ makeToggle({
 		end
 
 		local distance = 10
-		local speed = 5
+		local speed = 15
 		local offset = Vector3.new(0, distance, 0)
 
 		while shared.CG_DA_HOOD_TAGET_TOGGLES.OrbitPlayer do
