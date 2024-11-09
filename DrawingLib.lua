@@ -1,6 +1,8 @@
 -- Made by jLn0n
 -- Modified By cg_official
 
+getgenv().cloneref = getgenv().cloneref or function(obj) return obj end
+
 -- services
 local coreGui = cloneref(game:GetService("CoreGui"))
 -- objects
