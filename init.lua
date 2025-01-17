@@ -304,6 +304,14 @@ getgenv().get_thread_context = getidentity
 getgenv().set_thread_identity = getidentity
 getgenv().set_thread_context = getidentity
 
+getgenv().issentinelclosure = isexecutorclosure
+getgenv().is_synapse_function = isexecutorclosure
+getgenv().is_protosmasher_closure = isexecutorclosure
+getgenv().is_sirhurt_closure = isexecutorclosure
+getgenv().istempleclosure = isexecutorclosure
+getgenv().WebSocket = nil
+
+
 getgenv().queueonteleport = queue_on_teleport
 
 getgenv().debug.info = getrenv().debug.info
