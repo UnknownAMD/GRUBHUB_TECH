@@ -309,4 +309,6 @@ getgenv().queueonteleport = queue_on_teleport
 getgenv().debug.info = getrenv().debug.info
 getfenv().debug.info = getrenv().debug.info
 
+getfenv().require = getgenv().abc_require
+
 --getgenv().saveinstance = loadstring(httpget("https://raw.githubusercontent.com/botdevXD/UniversalSynSaveInstance/refs/heads/main/saveinstance.luau", true))()
