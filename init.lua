@@ -311,7 +311,6 @@ getgenv().is_sirhurt_closure = isexecutorclosure
 getgenv().istempleclosure = isexecutorclosure
 getgenv().WebSocket = nil
 
-
 getgenv().queueonteleport = queue_on_teleport
 
 getgenv().debug.info = getrenv().debug.info
