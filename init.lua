@@ -360,7 +360,7 @@ end
 getgenv().decompile = decompile
 getgenv().disassemble = disassemble
 
-local synSI = loadstring(game:HttpGet("https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance .luau", true), "saveinstance")()
+local synSI = loadstring(game:HttpGet("https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance.luau", true), "saveinstance")()
 
 getgenv().synsaveinstance = synSI
 getgenv().saveinstance = synSI
