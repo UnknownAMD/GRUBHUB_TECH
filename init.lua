@@ -287,6 +287,31 @@ getgenv().getmenv = newcclosure(function(mod)
   return mod_env
 end)
 
+function Decompiler(script_instance)
+
+    local bytecode = getscriptbytecode(script_instance)
+    local encoded = crypt.base64.encode(bytecode)
+    return request(
+        {
+            Url = "https://medal.hates.us/decompile",
+            Method = "POST",
+            Body = encoded
+        }
+    ).Body
+
+end
+
+getgenv().decompile = Decompiler
+
+local Params = {
+    RepoURL = "https://raw.githubusercontent.com/luau/SynSaveInstance/main/",
+    SSI = "saveinstance",
+}
+local synSI = loadstring(game:HttpGet(Params.RepoURL .. Params.SSI .. ".luau", true), Params.SSI)()
+
+getgenv().synsaveinstance = synSI
+getgenv().saveinstance = synSI
+
 -- For Compatibility
 getgenv().crypt.base64 = getgenv().base64
 getgenv().checkclosure = isexecutorclosure
