@@ -317,50 +317,27 @@ getfenv().debug.info = getrenv().debug.info
 
 getfenv().require = getgenv().abc_require
 
--- CREDIT: lovrewe
-local API: string = "http://api.plusgiant5.com"
-
-local last_call = 0
-local function call(konstantType: string, scriptPath: Script | ModuleScript | LocalScript): string
-    local success: boolean, bytecode: string = pcall(getscriptbytecode, scriptPath)
-
-    if (not success) then
-        return `-- Failed to get script bytecode, error:\n\n--[[\n{bytecode}\n--]]`
-    end
-
-    local time_elapsed = os.clock() - last_call
-    if time_elapsed <= .5 then
-        task.wait(.5 - time_elapsed)
-    end
-    local httpResult = request({
-        Url = API .. konstantType,
-        Body = bytecode,
+-- https://github.com/xeonise/medal2
+function medaldecom(script)
+    httpresponse = request({
+        Url = "http://127.0.0.1:9002",
+        Body = base64.encode(getscriptbytecode(script)),  -- The base64 encoded bytecode
         Method = "POST",
         Headers = {
             ["Content-Type"] = "text/plain"
         },
     })
-    last_call = os.clock()
-    
-    if (httpResult.StatusCode ~= 200) then
-        return `-- Error occured while requesting the API, error:\n\n--[[\n{httpResult.Body}\n--]]`
-    else
-        return httpResult.Body
-    end
+    return httpresponse.Body
 end
 
-local function decompile(scriptPath: Script | ModuleScript | LocalScript): string
-    return call("/konstant/decompile", scriptPath)
-end
+getgenv().decompile = medaldecom
 
-local function disassemble(scriptPath: Script | ModuleScript | LocalScript): string
-    return call("/konstant/disassemble", scriptPath)
-end
-
-getgenv().decompile = decompile
-getgenv().disassemble = disassemble
-
-local synSI = loadstring(game:HttpGet("https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance.luau", true), "saveinstance")()
+-- https://github.com/luau/UniversalSynSaveInstance
+local Params = {
+    RepoURL = "https://raw.githubusercontent.com/luau/SynSaveInstance/main/",
+    SSI = "saveinstance",
+}
+local synSI = loadstring(game:HttpGet(Params.RepoURL .. Params.SSI .. ".luau", true), Params.SSI)()
 
 getgenv().synsaveinstance = synSI
 getgenv().saveinstance = synSI
