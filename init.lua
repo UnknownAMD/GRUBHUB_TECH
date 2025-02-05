@@ -568,7 +568,7 @@ getgenv().getrenderproperty = getrenderproperty(function(a, b)
     return a[b]
 end)
 
-getgenv().setrenderproperty = setrenderproperty(a, b, c
+getgenv().setrenderproperty = setrenderproperty(function(a, b, c)
     assert(isrenderobj(a), "Invalid argument #1 to 'setrenderproperty', render object expected, got " .. typeof(a))
 
     a[b] = c
