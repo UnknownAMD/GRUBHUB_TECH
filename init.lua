@@ -349,3 +349,5 @@ local synSI = loadstring(game:HttpGet(Params.RepoURL .. Params.SSI .. ".luau", t
 
 getgenv().synsaveinstance = synSI
 getgenv().saveinstance = synSI
+
+getgenv().Drawing = loadstring(httpget("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/DrawingLib.lua", true))()
