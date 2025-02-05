@@ -356,7 +356,7 @@ local Fonts = {
 	[2] = Enum.Font.Gotham,
 	[3] = Enum.Font.RobotoMono
 }
-
+local Instance
 local function Create(Class, Properties)
     local Object = Instance.new(Class);
 
