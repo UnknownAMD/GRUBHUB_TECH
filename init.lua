@@ -320,6 +320,7 @@ getfenv().require = getgenv().abc_require
 --getgenv().saveinstance = loadstring(httpget("https://raw.githubusercontent.com/botdevXD/UniversalSynSaveInstance/refs/heads/main/saveinstance.luau", true))()
 --getgenv().Drawing = loadstring(httpget("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/DrawingLib.lua", true))()
 
+--[===[
 -- CREDIT: lovrewe
 local API: string = "http://api.plusgiant5.com"
 
@@ -362,6 +363,7 @@ end
 
 getgenv().decompile = decompile
 getgenv().disassemble = disassemble
+]===]
 
 local synSI = loadstring(game:HttpGet("https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance.luau", true), "saveinstance")()
 
