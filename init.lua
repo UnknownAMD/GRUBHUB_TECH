@@ -367,3 +367,6 @@ local synSI = loadstring(game:HttpGet("https://raw.githubusercontent.com/luau/Sy
 
 getgenv().synsaveinstance = synSI
 getgenv().saveinstance = synSI
+
+local NotiLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/NOTI_LIB.lua", true))()
+NotiLib.new("info", "Velocity (Special Message)", "Thank you for using velocity <3")
