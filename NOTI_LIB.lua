@@ -1,9 +1,9 @@
 local Notification = {}
 Notification.__index = Notification
 
-local ts = game:GetService("TweenService")
-local ss = game:GetService("SoundService")
-local txtS = game:GetService("TextService")
+local ts = cloneref(game:GetService("TweenService"))
+local ss = cloneref(game:GetService("SoundService"))
+local txtS = cloneref(game:GetService("TextService"))
 
 local openSound = Instance.new("Sound")
 local closeSound = Instance.new("Sound")
@@ -71,7 +71,7 @@ local warningBodyText = Instance.new("TextLabel")
 local warningCornerHidingFrame = Instance.new("Frame")
 local warningCloseButton = Instance.new("ImageButton")
 
-local previousUiExists = game:GetService("CoreGui"):FindFirstChild("notifications")
+local previousUiExists = cloneref(game:GetService("CoreGui")):FindFirstChild("notifications")
 if previousUiExists then previousUiExists:Destroy() end
 
 openSound.Name = "OpenNotifSound"
@@ -85,7 +85,7 @@ closeSound.SoundId = "rbxassetid://9128519965"
 closeSound.Parent = ss
 
 notifications.Name = "notifications"
-notifications.Parent = game:GetService("CoreGui")
+notifications.Parent = cloneref(game:GetService("CoreGui"))
 notifications.ZIndexBehavior = Enum.ZIndexBehavior.Global
 notifications.ResetOnSpawn = false
 
