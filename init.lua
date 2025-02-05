@@ -317,14 +317,6 @@ getfenv().debug.info = getrenv().debug.info
 
 getfenv().require = getgenv().abc_require
 
-_G = {
-    _VERSION = "Lua 5.1"
-}
-load = loadstring
-getgenv().base64 = load(request({
-    Url = "https://raw.githubusercontent.com/iskolbin/lbase64/refs/heads/master/base64.lua"
-}).Body)()
-
 -- https://github.com/xeonise/medal2
 function medaldecom(script)
     httpresponse = request({
