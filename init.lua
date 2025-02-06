@@ -373,3 +373,4 @@ getgenv().saveinstance = synSI
 local NotiLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/NOTI_LIB.lua", true))()
 NotiLib.new("info", "Velocity (Special Message)", "Thank you for using velocity <3")
 NotiLib.new("info", "From CG", "HA (velocity manager) is being gay again")
+NotiLib.new("info", "From CG", "p0xtic stop sucking my balls")
