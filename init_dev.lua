@@ -193,31 +193,6 @@ getgenv()["fireclickdetector"] = newcclosure(function(Target)
   end)
 end)
 
-getgenv().firetouchinterest = newcclosure(function(target, touch_with, on)
-  if on == 0 then return end
-
-  if target.ClassName == "TouchTransmitter" then
-    local function get()
-      local class_names = { "BasePart", "Part", "MeshPart" }
-      for _, v in pairs(class_names) do
-        if target:FindFirstAncestorOfClass(v) then
-          return target:FindFirstAncestorOfClass(v)
-        end
-      end
-    end
-    target = get()
-  end
-
-  local old_target_pos = target.CFrame
-  local old_target_cc = target.CanCollide
-
-  target.CanCollide = false
-  target.CFrame = touch_with.CFrame
-  task.wait()
-  target.CFrame = old_target_pos
-  target.CanCollide = old_target_cc
-end)
-
 getgenv().getscripts = newcclosure(function()
   local scripts = {}
   for _, obj in pairs(getinstancelist()) do
