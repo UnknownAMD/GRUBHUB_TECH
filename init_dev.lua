@@ -255,6 +255,7 @@ getgenv().debug.info = getrenv().debug.info
 getfenv().debug.info = getrenv().debug.info
 
 getfenv().require = getgenv().abc_require
+getgenv().WebSocket = nil
 
 --getgenv().saveinstance = loadstring(httpget("https://raw.githubusercontent.com/botdevXD/UniversalSynSaveInstance/refs/heads/main/saveinstance.luau", true))()
 --getgenv().Drawing = loadstring(httpget("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/DrawingLib.lua", true))()
