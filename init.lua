@@ -157,67 +157,6 @@ getgenv().setrenderproperty = newcclosure(function(obj, prop, newValue)
   obj[prop] = newValue
 end)
 
-
-getgenv()["fireclickdetector"] = newcclosure(function(Target)
-  assert(typeof(Target) == "Instance", "invalid argument #1 to 'fireclickdetector' (Instance expected, got " .. type(Target) .. ") ", 2)
-  local ClickDetector = Target:FindFirstChild("ClickDetector") or Target
-  local PreviousParent = ClickDetector["Parent"]
-
-  local NewPart = Instance.new("Part", getrenv()["workspace"])
-  do
-    NewPart["Transparency"] = 1
-    NewPart["Size"] = Vector3.new(30, 30, 30)
-    NewPart["Anchored"] = true
-    NewPart["CanCollide"] = false
-    getrenv()["task"].delay(15, function()
-      if NewPart:IsDescendantOf(getrenv()["game"]) then
-        NewPart:Destroy()
-      end
-    end)
-    ClickDetector["Parent"] = NewPart
-    ClickDetector["MaxActivationDistance"] = math.huge
-  end
-
-  local VirtualUser = getrenv()["game"]:FindService("VirtualUser") or getrenv()["game"]:GetService("VirtualUser")
-
-  local HeartbeatConnection = RunService["Heartbeat"]:Connect(function()
-    local CurrentCamera = getrenv()["workspace"]["CurrentCamera"] or getrenv()["workspace"]["Camera"]
-    NewPart["CFrame"] = CurrentCamera["CFrame"] * CFrame.new(0, 0, -20) * CFrame.new(CurrentCamera["CFrame"]["LookVector"]['X'], CurrentCamera["CFrame"]["LookVector"]['Y'], CurrentCamera["CFrame"]["LookVector"]['Z'])
-    VirtualUser:ClickButton1(Vector2.new(20, 20), CurrentCamera["CFrame"])
-  end)
-
-  ClickDetector["MouseClick"]:Once(function()
-    HeartbeatConnection:Disconnect()
-    ClickDetector["Parent"] = PreviousParent
-    NewPart:Destroy()
-  end)
-end)
-
-getgenv().firetouchinterest = newcclosure(function(target, touch_with, on)
-  if on == 0 then return end
-
-  if target.ClassName == "TouchTransmitter" then
-    local function get()
-      local class_names = { "BasePart", "Part", "MeshPart" }
-      for _, v in pairs(class_names) do
-        if target:FindFirstAncestorOfClass(v) then
-          return target:FindFirstAncestorOfClass(v)
-        end
-      end
-    end
-    target = get()
-  end
-
-  local old_target_pos = target.CFrame
-  local old_target_cc = target.CanCollide
-
-  target.CanCollide = false
-  target.CFrame = touch_with.CFrame
-  task.wait()
-  target.CFrame = old_target_pos
-  target.CanCollide = old_target_cc
-end)
-
 getgenv().getscripts = newcclosure(function()
   local scripts = {}
   for _, obj in pairs(getinstancelist()) do
