@@ -226,6 +226,11 @@ getgenv().getmenv = newcclosure(function(mod)
   return mod_env
 end)
 
+getgenv().setsimulationradius = newcclosure(function(val)
+    assert(type(val) == "number", "#1 is meant to be a number")
+    sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", val)
+end)
+
 -- For Compatibility
 getgenv().crypt.base64 = getgenv().base64
 getgenv().checkclosure = isexecutorclosure
