@@ -1,28 +1,3 @@
-local orignalClosures = {}
-
-local originalHookFunction = clonefunction(hookfunction)
-
-getgenv().hookfunction = newcclosure(function(func1, func2)
-  local originalClosure = originalHookFunction(func1, func2)
-
-  if orignalClosures[func1] == nil then
-    orignalClosures[func1] = originalClosure
-  end
-
-  return originalClosure
-end)
-
-getgenv().restorefunction = newcclosure(function(func1)
-  if orignalClosures[func1] ~= nil then
-    originalHookFunction(func1, orignalClosures[func1])
-    orignalClosures[func1] = nil
-  end
-end)
-
-getgenv().isfunctionhooked = newcclosure(function(func1)
-  return orignalClosures[func1] ~= nil
-end)		
-
 local originalInstanceList = clonefunction(getinstancelist)
 
 getgenv().getinstancelist = newcclosure(function()
@@ -36,7 +11,7 @@ getgenv().getinstancelist = newcclosure(function()
 
   return instances
 end)
-
+--[===[
 -- ADONIS ANTI CHEAT BYPASS
 pcall(function()
 local already_ran_adonis_bypass = false
@@ -134,28 +109,7 @@ findAdonisMenu()
 PlayerGui.ChildAdded:Connect(findAdonisMenu)
 end)
 --
-
-local RunService = game:GetService("RunService")
-
-getgenv().getrenderproperty = newcclosure(function(obj, prop)
-  if not isrenderobj(obj) then
-    return error(`#1 Expected Drawing object got {typeof(obj)}`)
-  end
-
-  assert(type(prop) == "string", `#2 Expected string got {typeof(prop)}`)
-
-  return obj[prop]
-end)
-
-getgenv().setrenderproperty = newcclosure(function(obj, prop, newValue)
-  if not isrenderobj(obj) then
-    return error(`#1 Expected Drawing object got {typeof(obj)}`)
-  end
-
-  assert(type(prop) == "string", `#2 Expected string got {typeof(prop)}`)
-
-  obj[prop] = newValue
-end)
+]===]
 
 getgenv().getscripts = newcclosure(function()
   local scripts = {}
@@ -264,6 +218,7 @@ getgenv().WebSocket = nil
 
 getgenv().debug.traceback = getrenv().debug.trackback
 
+--[===[
 --getgenv().saveinstance = loadstring(httpget("https://raw.githubusercontent.com/botdevXD/UniversalSynSaveInstance/refs/heads/main/saveinstance.luau", true))()
 --getgenv().Drawing = loadstring(httpget("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/DrawingLib.lua", true))()
 
@@ -317,3 +272,4 @@ getgenv().saveinstance = synSI
 
 local NotiLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/botdevXD/GRUBHUB_TECH/main/NOTI_LIB.lua", true))()
 NotiLib.new("info", "Velocity (Special Message)", "Thank you for using velocity <3")
+]===]
