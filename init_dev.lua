@@ -182,6 +182,7 @@ end)
 
 getgenv().setsimulationradius = newcclosure(function(val)
     assert(type(val) == "number", "#1 is meant to be a number")
+    sethiddenproperty(game.Players.LocalPlayer, "MaxSimulationRadius", val)
     sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", val)
 end)
 
